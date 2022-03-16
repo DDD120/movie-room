@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
+
 const Schema = mongoose.Schema;
 
 const Review = new mongoose.Schema({
@@ -9,5 +11,7 @@ const Review = new mongoose.Schema({
   rating: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now, required: true },
 });
+
+Review.plugin(AutoIncrement, { inc_field: "id" });
 
 module.exports = Review;
