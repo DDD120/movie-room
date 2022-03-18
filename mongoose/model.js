@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const schema = require("./schema");
+require("dotenv").config();
 
 const db = mongoose.connection;
 const model = (() => {
@@ -8,7 +9,10 @@ const model = (() => {
     console.log("Connection mogodb");
   });
 
-  mongoose.connect();
+  mongoose.connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
   const model = {};
   for (let key in schema) {
