@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { user } = require("./router");
+const { userRouter } = require("./router");
 const app = express();
 const PORT = 3000;
 
@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // router 추가
-app.use(user);
+app.use("/user", userRouter);
 
 // 상태 확인
 app.get("/", (req, res) => {
