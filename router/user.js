@@ -1,10 +1,11 @@
 const express = require("express");
 const { User } = require("../mongoose/model");
 const nodemailer = require("nodemailer");
+const multer = require("multer");
 const router = express.Router();
 require("dotenv").config();
 
-// signin
+// signin: 로그인
 router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
@@ -28,7 +29,7 @@ router.post("/signin", async (req, res) => {
   res.redirect("/");
 });
 
-//signup
+//signup: 회원 가입
 let certificationNumber;
 
 const mailSender = async (email, certificationNumber) => {
@@ -103,6 +104,7 @@ router.post("/signup", async (req, res) => {
       password,
       profile: {
         nickname,
+        thumbnail,
       },
       verified: true,
     }).save();
@@ -114,6 +116,39 @@ router.post("/signup", async (req, res) => {
       msg: "인증번호를 잘못 입력하였습니다.",
     });
   }
+});
+
+// edit profile : 프로필 수정
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "uploads/");
+    },
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}_${file.originalname}`);
+    },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
+
+router.patch("/update/profile", upload.single("image"), async (req, res) => {
+  const { id, nickname } = req.body;
+  const thumbnail = req.file.path;
+  const updateNickname = await User.findOneAndUpdate(
+    {
+      _id: id,
+    },
+    {
+      profile: {
+        nickname,
+        thumbnail,
+      },
+    },
+    {
+      new: true,
+    }
+  );
+  res.send(updateNickname);
 });
 
 module.exports = router;
