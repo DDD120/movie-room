@@ -151,4 +151,15 @@ router.patch("/update/profile", upload.single("image"), async (req, res) => {
   res.send(updateNickname);
 });
 
+// Sign out : 회원 탈퇴
+router.delete("/signout", async (req, res) => {
+  const { id } = req.body;
+
+  const deleteUser = await User.deleteOne({
+    _id: id,
+  });
+
+  res.send(deleteUser);
+});
+
 module.exports = router;
