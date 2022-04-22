@@ -99,17 +99,20 @@ router.post("/signup", async (req, res) => {
   const { inputNumber, email, password, nickname } = req.body;
 
   if (Number(inputNumber) === certificationNumber) {
-    const newUser = await User({
-      email,
-      password,
-      profile: {
-        nickname,
-        thumbnail,
-      },
-      verified: true,
-    }).save();
+    try {
+      const newUser = await User({
+        email,
+        password,
+        profile: {
+          nickname,
+        },
+        verified: true,
+      }).save();
 
-    res.send(newUser._id ? true : false);
+      res.send(newUser._id ? true : false);
+    } catch (err) {
+      console.log(err);
+    }
   } else {
     res.send({
       error: true,
