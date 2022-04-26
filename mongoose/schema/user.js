@@ -18,7 +18,6 @@ const User = new mongoose.Schema({
   hashedPassword: { type: String },
   salt: { type: String },
   verified: { type: Boolean, required: true, default: false },
-  review: { type: Schema.Types.ObjectId, ref: "Review" },
 });
 
 // password 가상 선택자
