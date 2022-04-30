@@ -13,6 +13,6 @@ const Review = new mongoose.Schema(
   { timestamps: true }
 );
 
-Review.plugin(AutoIncrement, { inc_field: "id" });
+Review.plugin(AutoIncrement, { inc_field: "key" });
 
 module.exports = Review;

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Review } = require("../mongoose/model");
+const { Review, User } = require("../mongoose/model");
 
 // create : 리뷰 생성
 router.post("/create", async (req, res) => {
@@ -13,7 +13,20 @@ router.post("/create", async (req, res) => {
     content,
   }).save();
 
-  res.send(newReview._id ? true : false);
+  const reviewUpdate = await User.findOneAndUpdate(
+    { _id: id },
+    { $push: { reviews: newReview } }
+  );
+
+  res.send(newReview._id && reviewUpdate ? true : false);
+});
+
+// Read : 유저 리뷰 목록 가져오기
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const getReviewList = await User.findOne({ _id: id }).populate("reviews");
+  res.send(getReviewList.reviews);
 });
 
 module.exports = router;
