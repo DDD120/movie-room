@@ -142,9 +142,11 @@ router.patch("/update/profile", upload.single("image"), async (req, res) => {
       _id: id,
     },
     {
-      profile: {
-        nickname,
-        thumbnail,
+      $set: {
+        profile: {
+          nickname,
+          thumbnail,
+        },
       },
     },
     {
