@@ -29,4 +29,25 @@ router.get("/:id", async (req, res) => {
   res.send(getReviewList.reviews);
 });
 
+// Update : 리뷰 수정하기
+router.patch("/update", async (req, res) => {
+  const { title, id, content, releaseDate } = req.body;
+  const updateReview = await Review.findOneAndUpdate(
+    {
+      _id: id,
+    },
+    {
+      $set: {
+        title,
+        content,
+        releaseDate,
+      },
+    },
+    {
+      new: true,
+    }
+  );
+  res.send(updateReview);
+});
+
 module.exports = router;
