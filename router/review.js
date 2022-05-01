@@ -13,12 +13,12 @@ router.post("/create", async (req, res) => {
     content,
   }).save();
 
-  const reviewUpdate = await User.findOneAndUpdate(
+  const userReviewsUpdate = await User.findOneAndUpdate(
     { _id: id },
     { $push: { reviews: newReview } }
   );
 
-  res.send(newReview._id && reviewUpdate ? true : false);
+  res.send(newReview._id && userReviewsUpdate ? true : false);
 });
 
 // Read : 유저 리뷰 목록 가져오기
