@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Review, User } = require("../mongoose/model");
 
-// create : 리뷰 생성
+// Create : 리뷰 생성
 router.post("/create", async (req, res) => {
   const { title, id, content, releaseDate } = req.body;
 
@@ -29,7 +29,7 @@ router.get("/:id", async (req, res) => {
   res.send(getReviewList.reviews);
 });
 
-// Update : 리뷰 수정하기
+// Update : 리뷰 수정
 router.patch("/update", async (req, res) => {
   const { title, id, content, releaseDate } = req.body;
   const updateReview = await Review.findOneAndUpdate(
@@ -48,6 +48,17 @@ router.patch("/update", async (req, res) => {
     }
   );
   res.send(updateReview);
+});
+
+//  Delete : 리뷰 삭제
+router.delete("/delete", async (req, res) => {
+  const { id } = req.body;
+
+  const deleteReview = await Review.deleteOne({
+    _id: id,
+  });
+
+  res.send(deleteReview);
 });
 
 module.exports = router;
