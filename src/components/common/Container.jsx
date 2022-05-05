@@ -3,6 +3,10 @@ import styled from "@emotion/styled";
 const Wrapper = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+  height: auto;
+  min-height: calc(100vh - 93px);
+  display: flex;
+  justify-content: center;
 `;
 
 const Container = ({ children }) => {

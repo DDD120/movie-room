@@ -2,15 +2,14 @@ import styled from "@emotion/styled";
 import { Common } from "styles/common";
 
 const Foot = styled.footer`
-  position: absolute;
   width: 100%;
-  bottom: 0;
   z-index: 9;
 `;
 
 const Copyright = styled.div`
   text-align: center;
   font-size: 0.75rem;
+  line-height: 18px;
 `;
 
 const Title = styled.span`
