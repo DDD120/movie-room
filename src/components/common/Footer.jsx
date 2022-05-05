@@ -5,6 +5,7 @@ const Foot = styled.footer`
   position: absolute;
   width: 100%;
   bottom: 0;
+  z-index: 9;
 `;
 
 const Copyright = styled.div`

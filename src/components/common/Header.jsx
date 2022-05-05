@@ -13,6 +13,7 @@ const Head = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 20px 60px;
+  z-index: 9;
 `;
 
 const Logo = styled.h1`
