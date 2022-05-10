@@ -4,15 +4,15 @@ import { Common } from "styles/common";
 import { MdLocalMovies } from "react-icons/md";
 
 const Banner = styled.article`
-  margin: 40px;
-  max-width: 1046px;
+  margin: 40px auto;
+  max-width: 1200px;
   height: 400px;
   width: 100%;
   border-radius: 20px;
   overflow: hidden;
 `;
 const ImgContainer = styled.div`
-  height: 100vh;
+  height: 100%;
   background: url(${bgImg}) no-repeat top right;
 `;
 const TextContainer = styled.div`

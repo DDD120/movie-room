@@ -4,9 +4,7 @@ const Wrapper = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   height: auto;
-  min-height: calc(100vh - 93px);
-  display: flex;
-  justify-content: center;
+  min-height: calc(100vh - 133px);
 `;
 
 const Container = ({ children }) => {
