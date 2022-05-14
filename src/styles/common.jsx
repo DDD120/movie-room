@@ -5,5 +5,7 @@ export const Common = {
     red: "#D0433A",
     orange: "#FD7D36",
     cyan: "#50ADB5",
+    grey: "#768186",
+    white: "#fff",
   },
 };
