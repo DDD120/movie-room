@@ -1,4 +1,5 @@
 import Carousel from "components/common/Carousel";
+import styled from "@emotion/styled";
 
 const movieList = [
   {
@@ -43,14 +44,18 @@ const movieList = [
   },
 ];
 
+const Container = styled.section`
+  margin: 120px 0;
+`;
+
 const MovieList = () => {
   return (
-    <>
+    <Container>
       <Carousel name="최근 개봉작" movieList={movieList} />
       <Carousel name="인기 상영작" movieList={movieList} />
       <Carousel name="최고 평점" movieList={movieList} />
       <Carousel name="개봉 예정작" movieList={movieList} />
-    </>
+    </Container>
   );
 };
 
