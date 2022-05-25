@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Common } from "styles/common";
+import { Link } from "react-router-dom";
 
 const CardContainer = styled.div`
   cursor: pointer;
@@ -12,6 +13,7 @@ const ImgWrapper = styled.div`
   padding-bottom: 140%;
   overflow: hidden;
   border-radius: 12px;
+  margin-bottom: 6px;
   &:hover {
     transition: 0.3s;
     transform: translateY(-4px);
@@ -37,19 +39,21 @@ const Year = styled.div`
   color: ${Common.colors.grey};
 `;
 
-const Card = ({ poster_path, title, release_date }) => {
+const Card = ({ poster_path, title, release_date, id }) => {
   const releaseYear = release_date.slice(0, 4);
   return (
-    <CardContainer>
-      <ImgWrapper>
-        <Img
-          src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
-          alt={`${title} 포스터`}
-        />
-      </ImgWrapper>
-      <Title>{title}</Title>
-      <Year>{releaseYear}</Year>
-    </CardContainer>
+    <Link to={`/detail/${id}`}>
+      <CardContainer>
+        <ImgWrapper>
+          <Img
+            src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
+            alt={`${title} 포스터`}
+          />
+        </ImgWrapper>
+        <Title>{title}</Title>
+        <Year>{releaseYear}</Year>
+      </CardContainer>
+    </Link>
   );
 };
 

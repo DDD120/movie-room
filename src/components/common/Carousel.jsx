@@ -61,7 +61,7 @@ const Carousel = ({ name, movieList }) => {
   useEffect(() => {
     activeIndex ? setLeftBtnShow(true) : setLeftBtnShow(false);
     activeIndex < 15 ? setRightBtnShow(true) : setRightBtnShow(false);
-  }, [activeIndex, movieList.length]);
+  }, [activeIndex]);
 
   const prevButtonHandler = () => {
     setActiveIndex((activeIndex) => activeIndex - 5);

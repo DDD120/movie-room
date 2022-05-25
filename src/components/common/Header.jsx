@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Common } from "styles/common";
+import { Link } from "react-router-dom";
 
 const Head = styled.header`
   width: 100%;
@@ -44,14 +45,18 @@ const NavItem = styled.div`
 const Header = () => {
   return (
     <Head>
-      <Logo>MOVIE ROOM</Logo>
+      <Link to="/">
+        <Logo>MOVIE ROOM</Logo>
+      </Link>
       <Nav>
         <NavItem color={Common.colors.orange}>
           <FiSearch />
         </NavItem>
-        <NavItem color={Common.colors.cyan}>
-          <BsFillPersonFill />
-        </NavItem>
+        <Link to="/login">
+          <NavItem color={Common.colors.cyan}>
+            <BsFillPersonFill />
+          </NavItem>
+        </Link>
       </Nav>
     </Head>
   );
