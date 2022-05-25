@@ -13,10 +13,10 @@ const movieListSlice = createSlice({
   initialState,
   reducers: {
     fetchMovieList(state, action) {
-      state.nowPlaying = action.payload.nowPlaying.data.results;
-      state.popular = action.payload.popular.data.results;
-      state.topRate = action.payload.topRate.data.results;
-      state.upcoming = action.payload.upcoming.data.results;
+      state.nowPlaying = action.payload.nowPlaying;
+      state.popular = action.payload.popular;
+      state.topRate = action.payload.topRate;
+      state.upcoming = action.payload.upcoming;
     },
   },
 });
@@ -30,16 +30,15 @@ export const fetchMovieListData = () => {
       const upcoming = await axiosInstance.get("movie/upcoming");
 
       return {
-        nowPlaying,
-        popular,
-        topRate,
-        upcoming,
+        nowPlaying: nowPlaying.data.results,
+        popular: popular.data.results,
+        topRate: topRate.data.results,
+        upcoming: upcoming.data.results,
       };
     };
 
     try {
       const movieListData = await fetchData();
-      console.log(movieListData);
       dispatch(movieListSlice.actions.fetchMovieList(movieListData));
     } catch (error) {
       console.error(error);

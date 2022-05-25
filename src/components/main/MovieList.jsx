@@ -15,7 +15,6 @@ const MovieList = () => {
   );
 
   useEffect(() => {
-    console.log("useEffect");
     dispatch(fetchMovieListData());
   }, [dispatch]);
 
