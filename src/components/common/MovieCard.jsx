@@ -5,13 +5,25 @@ const CardContainer = styled.div`
   cursor: pointer;
 `;
 
-const Img = styled.img`
+const ImgWrapper = styled.div`
+  position: relative;
   width: 100%;
+  height: 0;
+  padding-bottom: 140%;
+  overflow: hidden;
   border-radius: 12px;
   &:hover {
     transition: 0.3s;
     transform: translateY(-4px);
   }
+`;
+
+const Img = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 const Title = styled.div`
@@ -29,7 +41,12 @@ const Card = ({ poster_path, title, release_date }) => {
   const releaseYear = release_date.slice(0, 4);
   return (
     <CardContainer>
-      <Img src={poster_path} alt="" />
+      <ImgWrapper>
+        <Img
+          src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
+          alt={`${title} 포스터`}
+        />
+      </ImgWrapper>
       <Title>{title}</Title>
       <Year>{releaseYear}</Year>
     </CardContainer>

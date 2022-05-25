@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
 import { Common } from "styles/common";
 import Title from "./Title";
-import Card from "./Card";
+import Card from "./MovieCard";
 
 const Base = styled.div`
   margin: 40px 0;
@@ -55,38 +55,47 @@ const CarouselItem = styled.li`
 
 const Carousel = ({ name, movieList }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [leftBtnShow, setLeftBtnShow] = useState(false);
+  const [rightBtnShow, setRightBtnShow] = useState(true);
+
+  useEffect(() => {
+    activeIndex ? setLeftBtnShow(true) : setLeftBtnShow(false);
+    activeIndex < 15 ? setRightBtnShow(true) : setRightBtnShow(false);
+  }, [activeIndex, movieList.length]);
 
   const prevButtonHandler = () => {
-    setActiveIndex((activeIndex) => activeIndex - 1);
+    setActiveIndex((activeIndex) => activeIndex - 5);
   };
 
   const nextButtonHandler = () => {
-    if (activeIndex < movieList.length - 5) {
-      setActiveIndex((activeIndex) => activeIndex + 1);
-    }
+    activeIndex < 15 && setActiveIndex((activeIndex) => activeIndex + 5);
   };
 
   return (
     <Base>
       <Title name={name} />
       <Container>
-        <ArrowButton left onClick={prevButtonHandler}>
-          <RiArrowDropLeftLine />
-        </ArrowButton>
+        {leftBtnShow && (
+          <ArrowButton left onClick={prevButtonHandler}>
+            <RiArrowDropLeftLine />
+          </ArrowButton>
+        )}
         <CarouselList>
-          {movieList.map((movie, index) => (
-            <CarouselItem activeIndex={activeIndex} key={index}>
+          {movieList.map((movie) => (
+            <CarouselItem activeIndex={activeIndex} key={movie.id}>
               <Card
-                poster_path={movie.img}
+                poster_path={movie.poster_path}
                 title={movie.title}
                 release_date={movie.release_date}
               />
             </CarouselItem>
           ))}
         </CarouselList>
-        <ArrowButton right onClick={nextButtonHandler}>
-          <RiArrowDropRightLine />
-        </ArrowButton>
+        {rightBtnShow && (
+          <ArrowButton right onClick={nextButtonHandler}>
+            <RiArrowDropRightLine />
+          </ArrowButton>
+        )}
       </Container>
     </Base>
   );
