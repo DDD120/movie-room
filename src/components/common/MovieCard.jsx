@@ -8,12 +8,12 @@ const CardContainer = styled.div`
 
 const ImgWrapper = styled.div`
   position: relative;
+  aspect-ratio: 1 / 1.416;
   width: 100%;
-  height: 0;
-  padding-bottom: 140%;
   overflow: hidden;
-  border-radius: 12px;
   margin-bottom: 6px;
+  border-radius: 12px;
+
   &:hover {
     transition: 0.3s;
     transform: translateY(-4px);
@@ -26,6 +26,9 @@ const Img = styled.img`
   left: 0;
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1.416;
+  border-radius: 12px;
+  object-fit: cover;
 `;
 
 const Title = styled.div`

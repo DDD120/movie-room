@@ -40,12 +40,14 @@ const CarouselList = styled.ul`
   display: flex;
   padding: 24px 0;
   overflow: hidden;
+  scroll-snap-type: x mandatory;
 `;
 
 const CarouselItem = styled.li`
   width: 20%;
   padding: 0 4px;
   flex: 1 0 20%;
+  scroll-snap-align: start;
   transition: 200ms ease;
   transform: ${(props) => `translateX(-${props.activeIndex * 100}%)`};
   > img {
@@ -84,6 +86,7 @@ const Carousel = ({ name, movieList }) => {
           {movieList.map((movie) => (
             <CarouselItem activeIndex={activeIndex} key={movie.id}>
               <Card
+                id={movie.id}
                 poster_path={movie.poster_path}
                 title={movie.title}
                 release_date={movie.release_date}
