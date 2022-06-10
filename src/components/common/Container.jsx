@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 
-const Wrapper = styled.div`
+const ContainerBox = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  height: auto;
-  min-height: calc(100vh - 93px);
+  min-height: calc(100% - 33px);
 `;
 
 const Container = ({ children }) => {
-  return <Wrapper>{children}</Wrapper>;
+  return <ContainerBox>{children}</ContainerBox>;
 };
 
 export default Container;
