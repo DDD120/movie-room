@@ -1,8 +1,8 @@
-import Carousel from "components/common/Carousel";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchMovieListData } from "store/movieList";
+import MovieListCarousel from "./MovieListCarousel";
 
 const Container = styled.section`
   margin: 120px 0;
@@ -20,10 +20,10 @@ const MovieList = () => {
 
   return (
     <Container>
-      <Carousel name="최근 개봉작" movieList={nowPlaying} />
-      <Carousel name="인기 상영작" movieList={popular} />
-      <Carousel name="최고 평점" movieList={topRate} />
-      <Carousel name="개봉 예정작" movieList={upcoming} />
+      <MovieListCarousel name="최근 개봉작" movieList={nowPlaying} />
+      <MovieListCarousel name="인기 상영작" movieList={popular} />
+      <MovieListCarousel name="최고 평점" movieList={topRate} />
+      <MovieListCarousel name="개봉 예정작" movieList={upcoming} />
     </Container>
   );
 };

@@ -13,6 +13,7 @@ const ImgWrapper = styled.div`
   overflow: hidden;
   margin-bottom: 6px;
   border-radius: 12px;
+  background-color: ${Common.colors.grey};
 
   &:hover {
     transition: 0.3s;
@@ -42,16 +43,18 @@ const Year = styled.div`
   color: ${Common.colors.grey};
 `;
 
-const Card = ({ poster_path, title, release_date, id }) => {
+const MovieCard = ({ poster_path, title, release_date, id }) => {
   const releaseYear = release_date.slice(0, 4);
   return (
     <Link to={`/detail/${id}`}>
       <CardContainer>
         <ImgWrapper>
-          <Img
-            src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
-            alt={`${title} 포스터`}
-          />
+          {poster_path && (
+            <Img
+              src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
+              alt={`${title} 포스터`}
+            />
+          )}
         </ImgWrapper>
         <Title>{title}</Title>
         <Year>{releaseYear}</Year>
@@ -60,4 +63,4 @@ const Card = ({ poster_path, title, release_date, id }) => {
   );
 };
 
-export default Card;
+export default MovieCard;

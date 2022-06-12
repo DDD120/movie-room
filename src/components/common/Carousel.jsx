@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
 import { Common } from "styles/common";
 import Title from "./Title";
-import Card from "./MovieCard";
 
 const Base = styled.div`
   margin: 40px 0;
@@ -40,37 +39,34 @@ const CarouselList = styled.ul`
   display: flex;
   padding: 24px 0;
   overflow: hidden;
-  scroll-snap-type: x mandatory;
 `;
 
-const CarouselItem = styled.li`
-  width: 20%;
-  padding: 0 4px;
-  flex: 1 0 20%;
-  scroll-snap-align: start;
-  transition: 200ms ease;
-  transform: ${(props) => `translateX(-${props.activeIndex * 100}%)`};
-  > img {
-    width: 100%;
-  }
-`;
-
-const Carousel = ({ name, movieList }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const Carousel = ({
+  name,
+  activeIndex,
+  setActiveIndex,
+  itemCount,
+  showCount,
+  children,
+}) => {
   const [leftBtnShow, setLeftBtnShow] = useState(false);
   const [rightBtnShow, setRightBtnShow] = useState(true);
 
   useEffect(() => {
     activeIndex ? setLeftBtnShow(true) : setLeftBtnShow(false);
-    activeIndex < 15 ? setRightBtnShow(true) : setRightBtnShow(false);
-  }, [activeIndex]);
+    activeIndex + showCount < itemCount
+      ? setRightBtnShow(true)
+      : setRightBtnShow(false);
+  }, [activeIndex, itemCount, showCount]);
 
   const prevButtonHandler = () => {
-    setActiveIndex((activeIndex) => activeIndex - 5);
+    setActiveIndex((activeIndex) => activeIndex - showCount);
   };
 
   const nextButtonHandler = () => {
-    activeIndex < 15 && setActiveIndex((activeIndex) => activeIndex + 5);
+    if (activeIndex < itemCount) {
+      setActiveIndex((activeIndex) => activeIndex + showCount);
+    }
   };
 
   return (
@@ -82,18 +78,7 @@ const Carousel = ({ name, movieList }) => {
             <RiArrowDropLeftLine />
           </ArrowButton>
         )}
-        <CarouselList>
-          {movieList.map((movie) => (
-            <CarouselItem activeIndex={activeIndex} key={movie.id}>
-              <Card
-                id={movie.id}
-                poster_path={movie.poster_path}
-                title={movie.title}
-                release_date={movie.release_date}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselList>
+        <CarouselList>{children}</CarouselList>
         {rightBtnShow && (
           <ArrowButton right onClick={nextButtonHandler}>
             <RiArrowDropRightLine />
