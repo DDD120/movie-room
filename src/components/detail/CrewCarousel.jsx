@@ -1,9 +1,9 @@
+import { CarouselItem } from "styles/common";
 import Carousel from "components/common/Carousel";
 import PersonCard from "./PersonCard";
-import { CarouselItem } from "styles/common";
 import { useState } from "react";
 
-const MainCastCarousel = ({ name, castList }) => {
+const CrewCarousel = ({ name, crewList }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -11,16 +11,16 @@ const MainCastCarousel = ({ name, castList }) => {
       name={name}
       activeIndex={activeIndex}
       setActiveIndex={setActiveIndex}
-      itemCount={castList?.length}
+      itemCount={crewList?.length}
       showCount={5}
     >
-      {castList?.map((cast) => (
-        <CarouselItem activeIndex={activeIndex} key={cast.id}>
+      {crewList?.map((crew) => (
+        <CarouselItem activeIndex={activeIndex} key={crew.id}>
           <PersonCard
-            id={cast.id}
-            name={cast.name}
-            profile_path={cast.profile_path}
-            character={cast.character}
+            id={crew.id}
+            name={crew.name}
+            profile_path={crew.profile_path}
+            character={crew.character}
           />
         </CarouselItem>
       ))}
@@ -28,4 +28,4 @@ const MainCastCarousel = ({ name, castList }) => {
   );
 };
 
-export default MainCastCarousel;
+export default CrewCarousel;

@@ -1,3 +1,5 @@
+import styled from "@emotion/styled";
+
 export const Common = {
   colors: {
     black: "#1A3642",
@@ -9,3 +11,14 @@ export const Common = {
     white: "#fff",
   },
 };
+
+export const CarouselItem = styled.li`
+  width: 20%;
+  padding: 0 4px;
+  flex: 0 0 20%;
+  transition: 200ms ease;
+  transform: ${(props) => `translateX(-${props.activeIndex * 100}%)`};
+  > img {
+    width: 100%;
+  }
+`;

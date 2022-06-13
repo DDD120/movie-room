@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { Common } from "styles/common";
 
-const CardContainer = styled.div``;
+const CardContainer = styled.div`
+  width: 100%;
+`;
 
 const ImgWrapper = styled.div`
   position: relative;
@@ -66,7 +68,7 @@ const PersonCard = ({ name, profile_path, character }) => {
         )}
       </ImgWrapper>
       <Name>{name}</Name>
-      <Character>{character} 역</Character>
+      {character && <Character>{character} 역</Character>}
     </CardContainer>
   );
 };
