@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Common } from "styles/common";
 import { Link } from "react-router-dom";
+import { NoImg } from "styles/common";
 
 const CardContainer = styled.div`
   cursor: pointer;
@@ -49,11 +50,13 @@ const MovieCard = ({ poster_path, title, release_date, id }) => {
     <Link to={`/detail/${id}`}>
       <CardContainer>
         <ImgWrapper>
-          {poster_path && (
+          {poster_path ? (
             <Img
               src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
               alt={`${title} 포스터`}
             />
+          ) : (
+            <NoImg>NO IMAGE</NoImg>
           )}
         </ImgWrapper>
         <Title>{title}</Title>

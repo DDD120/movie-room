@@ -4,6 +4,7 @@ import axiosInstance from "api";
 const initialState = {
   movieMainInfo: {},
   movieCredits: {},
+  movieSimilar: {},
 };
 
 const movieDetailSlice = createSlice({
@@ -13,6 +14,7 @@ const movieDetailSlice = createSlice({
     fetchMovieDetail(state, action) {
       state.movieMainInfo = action.payload.movieMainInfo;
       state.movieCredits = action.payload.movieCredits;
+      state.movieSimilar = action.payload.movieSimilar;
     },
   },
 });
@@ -22,6 +24,10 @@ export const fetchMovieDetailData = (id) => {
     const fetchData = async () => {
       const movieMainInfo = await axiosInstance.get(`movie/${id}`);
       const movieCredits = await axiosInstance.get(`movie/${id}/credits`);
+      const movieSimilar = await axiosInstance.get(
+        `movie/${id}/similar?page=20`
+      );
+      console.log(movieSimilar);
       return {
         movieMainInfo: movieMainInfo.data,
         movieCredits: {
@@ -30,6 +36,7 @@ export const fetchMovieDetailData = (id) => {
             (crew) => crew["department"] === "Directing"
           ),
         },
+        movieSimilar: movieSimilar.data.results,
       };
     };
 
