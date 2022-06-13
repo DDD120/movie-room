@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "api";
 
 const initialState = {
-  movieDetail: {},
+  movieMainInfo: {},
+  movieCredits: {},
 };
 
 const movieDetailSlice = createSlice({
@@ -10,7 +11,8 @@ const movieDetailSlice = createSlice({
   initialState,
   reducers: {
     fetchMovieDetail(state, action) {
-      state.movieDetail = action.payload.movieDetail;
+      state.movieMainInfo = action.payload.movieMainInfo;
+      state.movieCredits = action.payload.movieCredits;
     },
   },
 });
@@ -18,9 +20,16 @@ const movieDetailSlice = createSlice({
 export const fetchMovieDetailData = (id) => {
   return async (dispatch) => {
     const fetchData = async () => {
-      const movieDetail = await axiosInstance.get(`movie/${id}`);
+      const movieMainInfo = await axiosInstance.get(`movie/${id}`);
+      const movieCredits = await axiosInstance.get(`movie/${id}/credits`);
       return {
-        movieDetail: movieDetail.data,
+        movieMainInfo: movieMainInfo.data,
+        movieCredits: {
+          cast: movieCredits.data.cast.slice(0, 15),
+          crew: movieCredits.data.crew.filter(
+            (crew) => crew["department"] === "Directing"
+          ),
+        },
       };
     };
 
