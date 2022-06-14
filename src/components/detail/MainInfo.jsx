@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { Common, NoImg } from "styles/common";
 import WriteReview from "components/common/WriteReview";
 
 const Background = styled.div`
@@ -29,6 +29,7 @@ const ImgContainer = styled.div`
   aspect-ratio: 1 / 1.416;
   overflow: hidden;
   border-radius: 12px;
+  position: relative;
 `;
 const Img = styled.img`
   width: 100%;
@@ -73,15 +74,19 @@ const MainInfo = ({ movie }) => {
     <Background backdrop_path={movie.backdrop_path}>
       <MainInfoContiner>
         <ImgContainer>
-          <Img
-            src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
-            alt={`${movie.title} 포스터`}
-          />
+          {movie.poster_path ? (
+            <Img
+              src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
+              alt={`${movie.title} 포스터`}
+            />
+          ) : (
+            <NoImg>NO IMAGE</NoImg>
+          )}
         </ImgContainer>
         <InfoContainer>
           <Title>
             {movie.title}
-            <Year>({releaseYear})</Year>
+            {releaseYear && <Year>({releaseYear})</Year>}
           </Title>
           <Info>
             <Category>원제</Category>

@@ -71,20 +71,24 @@ const Carousel = ({
 
   return (
     <Base>
-      <Title name={name} />
-      <Container>
-        {leftBtnShow && (
-          <ArrowButton left onClick={prevButtonHandler}>
-            <RiArrowDropLeftLine />
-          </ArrowButton>
-        )}
-        <CarouselList>{children}</CarouselList>
-        {rightBtnShow && (
-          <ArrowButton right onClick={nextButtonHandler}>
-            <RiArrowDropRightLine />
-          </ArrowButton>
-        )}
-      </Container>
+      {itemCount && (
+        <>
+          <Title name={name} />
+          <Container>
+            {leftBtnShow && (
+              <ArrowButton left onClick={prevButtonHandler}>
+                <RiArrowDropLeftLine />
+              </ArrowButton>
+            )}
+            <CarouselList>{children}</CarouselList>
+            {rightBtnShow && (
+              <ArrowButton right onClick={nextButtonHandler}>
+                <RiArrowDropRightLine />
+              </ArrowButton>
+            )}
+          </Container>
+        </>
+      )}
     </Base>
   );
 };

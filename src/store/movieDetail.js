@@ -3,8 +3,8 @@ import axiosInstance from "api";
 
 const initialState = {
   movieMainInfo: {},
-  movieCredits: {},
-  movieSimilar: {},
+  movieCredits: [],
+  movieSimilar: [],
 };
 
 const movieDetailSlice = createSlice({
@@ -27,7 +27,7 @@ export const fetchMovieDetailData = (id) => {
       const movieSimilar = await axiosInstance.get(
         `movie/${id}/similar?page=20`
       );
-      console.log(movieSimilar);
+
       return {
         movieMainInfo: movieMainInfo.data,
         movieCredits: {

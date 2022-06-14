@@ -17,7 +17,6 @@ const CrewCarousel = ({ name, crewList }) => {
       {crewList?.map((crew) => (
         <CarouselItem activeIndex={activeIndex} key={crew.id}>
           <PersonCard
-            id={crew.id}
             name={crew.name}
             profile_path={crew.profile_path}
             character={crew.character}

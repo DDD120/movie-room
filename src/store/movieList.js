@@ -39,6 +39,7 @@ export const fetchMovieListData = () => {
 
     try {
       const movieListData = await fetchData();
+      console.log(movieListData);
       dispatch(movieListSlice.actions.fetchMovieList(movieListData));
     } catch (error) {
       console.error(error);
