@@ -22,7 +22,7 @@ const MainInfoContiner = styled.section`
   color: ${Common.colors.white};
   padding: 40px 0;
 `;
-const ImgContainer = styled.div`
+const ImgWrapper = styled.div`
   flex: 2;
   max-width: 360px;
   width: 100%;
@@ -30,6 +30,7 @@ const ImgContainer = styled.div`
   overflow: hidden;
   border-radius: 12px;
   position: relative;
+  background-color: ${Common.colors.lightgray};
 `;
 const Img = styled.img`
   width: 100%;
@@ -73,7 +74,7 @@ const MainInfo = ({ movie }) => {
   ) : (
     <Background backdrop_path={movie.backdrop_path}>
       <MainInfoContiner>
-        <ImgContainer>
+        <ImgWrapper>
           {movie.poster_path ? (
             <Img
               src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
@@ -82,7 +83,7 @@ const MainInfo = ({ movie }) => {
           ) : (
             <NoImg>NO IMAGE</NoImg>
           )}
-        </ImgContainer>
+        </ImgWrapper>
         <InfoContainer>
           <Title>
             {movie.title}
