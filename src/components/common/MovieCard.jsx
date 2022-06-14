@@ -14,7 +14,7 @@ const ImgWrapper = styled.div`
   overflow: hidden;
   margin-bottom: 6px;
   border-radius: 12px;
-  background-color: ${Common.colors.grey};
+  background-color: ${Common.colors.lightgray};
 
   &:hover {
     transition: 0.3s;
