@@ -20,7 +20,7 @@ const Container = styled.button`
   cursor: pointer;
   z-index: 9;
   transition: 0.2s;
-  opacity: ${(props) => (props.btnShow ? 1 : 0)};
+  opacity: ${({ btnShow }) => (btnShow ? 1 : 0)};
   &:hover {
     color: ${Common.colors.black};
     background-color: ${Common.colors.orange};

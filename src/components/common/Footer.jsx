@@ -20,7 +20,7 @@ const Title = styled.span`
 const Box = styled.div`
   width: 100%;
   height: 5px;
-  background-color: ${(props) => props.color};
+  background-color: ${({ color }) => color};
 `;
 
 const Footer = () => {

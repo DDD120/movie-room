@@ -14,7 +14,6 @@ const ImgWrapper = styled.div`
   overflow: hidden;
   margin-bottom: 6px;
   border-radius: 12px;
-  background-color: ${Common.colors.lightgray};
 
   &:hover {
     transition: 0.3s;
@@ -46,6 +45,7 @@ const Year = styled.div`
 
 const MovieCard = ({ poster_path, title, release_date, id }) => {
   const releaseYear = release_date.slice(0, 4);
+
   return (
     <Link to={`/detail/${id}`}>
       <CardContainer>

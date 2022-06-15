@@ -18,7 +18,7 @@ export const CarouselItem = styled.li`
   padding: 0 4px;
   flex: 0 0 20%;
   transition: 200ms ease;
-  transform: ${(props) => `translateX(-${props.activeIndex * 100}%)`};
+  transform: ${({ activeIndex }) => `translateX(-${activeIndex * 100}%)`};
   > img {
     width: 100%;
   }
@@ -43,5 +43,6 @@ export const NoImg = styled.div`
   justify-content: center;
   align-items: center;
   color: ${Common.colors.black};
+  background-color: ${Common.colors.lightgray};
   font-size: 0.875rem;
 `;

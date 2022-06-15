@@ -28,8 +28,8 @@ const ArrowButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  left: ${(props) => props.left && "-48px"};
-  right: ${(props) => props.right && "-48px"};
+  left: ${({ left }) => left && "-48px"};
+  right: ${({ right }) => right && "-48px"};
   &:hover {
     color: ${Common.colors.orange};
   }

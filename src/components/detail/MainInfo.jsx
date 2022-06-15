@@ -8,8 +8,8 @@ const Background = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  background-image: ${(props) =>
-    `url(${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${props.backdrop_path})`};
+  background-image: ${({ backdrop_path }) =>
+    `url(${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${backdrop_path})`};
 `;
 
 const MainInfoContiner = styled.section`
@@ -30,7 +30,6 @@ const ImgWrapper = styled.div`
   overflow: hidden;
   border-radius: 12px;
   position: relative;
-  background-color: ${Common.colors.lightgray};
 `;
 const Img = styled.img`
   width: 100%;

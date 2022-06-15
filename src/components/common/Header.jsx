@@ -34,7 +34,7 @@ const NavItem = styled.div`
   width: 36px;
   height: 36px;
   color: ${Common.colors.black};
-  background-color: ${(props) => props.color};
+  background-color: ${({ color }) => color};
   border-radius: 50%;
   display: flex;
   justify-content: center;
