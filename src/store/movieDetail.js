@@ -1,26 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "api";
 
 const initialState = {
   movieMainInfo: {},
   movieCredits: [],
   movieSimilar: [],
+  loading: false,
 };
 
-const movieDetailSlice = createSlice({
-  name: "MovieDetail",
-  initialState,
-  reducers: {
-    fetchMovieDetail(state, action) {
-      state.movieMainInfo = action.payload.movieMainInfo;
-      state.movieCredits = action.payload.movieCredits;
-      state.movieSimilar = action.payload.movieSimilar;
-    },
-  },
-});
-
-export const fetchMovieDetailData = (id) => {
-  return async (dispatch) => {
+export const fetchMovieDetailData = createAsyncThunk(
+  "movieDetail/fetchMovieDetailData",
+  async (id, thunkAPI) => {
     const fetchData = async () => {
       const movieMainInfo = await axiosInstance.get(`movie/${id}`);
       const movieCredits = await axiosInstance.get(`movie/${id}/credits`);
@@ -42,11 +32,30 @@ export const fetchMovieDetailData = (id) => {
 
     try {
       const movieDetailData = await fetchData();
-      dispatch(movieDetailSlice.actions.fetchMovieDetail(movieDetailData));
+      return movieDetailData;
     } catch (error) {
       console.error(error);
     }
-  };
-};
+  }
+);
+
+const movieDetailSlice = createSlice({
+  name: "MovieDetail",
+  initialState,
+  extraReducers: {
+    [fetchMovieDetailData.pending]: (state) => {
+      state.loading = true;
+    },
+    [fetchMovieDetailData.fulfilled]: (state, action) => {
+      state.movieMainInfo = action.payload.movieMainInfo;
+      state.movieCredits = action.payload.movieCredits;
+      state.movieSimilar = action.payload.movieSimilar;
+      state.loading = false;
+    },
+    [fetchMovieDetailData.rejected]: (state) => {
+      state.loading = false;
+    },
+  },
+});
 
 export default movieDetailSlice;

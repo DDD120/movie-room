@@ -6,7 +6,7 @@ import MovieListCarousel from "../common/MovieListCarousel";
 
 const MovieList = () => {
   const dispatch = useDispatch();
-  const { nowPlaying, popular, topRate, upcoming } = useSelector(
+  const { nowPlaying, popular, topRate, upcoming, loading } = useSelector(
     (state) => state.movieList
   );
 
@@ -15,12 +15,18 @@ const MovieList = () => {
   }, [dispatch]);
 
   return (
-    <CarouselContainer>
-      <MovieListCarousel name="최근 개봉작" movieList={nowPlaying} />
-      <MovieListCarousel name="인기 상영작" movieList={popular} />
-      <MovieListCarousel name="최고 평점" movieList={topRate} />
-      <MovieListCarousel name="개봉 예정작" movieList={upcoming} />
-    </CarouselContainer>
+    <>
+      {!loading ? (
+        <CarouselContainer>
+          <MovieListCarousel name="최근 개봉작" movieList={nowPlaying} />
+          <MovieListCarousel name="인기 상영작" movieList={popular} />
+          <MovieListCarousel name="최고 평점" movieList={topRate} />
+          <MovieListCarousel name="개봉 예정작" movieList={upcoming} />
+        </CarouselContainer>
+      ) : (
+        "loading..."
+      )}
+    </>
   );
 };
 
