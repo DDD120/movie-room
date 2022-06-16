@@ -1,17 +1,21 @@
-import { CarouselItem } from "styles/common";
 import Carousel from "components/common/Carousel";
+import { useEffect, useState } from "react";
+import { CarouselItem } from "styles/common";
 import PersonCard from "./PersonCard";
-import { useState } from "react";
 
 const CrewCarousel = ({ name, crewList }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [crewList]);
+
   return (
     <Carousel
       name={name}
+      itemCount={crewList?.length}
       activeIndex={activeIndex}
       setActiveIndex={setActiveIndex}
-      itemCount={crewList?.length}
       showCount={5}
     >
       {crewList?.map((crew) => (

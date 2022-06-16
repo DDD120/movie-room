@@ -1,28 +1,21 @@
-import styled from "@emotion/styled";
-import MovieCard from "components/common/MovieCard";
 import Carousel from "components/common/Carousel";
-import { useState } from "react";
-
-const CarouselItem = styled.li`
-  width: 20%;
-  padding: 0 4px;
-  flex: 1 0 20%;
-  transition: 200ms ease;
-  transform: ${(props) => `translateX(-${props.activeIndex * 100}%)`};
-  > img {
-    width: 100%;
-  }
-`;
+import { CarouselItem } from "styles/common";
+import MovieCard from "components/common/MovieCard";
+import { useEffect, useState } from "react";
 
 const MovieListCarousel = ({ name, movieList }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [movieList]);
+
   return (
     <Carousel
       name={name}
+      itemCount={movieList?.length}
       activeIndex={activeIndex}
       setActiveIndex={setActiveIndex}
-      itemCount={movieList?.length}
       showCount={5}
     >
       {movieList.map((movie) => (

@@ -1,17 +1,23 @@
 import Carousel from "components/common/Carousel";
-import PersonCard from "./PersonCard";
+import { useEffect, useState } from "react";
 import { CarouselItem } from "styles/common";
-import { useState } from "react";
+import PersonCard from "./PersonCard";
 
 const MainCastCarousel = ({ name, castList }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  console.log(activeIndex);
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [castList]);
+
   return (
     <Carousel
       name={name}
+      itemCount={castList?.length}
       activeIndex={activeIndex}
       setActiveIndex={setActiveIndex}
-      itemCount={castList?.length}
       showCount={5}
     >
       {castList?.map((cast, index) => (
