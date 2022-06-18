@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchMovieListData } from "store/movieList";
 import MovieListCarousel from "../common/MovieListCarousel";
+import SkeletonCarousel from "components/skeleton/SkeletonCarousel";
 
 const MovieList = () => {
   const dispatch = useDispatch();
@@ -15,18 +16,23 @@ const MovieList = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <CarouselContainer>
       {!loading ? (
-        <CarouselContainer>
+        <>
           <MovieListCarousel name="최근 개봉작" movieList={nowPlaying} />
           <MovieListCarousel name="인기 상영작" movieList={popular} />
           <MovieListCarousel name="최고 평점" movieList={topRate} />
           <MovieListCarousel name="개봉 예정작" movieList={upcoming} />
-        </CarouselContainer>
+        </>
       ) : (
-        "loading..."
+        <>
+          <SkeletonCarousel />
+          <SkeletonCarousel />
+          <SkeletonCarousel />
+          <SkeletonCarousel />
+        </>
       )}
-    </>
+    </CarouselContainer>
   );
 };
 
