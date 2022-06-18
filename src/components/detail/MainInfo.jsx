@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Common, NoImg } from "styles/common";
 import WriteReview from "components/common/WriteReview";
+import SkeletonMainInfo from "components/loading/SkeletonMainInfo";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -66,46 +67,52 @@ const Overview = styled.p`
   margin: 10px 0;
 `;
 
-const MainInfo = ({ movie }) => {
+const MainInfo = ({ movie, loading }) => {
   const releaseYear = movie.release_date?.slice(0, 4);
-  return !movie ? (
-    <div>'Loading...'</div>
-  ) : (
-    <Background backdrop_path={movie.backdrop_path}>
-      <MainInfoContiner>
-        <ImgWrapper>
-          {movie.poster_path ? (
-            <Img
-              src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
-              alt={`${movie.title} 포스터`}
-            />
-          ) : (
-            <NoImg>NO IMAGE</NoImg>
-          )}
-        </ImgWrapper>
-        <InfoContainer>
-          <Title>
-            {movie.title}
-            {releaseYear && <Year>({releaseYear})</Year>}
-          </Title>
-          <Info>
-            <Category>원제</Category>
-            <span>{movie.original_title}</span>
-            <Category>원어</Category>
-            <span>{movie.original_language?.toUpperCase()}</span>
-            <Category>발매일</Category>
-            <span>{movie.release_date}</span>
-            <Category>장르</Category>
-            <span>{movie.genres?.map((genre) => genre.name).join("/")}</span>
-            <Category>상영시간</Category>
-            <span>{movie.runtime}분</span>
-          </Info>
-          {movie.tagline && <Tagline>"{movie.tagline}"</Tagline>}
-          <Overview>{movie.overview}</Overview>
-          <WriteReview />
-        </InfoContainer>
-      </MainInfoContiner>
-    </Background>
+  return (
+    <>
+      {!loading ? (
+        <Background backdrop_path={movie.backdrop_path}>
+          <MainInfoContiner>
+            <ImgWrapper>
+              {movie.poster_path ? (
+                <Img
+                  src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
+                  alt={`${movie.title} 포스터`}
+                />
+              ) : (
+                <NoImg>NO IMAGE</NoImg>
+              )}
+            </ImgWrapper>
+            <InfoContainer>
+              <Title>
+                {movie.title}
+                {releaseYear && <Year>({releaseYear})</Year>}
+              </Title>
+              <Info>
+                <Category>원제</Category>
+                <span>{movie.original_title}</span>
+                <Category>원어</Category>
+                <span>{movie.original_language?.toUpperCase()}</span>
+                <Category>발매일</Category>
+                <span>{movie.release_date}</span>
+                <Category>장르</Category>
+                <span>
+                  {movie.genres?.map((genre) => genre.name).join("/")}
+                </span>
+                <Category>상영시간</Category>
+                <span>{movie.runtime}분</span>
+              </Info>
+              {movie.tagline && <Tagline>"{movie.tagline}"</Tagline>}
+              <Overview>{movie.overview}</Overview>
+              <WriteReview />
+            </InfoContainer>
+          </MainInfoContiner>
+        </Background>
+      ) : (
+        <SkeletonMainInfo />
+      )}
+    </>
   );
 };
 

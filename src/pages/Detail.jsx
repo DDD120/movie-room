@@ -3,7 +3,7 @@ import MainInfo from "components/detail/MainInfo";
 import MainCastCarousel from "components/detail/MainCastCarousel";
 import CrewCarousel from "components/detail/CrewCarousel";
 import MovieListCarousel from "components/common/MovieListCarousel";
-import SkeletonCarousel from "components/skeleton/SkeletonCarousel";
+import SkeletonCarousel from "components/loading/SkeletonCarousel";
 import { CarouselContainer } from "styles/common";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
@@ -22,9 +22,9 @@ const Detail = () => {
 
   return (
     <>
-      <MainInfo movie={movieMainInfo} />
-      <Container>
-        {!loading ? (
+      <MainInfo movie={movieMainInfo} loading={loading} />
+      {!loading ? (
+        <Container>
           <CarouselContainer>
             <MainCastCarousel
               name={"주요 출연진"}
@@ -33,14 +33,14 @@ const Detail = () => {
             <CrewCarousel name={"감독"} crewList={movieCredits.crew} />
             <MovieListCarousel name={"비슷한 작품"} movieList={movieSimilar} />
           </CarouselContainer>
-        ) : (
-          <>
-            <SkeletonCarousel />
-            <SkeletonCarousel />
-            <SkeletonCarousel />
-          </>
-        )}
-      </Container>
+        </Container>
+      ) : (
+        <Container>
+          <SkeletonCarousel />
+          <SkeletonCarousel />
+          <SkeletonCarousel />
+        </Container>
+      )}
     </>
   );
 };
