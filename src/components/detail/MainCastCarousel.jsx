@@ -6,8 +6,6 @@ import PersonCard from "./PersonCard";
 const MainCastCarousel = ({ name, castList }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  console.log(activeIndex);
-
   useEffect(() => {
     setActiveIndex(0);
   }, [castList]);

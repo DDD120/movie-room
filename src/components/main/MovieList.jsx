@@ -2,8 +2,8 @@ import { CarouselContainer } from "styles/common";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchMovieListData } from "store/movieList";
-import MovieListCarousel from "../common/MovieListCarousel";
-import SkeletonCarousel from "components/skeleton/SkeletonCarousel";
+import MovieListCarousel from "components/common/MovieListCarousel";
+import SkeletonCarousel from "components/loading/SkeletonCarousel";
 
 const MovieList = () => {
   const dispatch = useDispatch();
