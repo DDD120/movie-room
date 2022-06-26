@@ -22,6 +22,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #fee0c8;
   padding-top: 60px;
+  transition: 0.3s;
+  overflow: unset;
+}
+
+body.scroll_hidden {
+  overflow: hidden;
 }
 
 ul,

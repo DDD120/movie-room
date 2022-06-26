@@ -3,6 +3,10 @@ import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Common } from "styles/common";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import SearchModal from "./SearchModal";
+import { useDispatch } from "react-redux";
+import { resetList } from "store/searchResults";
 
 const Head = styled.header`
   width: 100%;
@@ -43,15 +47,30 @@ const NavItem = styled.div`
 `;
 
 const Header = () => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const dispatch = useDispatch();
+
+  const openHandler = () => {
+    setIsOpenModal(true);
+    document.body.classList.add("scroll_hidden");
+  };
+
+  const closeHandler = () => {
+    setIsOpenModal(false);
+    dispatch(resetList());
+    document.body.classList.remove("scroll_hidden");
+  };
+
   return (
     <Head>
       <Link to="/">
         <Logo>MOVIE ROOM</Logo>
       </Link>
       <Nav>
-        <NavItem color={Common.colors.orange}>
+        <NavItem color={Common.colors.orange} onClick={openHandler}>
           <FiSearch />
         </NavItem>
+        {isOpenModal && <SearchModal closeHandler={closeHandler} />}
         <Link to="/login">
           <NavItem color={Common.colors.cyan}>
             <BsFillPersonFill />

@@ -18,7 +18,7 @@ const MovieListCarousel = ({ name, movieList }) => {
       setActiveIndex={setActiveIndex}
       showCount={5}
     >
-      {movieList.map((movie) => (
+      {movieList?.map((movie) => (
         <CarouselItem activeIndex={activeIndex} key={movie.id}>
           <MovieCard
             id={movie.id}
