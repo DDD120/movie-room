@@ -11,27 +11,23 @@ const MainCastCarousel = ({ name, castList }) => {
   }, [castList]);
 
   return (
-    <>
-      {castList.length > 0 && (
-        <Carousel
-          name={name}
-          itemCount={castList.length}
-          activeIndex={activeIndex}
-          setActiveIndex={setActiveIndex}
-          showCount={5}
-        >
-          {castList.map((cast, index) => (
-            <CarouselItem activeIndex={activeIndex} key={index}>
-              <PersonCard
-                name={cast.name}
-                profile_path={cast.profile_path}
-                character={cast.character}
-              />
-            </CarouselItem>
-          ))}
-        </Carousel>
-      )}
-    </>
+    <Carousel
+      name={name}
+      itemCount={castList.length}
+      activeIndex={activeIndex}
+      setActiveIndex={setActiveIndex}
+      showCount={5}
+    >
+      {castList?.map((cast, index) => (
+        <CarouselItem activeIndex={activeIndex} key={index}>
+          <PersonCard
+            name={cast.name}
+            profile_path={cast.profile_path}
+            character={cast.character}
+          />
+        </CarouselItem>
+      ))}
+    </Carousel>
   );
 };
 
