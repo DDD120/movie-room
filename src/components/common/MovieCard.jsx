@@ -44,7 +44,7 @@ const Year = styled.div`
 `;
 
 const MovieCard = ({ poster_path, title, release_date, id }) => {
-  const releaseYear = release_date.slice(0, 4);
+  const releaseYear = release_date?.slice(0, 4);
 
   return (
     <Link to={`/detail/${id}`}>
