@@ -71,7 +71,7 @@ const Carousel = ({
 
   return (
     <Base>
-      {itemCount && (
+      {itemCount > 0 && (
         <>
           <Title name={name} />
           <Container>

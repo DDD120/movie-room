@@ -3,7 +3,10 @@ import axiosInstance from "api";
 
 const initialState = {
   movieMainInfo: {},
-  movieCredits: [],
+  movieCredits: {
+    cast: [],
+    crew: [],
+  },
   movieSimilar: [],
   loading: false,
 };

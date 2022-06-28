@@ -11,24 +11,28 @@ const MovieListCarousel = ({ name, movieList }) => {
   }, [movieList]);
 
   return (
-    <Carousel
-      name={name}
-      itemCount={movieList?.length}
-      activeIndex={activeIndex}
-      setActiveIndex={setActiveIndex}
-      showCount={5}
-    >
-      {movieList?.map((movie) => (
-        <CarouselItem activeIndex={activeIndex} key={movie.id}>
-          <MovieCard
-            id={movie.id}
-            poster_path={movie.poster_path}
-            title={movie.title}
-            release_date={movie.release_date}
-          />
-        </CarouselItem>
-      ))}
-    </Carousel>
+    <>
+      {movieList.length > 0 && (
+        <Carousel
+          name={name}
+          itemCount={movieList?.length}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          showCount={5}
+        >
+          {movieList?.map((movie) => (
+            <CarouselItem activeIndex={activeIndex} key={movie.id}>
+              <MovieCard
+                id={movie.id}
+                poster_path={movie.poster_path}
+                title={movie.title}
+                release_date={movie.release_date}
+              />
+            </CarouselItem>
+          ))}
+        </Carousel>
+      )}
+    </>
   );
 };
 
