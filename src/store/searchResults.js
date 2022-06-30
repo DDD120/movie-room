@@ -4,6 +4,9 @@ import axiosInstance from "api";
 const initialState = {
   searchModalList: [],
   searchList: [],
+  totalResults: 0,
+  totalPage: 0,
+  currentPage: 1,
   loading: false,
 };
 
@@ -29,11 +32,16 @@ export const fetchSearchModalListData = createAsyncThunk(
 
 export const fetchSearchListData = createAsyncThunk(
   "searchResults/fetchSearchListData",
-  async (query, thunkAPI) => {
+  async (userData, thunkAPI) => {
     const fetchData = async () => {
-      const searchList = await axiosInstance.get(`search/movie?query=${query}`);
+      const { searchKeyword, currentPage } = userData;
+      const searchList = await axiosInstance.get(
+        `search/movie?query=${searchKeyword}&page=${currentPage}`
+      );
       return {
-        searchList: searchList.data,
+        searchList: searchList.data.results,
+        totalResults: searchList.data.total_results,
+        totalPage: searchList.data.total_pages,
       };
     };
     try {
@@ -49,9 +57,15 @@ const searchResultsSlice = createSlice({
   name: "SearchResults",
   initialState,
   reducers: {
-    resetList(state) {
+    resetModalList(state) {
       state.searchModalList = [];
-      state.loading = false;
+    },
+    resetSearchPage(state) {
+      state.searchList = [];
+      state.currentPage = 1;
+    },
+    increaseCurrentPage(state) {
+      state.currentPage = state.currentPage + 1;
     },
   },
   extraReducers: {
@@ -69,7 +83,9 @@ const searchResultsSlice = createSlice({
       state.loading = true;
     },
     [fetchSearchListData.fulfilled]: (state, action) => {
-      state.searchList = action.payload.searchList;
+      state.searchList = state.searchList.concat(action.payload.searchList);
+      state.totalResults = action.payload.totalResults;
+      state.totalPage = action.payload.totalPage;
       state.loading = false;
     },
     [fetchSearchListData.rejected]: (state) => {
@@ -78,5 +94,6 @@ const searchResultsSlice = createSlice({
   },
 });
 
-export const { resetList } = searchResultsSlice.actions;
+export const { resetSearchPage, resetModalList, increaseCurrentPage } =
+  searchResultsSlice.actions;
 export default searchResultsSlice;

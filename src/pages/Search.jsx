@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import Container from "components/common/Container";
 import MovieCard from "components/common/MovieCard";
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { fetchSearchListData } from "store/searchResults";
+import { fetchSearchListData, increaseCurrentPage } from "store/searchResults";
 import { FiSearch } from "react-icons/fi";
+import LoadingAnimation from "components/loading/LoadingAnimation";
 
 const Head = styled.div`
   display: flex;
@@ -34,15 +35,42 @@ const SearchItem = styled.div`
   flex: 0 0 20%;
 `;
 
+const Observer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Search = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { searchList } = useSelector((state) => state.searchResults);
+  const { searchList, totalResults, totalPage, loading, currentPage } =
+    useSelector((state) => state.searchResults);
   const searchKeyword = new URLSearchParams(location.search).get("query");
 
+  const [target, setTarget] = useState(null);
+
   useEffect(() => {
-    dispatch(fetchSearchListData(searchKeyword));
-  }, [dispatch, searchKeyword]);
+    dispatch(fetchSearchListData({ searchKeyword, currentPage }));
+  }, [dispatch, searchKeyword, currentPage]);
+
+  const callback = useCallback(
+    (entry, observer) => {
+      if (entry[0].isIntersecting) {
+        dispatch(increaseCurrentPage());
+        observer.unobserve(entry[0].target);
+      }
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    let observer;
+    if (target && totalPage >= currentPage) {
+      const observer = new IntersectionObserver(callback);
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [target, callback, totalPage, currentPage]);
 
   return (
     <Container>
@@ -52,11 +80,9 @@ const Search = () => {
         </IconWrapper>
         <h1>'{searchKeyword}' 검색 결과</h1>
       </Head>
-      <TotalCount>
-        총 {searchList.total_results}편의 영화가 검색되었습니다.
-      </TotalCount>
+      <TotalCount>총 {totalResults}편의 영화가 검색되었습니다.</TotalCount>
       <SearchList>
-        {searchList.results?.map((movie) => (
+        {searchList?.map((movie) => (
           <SearchItem key={movie.id}>
             <MovieCard
               id={movie.id}
@@ -67,6 +93,7 @@ const Search = () => {
           </SearchItem>
         ))}
       </SearchList>
+      <Observer ref={setTarget}>{loading && <LoadingAnimation />}</Observer>
     </Container>
   );
 };

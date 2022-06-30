@@ -8,6 +8,7 @@ import { fetchSearchModalListData } from "store/searchResults";
 import { debounce } from "lodash";
 import { MdOutlineClose } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import { resetSearchPage } from "store/searchResults";
 
 const Base = styled.div`
   width: 100%;
@@ -110,6 +111,7 @@ const SearchModal = ({ closeHandler }) => {
 
   const goToSearch = () => {
     if (isNull()) return;
+    dispatch(resetSearchPage());
     navigate(`/search?query=${searchKeyword}`);
     closeHandler();
   };

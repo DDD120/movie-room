@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import SearchModal from "./SearchModal";
 import { useDispatch } from "react-redux";
-import { resetList } from "store/searchResults";
+import { resetModalList } from "store/searchResults";
 
 const Head = styled.header`
   width: 100%;
@@ -57,7 +57,7 @@ const Header = () => {
 
   const closeHandler = () => {
     setIsOpenModal(false);
-    dispatch(resetList());
+    dispatch(resetModalList());
     document.body.classList.remove("scroll_hidden");
   };
 
