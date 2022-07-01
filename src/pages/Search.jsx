@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import Container from "components/common/Container";
 import MovieCard from "components/common/MovieCard";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { fetchSearchListData, increaseCurrentPage } from "store/searchResults";
 import { FiSearch } from "react-icons/fi";
 import LoadingAnimation from "components/loading/LoadingAnimation";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 const Head = styled.div`
   display: flex;
@@ -47,30 +48,23 @@ const Search = () => {
     useSelector((state) => state.searchResults);
   const searchKeyword = new URLSearchParams(location.search).get("query");
 
-  const [target, setTarget] = useState(null);
-
   useEffect(() => {
     dispatch(fetchSearchListData({ searchKeyword, currentPage }));
   }, [dispatch, searchKeyword, currentPage]);
 
-  const callback = useCallback(
+  const onIntersect = useCallback(
     (entry, observer) => {
       if (entry[0].isIntersecting) {
-        dispatch(increaseCurrentPage());
+        if (totalPage >= currentPage) {
+          dispatch(increaseCurrentPage());
+        }
         observer.unobserve(entry[0].target);
       }
     },
-    [dispatch]
+    [dispatch, totalPage, currentPage]
   );
 
-  useEffect(() => {
-    let observer;
-    if (target && totalPage >= currentPage) {
-      const observer = new IntersectionObserver(callback);
-      observer.observe(target);
-    }
-    return () => observer && observer.disconnect();
-  }, [target, callback, totalPage, currentPage]);
+  const { setTarget } = useIntersectionObserver({ onIntersect });
 
   return (
     <Container>
