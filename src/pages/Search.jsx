@@ -8,6 +8,7 @@ import { fetchSearchListData, increaseCurrentPage } from "store/searchResults";
 import { FiSearch } from "react-icons/fi";
 import LoadingAnimation from "components/loading/LoadingAnimation";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
+import ToTop from "components/common/ToTop";
 
 const Head = styled.div`
   display: flex;
@@ -88,6 +89,7 @@ const Search = () => {
         ))}
       </SearchList>
       <Observer ref={setTarget}>{loading && <LoadingAnimation />}</Observer>
+      <ToTop />
     </Container>
   );
 };
