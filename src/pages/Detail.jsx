@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { fetchMovieDetailData } from "store/movieDetail";
 import { useParams } from "react-router-dom";
+import ScrollRestoration from "components/common/ScrollRestoration";
 
 const Detail = () => {
   const { id } = useParams();
@@ -22,6 +23,7 @@ const Detail = () => {
 
   return (
     <>
+      <ScrollRestoration />
       <MainInfo movie={movieMainInfo} loading={loading} />
       {!loading ? (
         <Container>

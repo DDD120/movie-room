@@ -9,6 +9,7 @@ import { FiSearch } from "react-icons/fi";
 import LoadingAnimation from "components/loading/LoadingAnimation";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import ToTop from "components/common/ToTop";
+import ScrollRestoration from "components/common/ScrollRestoration";
 
 const Head = styled.div`
   display: flex;
@@ -69,6 +70,7 @@ const Search = () => {
 
   return (
     <Container>
+      <ScrollRestoration />
       <Head>
         <IconWrapper>
           <FiSearch />
