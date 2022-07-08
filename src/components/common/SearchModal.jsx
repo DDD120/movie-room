@@ -131,6 +131,7 @@ const SearchModal = ({ closeHandler }) => {
           <Input
             type="text"
             placeholder="영화를 검색해보세요"
+            title="검색"
             onChange={debounce(InputChangeHandler, 200)}
             onKeyDown={isEnter}
           />
