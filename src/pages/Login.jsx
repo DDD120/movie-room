@@ -87,7 +87,7 @@ const Login = () => {
         <Logo>MOVIE ROOM</Logo>
         <Head>로그인</Head>
         <Form action="">
-          <Input type="text" title="아이디" placeholder="아이디" autoFocus />
+          <Input type="email" title="이메일" placeholder="이메일" autoFocus />
           <Input type="password" title="비밀번호" placeholder="비밀번호" />
           <Input submit type="submit" title="로그인" value="로그인" />
         </Form>
