@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "api";
+import { fetchTheMovieDB } from "api";
 
 const initialState = {
   movieMainInfo: {},
@@ -15,9 +15,9 @@ export const fetchMovieDetailData = createAsyncThunk(
   "movieDetail/fetchMovieDetailData",
   async (id, thunkAPI) => {
     const fetchData = async () => {
-      const movieMainInfo = await axiosInstance.get(`movie/${id}`);
-      const movieCredits = await axiosInstance.get(`movie/${id}/credits`);
-      const movieSimilar = await axiosInstance.get(
+      const movieMainInfo = await fetchTheMovieDB.get(`movie/${id}`);
+      const movieCredits = await fetchTheMovieDB.get(`movie/${id}/credits`);
+      const movieSimilar = await fetchTheMovieDB.get(
         `movie/${id}/similar?page=20`
       );
 

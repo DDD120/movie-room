@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "api";
+import { fetchTheMovieDB } from "api";
 
 const initialState = {
   searchModalList: [],
@@ -14,7 +14,7 @@ export const fetchSearchModalListData = createAsyncThunk(
   "searchResults/fetchSearchModalListData",
   async (query, thunkAPI) => {
     const fetchData = async () => {
-      const searchModalList = await axiosInstance.get(
+      const searchModalList = await fetchTheMovieDB.get(
         `search/movie?query=${query}`
       );
       return {
@@ -35,7 +35,7 @@ export const fetchSearchListData = createAsyncThunk(
   async (userData, thunkAPI) => {
     const fetchData = async () => {
       const { searchKeyword, currentPage } = userData;
-      const searchList = await axiosInstance.get(
+      const searchList = await { fetchTheMovieDB }.get(
         `search/movie?query=${searchKeyword}&page=${currentPage}`
       );
       return {

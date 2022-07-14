@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
+export const fetchTheMovieDB = axios.create({
   baseURL: `${process.env.REACT_APP_THE_MOVIE_DB_API_HOST}`,
   params: {
     api_key: process.env.REACT_APP_THE_MOVIE_DB_API_KEY,
@@ -8,4 +8,6 @@ const axiosInstance = axios.create({
   },
 });
 
-export default axiosInstance;
+export const fetchServer = axios.create({
+  baseURL: "http://localhost:4000",
+});

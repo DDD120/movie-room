@@ -4,7 +4,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { Common } from "styles/common";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import SearchModal from "./SearchModal";
+import SearchModal from "../modal/SearchModal";
 import { useDispatch } from "react-redux";
 import { resetModalList } from "store/searchResults";
 

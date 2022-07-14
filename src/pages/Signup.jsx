@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { fetchServer } from "api";
 import Container from "components/common/Container";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -50,7 +51,7 @@ const Input = styled.input`
     color: #fff;
   }
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px ${Common.colors.orange} inset;
+    -webkit-box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
     -webkit-text-fill-color: #fff;
   }
   &:input:-webkit-autofill,
@@ -92,9 +93,7 @@ const Signup = () => {
     formState: { errors, isSubmitting },
   } = useForm({ mode: "onChange" });
 
-  const onSubmit = (e) => {
-    console.log(e);
-  };
+  const onSubmit = async (data) => {};
   return (
     <Container>
       <Layout>
