@@ -35,7 +35,7 @@ export const fetchSearchListData = createAsyncThunk(
   async (userData, thunkAPI) => {
     const fetchData = async () => {
       const { searchKeyword, currentPage } = userData;
-      const searchList = await { fetchTheMovieDB }.get(
+      const searchList = await fetchTheMovieDB.get(
         `search/movie?query=${searchKeyword}&page=${currentPage}`
       );
       return {
