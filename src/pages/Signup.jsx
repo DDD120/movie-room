@@ -1,8 +1,11 @@
 import styled from "@emotion/styled";
-import { fetchServer } from "api";
 import Container from "components/common/Container";
+import ComfirmEmailModal from "components/modal/ComfirmEmailModal";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { saveData } from "store/user";
 import { Common } from "styles/common";
 
 const Layout = styled.div`
@@ -50,15 +53,15 @@ const Input = styled.input`
   &::placeholder {
     color: #fff;
   }
-  &:-webkit-autofill {
+  &:-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus,
+  :-webkit-autofill:active {
+    box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
+    transition: background-color 5000s ease-in-out 0s;
     -webkit-box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
     -webkit-text-fill-color: #fff;
-  }
-  &:input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
+    -webkit-transition: background-color 5000s ease-in-out 0s;
   }
 `;
 
@@ -85,6 +88,10 @@ const ERROR_MSG = {
 };
 
 const Signup = () => {
+  const [isOpenModal, setIsOpenModal] = useState(true);
+
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -93,7 +100,21 @@ const Signup = () => {
     formState: { errors, isSubmitting },
   } = useForm({ mode: "onChange" });
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    setIsOpenModal(true);
+    console.log(data);
+    dispatch(
+      saveData({
+        email: data.email,
+        password: data.pw,
+      })
+    );
+  };
+
+  const closeHandler = () => {
+    setIsOpenModal(false);
+  };
+
   return (
     <Container>
       <Layout>
@@ -152,6 +173,7 @@ const Signup = () => {
         <Link to="/login">
           <ToLogin>로그인 하러가기</ToLogin>
         </Link>
+        {isOpenModal && <ComfirmEmailModal closeHandler={closeHandler} />}
       </Layout>
     </Container>
   );
