@@ -6,7 +6,7 @@ const initialState = {
   certificationNumber: "",
 };
 
-const userSlice = createSlice({
+const signupSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -18,5 +18,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { saveData } = userSlice.actions;
-export default userSlice;
+export const { saveData } = signupSlice.actions;
+export default signupSlice;

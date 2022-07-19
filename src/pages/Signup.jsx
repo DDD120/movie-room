@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { saveData } from "store/user";
+import { saveData } from "store/singup";
 import { Common } from "styles/common";
 
 const Layout = styled.div`
