@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { saveData } from "store/singup";
+import { saveData, sendEmailCertificationNumber } from "store/singup";
 import { Common } from "styles/common";
 
 const Layout = styled.div`
@@ -102,13 +102,13 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     setIsOpenModal(true);
-    console.log(data);
     dispatch(
       saveData({
         email: data.email,
         password: data.pw,
       })
     );
+    dispatch(sendEmailCertificationNumber(data.email));
   };
 
   const closeHandler = () => {
