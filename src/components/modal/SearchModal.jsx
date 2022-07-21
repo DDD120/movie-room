@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSearchModalListData } from "store/searchResults";
 import { debounce } from "lodash";
-import { MdOutlineClose } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { resetSearchPage } from "store/searchResults";
 
@@ -122,7 +121,7 @@ const SearchModal = ({ closeHandler }) => {
   }, [dispatch, searchKeyword, isNull]);
 
   return (
-    <Modal closeHandler={closeHandler}>
+    <Modal closeHandler={closeHandler} backdropTouchClose={true}>
       <Base>
         <SearchContainer>
           <IconWrapper onClick={goToSearch}>
@@ -135,9 +134,6 @@ const SearchModal = ({ closeHandler }) => {
             onChange={debounce(InputChangeHandler, 200)}
             onKeyDown={isEnter}
           />
-          <IconWrapper onClick={closeHandler}>
-            <MdOutlineClose />
-          </IconWrapper>
         </SearchContainer>
         <SearchResultList>
           {!loading &&

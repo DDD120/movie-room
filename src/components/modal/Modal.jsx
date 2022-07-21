@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { createPortal } from "react-dom";
 import { Common } from "styles/common";
+import { MdOutlineClose } from "react-icons/md";
 
 const Backdrop = styled.div`
   height: 100%;
@@ -28,16 +29,33 @@ const ModalLayouyt = styled.div`
   max-height: 100%;
   border-radius: 12px;
   background-color: ${Common.colors.beige};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const IconWrapper = styled.button`
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: ${Common.colors.black};
 `;
 
-const Modal = ({ children, closeHandler }) => {
+const Modal = ({ children, closeHandler, backdropTouchClose }) => {
   const onClose = (event) => {
-    if (event.target === event.currentTarget) closeHandler();
+    if (!backdropTouchClose) return;
+    event.target === event.currentTarget && closeHandler();
   };
 
   return createPortal(
-    <Backdrop onClick={onClose}>
-      <ModalLayouyt>{children}</ModalLayouyt>
+    <Backdrop onClick={onClose} backdropTouchClose={backdropTouchClose}>
+      <ModalLayouyt>
+        {children}
+        <IconWrapper onClick={closeHandler}>
+          <MdOutlineClose />
+        </IconWrapper>
+      </ModalLayouyt>
     </Backdrop>,
     document.getElementById("modal")
   );
