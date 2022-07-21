@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import movieListSlice from "./movieList";
 import movieDetailSlice from "./movieDetail";
 import searchResultsSlice from "./searchResults";
-import signupSlice from "./singup";
+import signupSlice from "./signup";
 
 const store = configureStore({
   reducer: {

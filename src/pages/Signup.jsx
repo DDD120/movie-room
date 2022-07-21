@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { saveData, sendEmailCertificationNumber } from "store/singup";
+import { saveData, sendEmailCertificationNumber } from "store/signup";
 import { Common } from "styles/common";
 
 const Layout = styled.div`
@@ -88,7 +88,7 @@ const ERROR_MSG = {
 };
 
 const Signup = () => {
-  const [isOpenModal, setIsOpenModal] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const dispatch = useDispatch();
 

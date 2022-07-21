@@ -5,7 +5,7 @@ const initialState = {
   email: "",
   password: "",
   certificationNumber: "",
-  responese: "",
+  response: {},
   loading: false,
 };
 
@@ -13,14 +13,18 @@ export const sendEmailCertificationNumber = createAsyncThunk(
   "signup/sendEmailCertificationNumber",
   async (email, thunkAPI) => {
     const fetchData = async () => {
-      const responese = await fetchServer.post("user/email", {
+      const response = await fetchServer.post("user/email", {
         email,
       });
-      console.log(responese);
-      return responese.data;
+
+      return response;
     };
     try {
-      return await fetchData();
+      const response = await fetchData();
+      console.log(response);
+      return {
+        response: response.data,
+      };
     } catch (error) {
       console.error(error);
     }
@@ -28,7 +32,7 @@ export const sendEmailCertificationNumber = createAsyncThunk(
 );
 
 const signupSlice = createSlice({
-  name: "signup",
+  name: "Signup",
   initialState,
   reducers: {
     saveData(state, action) {
@@ -36,17 +40,17 @@ const signupSlice = createSlice({
       state.password = action.password;
       state.certificationNumber = action.certificationNumber;
     },
-    extraReducers: {
-      [sendEmailCertificationNumber.pending]: (state) => {
-        state.loading = true;
-      },
-      [sendEmailCertificationNumber.fulfilled]: (state, action) => {
-        state.responese = action.payload.responese;
-        state.loading = false;
-      },
-      [sendEmailCertificationNumber.rejected]: (state) => {
-        state.loading = false;
-      },
+  },
+  extraReducers: {
+    [sendEmailCertificationNumber.pending]: (state) => {
+      state.loading = true;
+    },
+    [sendEmailCertificationNumber.fulfilled]: (state, action) => {
+      state.response = action.payload.response;
+      state.loading = false;
+    },
+    [sendEmailCertificationNumber.rejected]: (state) => {
+      state.loading = false;
     },
   },
 });
