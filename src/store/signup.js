@@ -4,14 +4,13 @@ import { fetchServer } from "api";
 const initialState = {
   email: "",
   password: "",
-  certificationNumber: "",
   response: {},
   loading: false,
 };
 
 export const sendEmailCertificationNumber = createAsyncThunk(
   "signup/sendEmailCertificationNumber",
-  async (email, thunkAPI) => {
+  async (email, ThunkAPI) => {
     const fetchData = async () => {
       const response = await fetchServer.post("user/email", {
         email,
@@ -31,14 +30,38 @@ export const sendEmailCertificationNumber = createAsyncThunk(
   }
 );
 
+export const requestSignup = createAsyncThunk(
+  "signup/requestSignup",
+  async ({ email, password, certificationNumber }, ThunkAPI) => {
+    const fetchData = async () => {
+      const response = await fetchServer.post("user/signup", {
+        email,
+        password,
+        inputNumber: certificationNumber,
+      });
+
+      console.log(response);
+      return response;
+    };
+    try {
+      const response = await fetchData();
+      return {
+        response: response.data,
+      };
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
 const signupSlice = createSlice({
   name: "Signup",
   initialState,
   reducers: {
-    saveData(state, action) {
-      state.email = action.email;
-      state.password = action.password;
-      state.certificationNumber = action.certificationNumber;
+    setEmailPassword(state, action) {
+      console.log(action);
+      state.email = action.payload.email;
+      state.password = action.payload.password;
     },
   },
   extraReducers: {
@@ -52,8 +75,18 @@ const signupSlice = createSlice({
     [sendEmailCertificationNumber.rejected]: (state) => {
       state.loading = false;
     },
+    [requestSignup.pending]: (state) => {
+      state.loading = true;
+    },
+    [requestSignup.fulfilled]: (state, action) => {
+      state.response = action.payload.response;
+      state.loading = false;
+    },
+    [requestSignup.rejected]: (state) => {
+      state.loading = false;
+    },
   },
 });
 
-export const { saveData } = signupSlice.actions;
+export const { setEmailPassword } = signupSlice.actions;
 export default signupSlice;

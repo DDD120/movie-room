@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import Container from "components/common/Container";
-import ComfirmEmailModal from "components/modal/ComfirmEmailModal";
+import SendMailModal from "components/modal/SendMail";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { saveData, sendEmailCertificationNumber } from "store/signup";
+import { setEmailPassword, sendEmailCertificationNumber } from "store/signup";
 import { Common } from "styles/common";
 
 const Layout = styled.div`
@@ -89,7 +89,6 @@ const ERROR_MSG = {
 
 const Signup = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-
   const dispatch = useDispatch();
 
   const {
@@ -103,7 +102,7 @@ const Signup = () => {
   const onSubmit = async (data) => {
     setIsOpenModal(true);
     dispatch(
-      saveData({
+      setEmailPassword({
         email: data.email,
         password: data.pw,
       })
@@ -173,7 +172,7 @@ const Signup = () => {
         <Link to="/login">
           <ToLogin>로그인 하러가기</ToLogin>
         </Link>
-        {isOpenModal && <ComfirmEmailModal closeHandler={closeHandler} />}
+        {isOpenModal && <SendMailModal closeHandler={closeHandler} />}
       </Layout>
     </Container>
   );
