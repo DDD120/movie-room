@@ -18,15 +18,13 @@ const Backdrop = styled.div`
 `;
 
 const ModalLayouyt = styled.div`
+  position: relative;
+  margin: 10px;
   padding: 4px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  max-width: 100%;
-  height: 500px;
-  max-height: 100%;
+  width: 100%;
+  max-width: 800px;
+  height: 80%;
+  max-height: 500px;
   border-radius: 12px;
   background-color: ${Common.colors.beige};
   display: flex;
@@ -35,21 +33,21 @@ const ModalLayouyt = styled.div`
 `;
 const IconWrapper = styled.button`
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 8px;
+  right: 8px;
   font-size: 2rem;
   cursor: pointer;
-  color: ${Common.colors.black};
+  color: ${Common.colors.orangeOpacity};
 `;
 
 const Modal = ({ children, closeHandler, backdropTouchClose }) => {
-  const onClose = (event) => {
+  const closeModal = (event) => {
     if (!backdropTouchClose) return;
     event.target === event.currentTarget && closeHandler();
   };
 
   return createPortal(
-    <Backdrop onClick={onClose} backdropTouchClose={backdropTouchClose}>
+    <Backdrop onClick={closeModal} backdropTouchClose={backdropTouchClose}>
       <ModalLayouyt>
         {children}
         <IconWrapper onClick={closeHandler}>
