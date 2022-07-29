@@ -3,7 +3,10 @@ import Container from "components/common/Container";
 import { Common } from "styles/common";
 import naverSymbol from "assets/naver-symbol.png";
 import kakaoSymbol from "assets/kakao-symbol.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import { useLoginMutation } from "apis/server-api";
+import { useEffect } from "react";
 
 const Layout = styled.div`
   display: flex;
@@ -50,6 +53,16 @@ const Input = styled.input`
   &::placeholder {
     color: #fff;
   }
+  &:-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus,
+  :-webkit-autofill:active {
+    box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
+    -webkit-text-fill-color: #fff;
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+  }
 `;
 
 const Signin = styled.span`
@@ -81,14 +94,50 @@ const Social = styled.a`
 `;
 
 const Login = () => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const navigate = useNavigate();
+
+  const [login, { data, isSuccess, error }] = useLoginMutation();
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    if (email && password) {
+      await login({ email, password });
+    } else {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(data);
+      navigate(`/my/${data.data.id}`);
+    }
+  }, [isSuccess, navigate, data]);
+
   return (
     <Container>
       <Layout>
         <Logo>MOVIE ROOM</Logo>
         <Head>로그인</Head>
-        <Form action="">
-          <Input type="email" title="이메일" placeholder="이메일" autoFocus />
-          <Input type="password" title="비밀번호" placeholder="비밀번호" />
+        <Form onSubmit={handleLoginSubmit} action="">
+          <Input
+            ref={emailRef}
+            type="email"
+            title="이메일"
+            placeholder="이메일"
+            autoFocus
+          />
+          <Input
+            ref={passwordRef}
+            type="password"
+            title="비밀번호"
+            placeholder="비밀번호"
+          />
           <Input submit type="submit" title="로그인" value="로그인" />
         </Form>
         <Link to="/signup">
