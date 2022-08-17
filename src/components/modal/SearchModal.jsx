@@ -3,11 +3,9 @@ import { Common, NoImg } from "styles/common";
 import Modal from "./Modal";
 import { FiSearch } from "react-icons/fi";
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSearchModalListData } from "store/searchResults";
 import { debounce } from "lodash";
 import { Link, useNavigate } from "react-router-dom";
-import { resetSearchPage } from "store/searchResults";
+import { useLazyGetSearchQuery } from "apis/movie-db-api";
 
 const Base = styled.div`
   width: 100%;
@@ -88,11 +86,10 @@ const Title = styled.p`
 
 const SearchModal = ({ closeHandler }) => {
   const [searchKeyword, setSearchKeyword] = useState("");
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { searchModalList, loading } = useSelector(
-    (state) => state.searchResults
-  );
+
+  const [trigger, { data: searchModalList = [], isLoading }] =
+    useLazyGetSearchQuery(searchKeyword);
 
   const isNull = useCallback(() => {
     const blank_pattern = /^\s+|\s+$/g;
@@ -110,15 +107,14 @@ const SearchModal = ({ closeHandler }) => {
 
   const goToSearch = () => {
     if (isNull()) return;
-    dispatch(resetSearchPage());
     navigate(`/search?query=${searchKeyword}`);
     closeHandler();
   };
 
   useEffect(() => {
     if (isNull()) return;
-    dispatch(fetchSearchModalListData(searchKeyword));
-  }, [dispatch, searchKeyword, isNull]);
+    trigger({ query: searchKeyword });
+  }, [isNull, trigger, searchKeyword]);
 
   return (
     <Modal closeHandler={closeHandler} backdropTouchClose={true}>
@@ -136,8 +132,8 @@ const SearchModal = ({ closeHandler }) => {
           />
         </SearchContainer>
         <SearchResultList>
-          {!loading &&
-            searchModalList?.map((movie, index) => (
+          {!isLoading &&
+            searchModalList.results?.map((movie, index) => (
               <Link
                 to={`/detail/${movie.id}`}
                 onClick={closeHandler}

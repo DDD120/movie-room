@@ -10,6 +10,7 @@ const Background = styled.div`
   background-size: cover;
   background-position: center center;
   background-image: ${({ backdrop_path }) =>
+    backdrop_path &&
     `url(${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${backdrop_path})`};
 `;
 
@@ -67,11 +68,12 @@ const Overview = styled.p`
   margin: 10px 0;
 `;
 
-const MainInfo = ({ movie, loading }) => {
-  const releaseYear = movie.release_date?.slice(0, 4);
+const MainInfo = ({ movie, isLoading }) => {
+  const releaseYear = movie?.release_date.slice(0, 4);
+
   return (
     <>
-      {!loading ? (
+      {!isLoading ? (
         <Background backdrop_path={movie.backdrop_path}>
           <MainInfoContiner>
             <ImgWrapper>

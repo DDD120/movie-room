@@ -1,12 +1,11 @@
 import { GoMailRead } from "react-icons/go";
 import styled from "@emotion/styled";
 import { Common } from "styles/common";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useInterval from "hooks/useInterval";
 import Button from "components/common/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { requestSignup, sendEmailCertificationNumber } from "store/signup";
-import { useRef } from "react";
+import Modal from "./Modal";
+import { useEmailMutation, useSignupMutation } from "apis/server-api";
 
 const Base = styled.main``;
 
@@ -44,13 +43,12 @@ const TimeLimit = styled.span`
   color: red;
 `;
 
-const SuccessSendMail = ({ msg }) => {
+const SuccessSendMail = ({ email, password, closeHandler }) => {
   const [timeLimit, setTimeLimit] = useState(180);
   const [isRunning, setIsRunning] = useState(true);
-  const dispatch = useDispatch();
-  const { email, password } = useSelector((state) => state.signup);
-  console.log(email, password);
   const inputRef = useRef();
+  const [emailTrigger] = useEmailMutation();
+  const [signupTrigger] = useSignupMutation();
 
   const formatTime = (time) => {
     const min = String(parseInt(time / 60)).padStart(2, "0");
@@ -68,45 +66,45 @@ const SuccessSendMail = ({ msg }) => {
   );
 
   const signup = () => {
-    dispatch(
-      requestSignup({
-        email,
-        password,
-        certificationNumber: inputRef.current.value,
-      })
-    );
+    signupTrigger({
+      email,
+      password,
+      certificationNumber: inputRef.current.value,
+    });
   };
 
   const resendMail = () => {
-    dispatch(sendEmailCertificationNumber(email));
+    emailTrigger(email);
     setTimeLimit(10);
     setIsRunning(true);
   };
 
   return (
-    <Base>
-      <ImgWrapper>
-        <GoMailRead />
-      </ImgWrapper>
-      <Head>이메일 인증</Head>
-      <p>{msg}</p>
-      <CertificationNumberBox>
-        <Input
-          ref={inputRef}
-          title="인증코드"
-          type="text"
-          min={1}
-          max={6}
-          placeholder="인증코드"
-        />
-        <TimeLimit>{formatTime(timeLimit)}</TimeLimit>
-      </CertificationNumberBox>
-      {isRunning ? (
-        <Button clickEvent={signup}>확인</Button>
-      ) : (
-        <Button clickEvent={resendMail}>인증 메일 재전송</Button>
-      )}
-    </Base>
+    <Modal closeHandler={closeHandler} backdropTouchClose={false}>
+      <Base>
+        <ImgWrapper>
+          <GoMailRead />
+        </ImgWrapper>
+        <Head>이메일 인증</Head>
+
+        <CertificationNumberBox>
+          <Input
+            ref={inputRef}
+            title="인증코드"
+            type="text"
+            min={1}
+            max={6}
+            placeholder="인증코드"
+          />
+          <TimeLimit>{formatTime(timeLimit)}</TimeLimit>
+        </CertificationNumberBox>
+        {isRunning ? (
+          <Button onClick={signup}>확인</Button>
+        ) : (
+          <Button onClick={resendMail}>인증 메일 재전송</Button>
+        )}
+      </Base>
+    </Modal>
   );
 };
 

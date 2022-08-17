@@ -11,7 +11,22 @@ export const serverApi = createApi({
         body,
       }),
     }),
+    email: builder.mutation({
+      query: ({ email }) => ({
+        url: "user/email",
+        method: "POST",
+        body: { email },
+      }),
+    }),
+    signup: builder.mutation({
+      query: (body) => ({
+        url: "user/signup",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = serverApi;
+export const { useLoginMutation, useEmailMutation, useSignupMutation } =
+  serverApi;
