@@ -12,10 +12,10 @@ export const serverApi = createApi({
       }),
     }),
     email: builder.mutation({
-      query: ({ email }) => ({
+      query: (body) => ({
         url: "user/email",
         method: "POST",
-        body: { email },
+        body,
       }),
     }),
     signup: builder.mutation({

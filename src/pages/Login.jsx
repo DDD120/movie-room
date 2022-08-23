@@ -6,7 +6,8 @@ import kakaoSymbol from "assets/kakao-symbol.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { useLoginMutation } from "apis/server-api";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const Layout = styled.div`
   display: flex;
@@ -99,7 +100,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const [login, { data, isSuccess, error }] = useLoginMutation();
+  const [login, { data: loginRes, isSuccess, error }] = useLoginMutation();
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -107,17 +108,20 @@ const Login = () => {
     const password = passwordRef.current.value;
     if (email && password) {
       await login({ email, password });
-    } else {
-      console.log(error);
     }
   };
 
+  const showErrorNotify = useCallback((msg) => {
+    toast.error(msg, {
+      autoClose: 3000,
+      hideProgressBar: true,
+    });
+  }, []);
+
   useEffect(() => {
-    if (isSuccess) {
-      console.log(data);
-      navigate(`/my/${data.data.id}`);
-    }
-  }, [isSuccess, navigate, data]);
+    isSuccess && navigate("/");
+    error && showErrorNotify(loginRes.msg);
+  }, [error, isSuccess, navigate, loginRes, showErrorNotify]);
 
   return (
     <Container>
@@ -151,6 +155,7 @@ const Login = () => {
           <img src={kakaoSymbol} alt="카카오 심볼" />
           <div>카카오 로그인</div>
         </Social>
+        <ToastContainer position="top-right" />
       </Layout>
     </Container>
   );

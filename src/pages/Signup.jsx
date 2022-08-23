@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import { useEmailMutation } from "apis/server-api";
 import Container from "components/common/Container";
-import SuccessSendMail from "components/modal/SuccessSendMail";
-import { useEffect } from "react";
-import { useState } from "react";
+import SuccessSendMail from "components/modal/SuccessSnedMail/SuccessSendMail";
+import { useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Common } from "styles/common";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout = styled.div`
   display: flex;
@@ -89,7 +90,7 @@ const ERROR_MSG = {
 
 const Signup = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [emailTrigger, { data = {} }] = useEmailMutation();
+  const [emailTrigger, { data: emailRes = {} }] = useEmailMutation();
 
   const {
     register,
@@ -107,9 +108,18 @@ const Signup = () => {
     setIsOpenModal(false);
   };
 
+  const showErrorNotify = useCallback((msg) => {
+    toast.error(msg, {
+      autoClose: 3000,
+      hideProgressBar: true,
+    });
+  }, []);
+
   useEffect(() => {
-    data.type === "SUCCESS_SEND_EMAIL" && setIsOpenModal(true);
-  }, [data]);
+    emailRes.type === "SUCCESS_SEND_EMAIL"
+      ? setIsOpenModal(true)
+      : showErrorNotify(emailRes.msg);
+  }, [emailRes, showErrorNotify]);
 
   return (
     <Container>
@@ -171,12 +181,13 @@ const Signup = () => {
         </Link>
         {isOpenModal && (
           <SuccessSendMail
-            email={data.email}
-            password={data.password}
+            email={getValues("email")}
+            password={getValues("pw")}
             closeHandler={closeHandler}
           />
         )}
       </Layout>
+      <ToastContainer position="top-right" />
     </Container>
   );
 };
