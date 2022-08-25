@@ -125,7 +125,7 @@ const Signup = () => {
     <Container>
       <Layout>
         <Logo>
-          <img src="/images/logo.png" alt="로고" />
+          <img src="/assets/logo.png" alt="로고" />
         </Logo>
         <Head>회원가입</Head>
         <Form onSubmit={handleSubmit(onSubmit)} action="">

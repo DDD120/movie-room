@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import bgImg from "assets/hero-banner.png";
 import { Common } from "styles/common";
 import { MdLocalMovies } from "react-icons/md";
 
@@ -10,7 +9,7 @@ const Banner = styled.article`
   aspect-ratio: 9/3;
   border-radius: 20px;
   background-color: aliceblue;
-  background: url(${bgImg}) no-repeat right;
+  background: url("/assets/hero-banner.png") no-repeat right;
   background-size: contain;
   display: flex;
   align-items: center;
@@ -78,7 +77,7 @@ const HeroBanner = () => {
         <TitleContainer>
           <MdLocalMovies />
           <Title>
-            <img src="/images/logo.png" alt="로고" />
+            <img src="/assets/logo.png" alt="로고" />
           </Title>
         </TitleContainer>
         <Phrase>Movie For You!</Phrase>

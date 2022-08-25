@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 import Container from "components/common/Container";
 import { Common } from "styles/common";
-import naverSymbol from "assets/naver-symbol.png";
-import kakaoSymbol from "assets/kakao-symbol.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { useLoginMutation } from "apis/server-api";
@@ -149,7 +147,7 @@ const Login = () => {
     <Container>
       <Layout>
         <Logo>
-          <img src="/images/logo.png" alt="로고" />
+          <img src="/assets/logo.png" alt="로고" />
         </Logo>
         <Head>로그인</Head>
         <Form onSubmit={handleLoginSubmit} action="">
@@ -172,11 +170,11 @@ const Login = () => {
           <Signin>회원가입</Signin>
         </Link>
         <Social color={"#fff"} bgColor={"#03C75A"} href="">
-          <img src={naverSymbol} alt="네이버 심볼" />
+          <img src="/assets/naver-symbol.png" alt="네이버 심볼" />
           <div>네이버 로그인</div>
         </Social>
         <Social color={"#000D9"} bgColor={"#FEE500"} href="">
-          <img src={kakaoSymbol} alt="카카오 심볼" />
+          <img src="/assets/kakao-symbol.png" alt="카카오 심볼" />
           <div>카카오 로그인</div>
         </Social>
       </Layout>

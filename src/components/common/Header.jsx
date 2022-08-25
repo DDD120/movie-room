@@ -64,7 +64,7 @@ const Header = () => {
     <Head>
       <Link to="/">
         <Logo>
-          <img src="/images/logo.png" alt="로고" />
+          <img src="/assets/logo.png" alt="로고" />
         </Logo>
       </Link>
       <Nav>
