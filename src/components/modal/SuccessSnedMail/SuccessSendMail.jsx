@@ -5,9 +5,11 @@ import { useRef, useEffect, useCallback } from "react";
 import Button from "components/common/Button";
 import Modal from "../Modal";
 import { useEmailMutation, useSignupMutation } from "apis/server-api";
-import { ToastContainer, toast } from "react-toastify";
 import CertificationNumberInput from "./CertificationNumberInput";
 import useTimer from "hooks/useTimer";
+import { useDispatch } from "react-redux";
+import { updateUserState } from "store/user";
+import { toast } from "react-toastify";
 
 const Base = styled.main``;
 
@@ -27,6 +29,7 @@ const ImgWrapper = styled.div`
 
 const SuccessSendMail = ({ email, password, closeHandler }) => {
   const { timeLimit, isRunning, reset } = useTimer();
+  const dispatch = useDispatch();
 
   const inputRef = useRef();
   const [emailTrigger, { data: emailRes = {} }] = useEmailMutation();
@@ -67,14 +70,14 @@ const SuccessSendMail = ({ email, password, closeHandler }) => {
   }, [emailRes, showSuccessNotify, showErrorNotify]);
 
   useEffect(() => {
-    console.log(signupRes);
     if (signupRes.type === "SUCCESS_SIGNUP") {
       showSuccessNotify(signupRes.msg);
       closeHandler();
+      dispatch(updateUserState(signupRes.user));
     } else {
       showErrorNotify(signupRes.msg);
     }
-  }, [signupRes, showSuccessNotify, showErrorNotify, closeHandler]);
+  }, [signupRes, showSuccessNotify, showErrorNotify, closeHandler, dispatch]);
 
   return (
     <Modal closeHandler={closeHandler} backdropTouchClose={false}>
@@ -93,7 +96,6 @@ const SuccessSendMail = ({ email, password, closeHandler }) => {
           <Button clickEvent={resendMail}>인증 메일 재전송</Button>
         )}
       </Base>
-      <ToastContainer position="top-right" />
     </Modal>
   );
 };

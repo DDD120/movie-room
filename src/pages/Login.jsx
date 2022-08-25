@@ -7,7 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { useLoginMutation } from "apis/server-api";
 import { useEffect, useCallback } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { updateUserState } from "store/user";
 
 const Layout = styled.div`
   display: flex;
@@ -16,12 +18,12 @@ const Layout = styled.div`
   align-items: center;
 `;
 
-const Logo = styled.span`
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-size: 1.725rem;
-  color: ${Common.colors.black};
+const Logo = styled.div`
+  width: 200px;
   margin: 40px 0 10px;
+  & > img {
+    width: 100%;
+  }
 `;
 
 const Head = styled.h1`
@@ -98,9 +100,10 @@ const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [login, { data: loginRes, isSuccess, error }] = useLoginMutation();
+  const [login, { data: loginRes = {}, isSuccess, error }] = useLoginMutation();
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -111,6 +114,13 @@ const Login = () => {
     }
   };
 
+  const showSuccessNotify = useCallback((msg) => {
+    toast.success(msg, {
+      autoClose: 3000,
+      hideProgressBar: true,
+    });
+  }, []);
+
   const showErrorNotify = useCallback((msg) => {
     toast.error(msg, {
       autoClose: 3000,
@@ -119,14 +129,28 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
-    isSuccess && navigate("/");
+    if (loginRes.type === "SUCCESS_LOGIN") {
+      navigate("/");
+      dispatch(updateUserState(loginRes.user));
+      showSuccessNotify(loginRes.msg);
+    }
     error && showErrorNotify(loginRes.msg);
-  }, [error, isSuccess, navigate, loginRes, showErrorNotify]);
+  }, [
+    error,
+    isSuccess,
+    navigate,
+    loginRes,
+    showSuccessNotify,
+    showErrorNotify,
+    dispatch,
+  ]);
 
   return (
     <Container>
       <Layout>
-        <Logo>MOVIE ROOM</Logo>
+        <Logo>
+          <img src="/images/logo.png" alt="로고" />
+        </Logo>
         <Head>로그인</Head>
         <Form onSubmit={handleLoginSubmit} action="">
           <Input
@@ -155,7 +179,6 @@ const Login = () => {
           <img src={kakaoSymbol} alt="카카오 심볼" />
           <div>카카오 로그인</div>
         </Social>
-        <ToastContainer position="top-right" />
       </Layout>
     </Container>
   );

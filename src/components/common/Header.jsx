@@ -5,7 +5,7 @@ import { Common } from "styles/common";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import SearchModal from "../modal/SearchModal";
-
+import { useSelector } from "react-redux";
 
 const Head = styled.header`
   width: 100%;
@@ -20,12 +20,13 @@ const Head = styled.header`
   z-index: 9;
 `;
 
-const Logo = styled.h1`
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-size: 1.125rem;
-  color: ${Common.colors.black};
+const Logo = styled.div`
   cursor: pointer;
+  width: 140px;
+
+  & > img {
+    width: 100%;
+  }
 `;
 
 const Nav = styled.nav`
@@ -46,6 +47,7 @@ const NavItem = styled.div`
 `;
 
 const Header = () => {
+  const { verified, id } = useSelector((state) => state.user.user);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const openHandler = () => {
@@ -61,14 +63,16 @@ const Header = () => {
   return (
     <Head>
       <Link to="/">
-        <Logo>MOVIE ROOM</Logo>
+        <Logo>
+          <img src="/images/logo.png" alt="로고" />
+        </Logo>
       </Link>
       <Nav>
         <NavItem color={Common.colors.orange} onClick={openHandler}>
           <FiSearch />
         </NavItem>
         {isOpenModal && <SearchModal closeHandler={closeHandler} />}
-        <Link to="/login">
+        <Link to={verified ? `/my/${id}` : "/login"}>
           <NavItem color={Common.colors.cyan}>
             <BsFillPersonFill />
           </NavItem>

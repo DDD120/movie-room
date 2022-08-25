@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Common } from "styles/common";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Layout = styled.div`
@@ -16,12 +16,12 @@ const Layout = styled.div`
   align-items: center;
 `;
 
-const Logo = styled.span`
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-size: 1.725rem;
-  color: ${Common.colors.black};
+const Logo = styled.div`
+  width: 200px;
   margin: 40px 0 10px;
+  & > img {
+    width: 100%;
+  }
 `;
 
 const Head = styled.h1`
@@ -124,7 +124,9 @@ const Signup = () => {
   return (
     <Container>
       <Layout>
-        <Logo>MOVIE ROOM</Logo>
+        <Logo>
+          <img src="/images/logo.png" alt="로고" />
+        </Logo>
         <Head>회원가입</Head>
         <Form onSubmit={handleSubmit(onSubmit)} action="">
           <Input
@@ -187,7 +189,6 @@ const Signup = () => {
           />
         )}
       </Layout>
-      <ToastContainer position="top-right" />
     </Container>
   );
 };
