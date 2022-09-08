@@ -25,7 +25,7 @@ const TimeLimit = styled.span`
   color: red;
 `;
 
-const CertificationNumberInput = ({ timeLimit, inputRef }) => {
+const AuthorizationNumber = ({ timeLimit, inputRef }) => {
   const formatTime = (time) => {
     const min = String(parseInt(time / 60)).padStart(2, "0");
     const sec = String(time % 60).padStart(2, "0");
@@ -47,4 +47,4 @@ const CertificationNumberInput = ({ timeLimit, inputRef }) => {
   );
 };
 
-export default CertificationNumberInput;
+export default AuthorizationNumber;

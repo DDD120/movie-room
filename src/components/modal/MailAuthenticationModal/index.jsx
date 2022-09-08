@@ -5,7 +5,7 @@ import { useRef, useEffect, useCallback } from "react";
 import Button from "components/common/Button";
 import Modal from "../Modal";
 import { useEmailMutation, useSignupMutation } from "apis/server-api";
-import CertificationNumberInput from "./CertificationNumberInput";
+import AuthorizationNumber from "./AuthorizationNumber";
 import useTimer from "hooks/useTimer";
 import { useDispatch } from "react-redux";
 import { updateUserState } from "store/user";
@@ -22,12 +22,12 @@ const Explanation = styled.p`
   word-break: keep-all;
 `;
 
-const ImgWrapper = styled.div`
+const MailIcon = styled.div`
   color: ${Common.colors.black};
   font-size: 3rem;
 `;
 
-const SuccessSendMail = ({ email, password, closeHandler }) => {
+const MailAuthenticationModal = ({ email, password, closeHandler }) => {
   const { timeLimit, isRunning, reset } = useTimer();
   const dispatch = useDispatch();
 
@@ -36,7 +36,6 @@ const SuccessSendMail = ({ email, password, closeHandler }) => {
   const [signupTrigger, { data: signupRes = {} }] = useSignupMutation();
 
   const signup = () => {
-    console.log(inputRef.current.value);
     signupTrigger({
       email,
       password,
@@ -82,14 +81,14 @@ const SuccessSendMail = ({ email, password, closeHandler }) => {
   return (
     <Modal closeHandler={closeHandler} backdropTouchClose={false}>
       <Base>
-        <ImgWrapper>
+        <MailIcon>
           <GoMailRead />
-        </ImgWrapper>
+        </MailIcon>
         <Head>이메일 인증</Head>
         <Explanation>
           이메일 인증을 위한 코드가 <b>{email}</b>으로 전송되었습니다.
         </Explanation>
-        <CertificationNumberInput timeLimit={timeLimit} inputRef={inputRef} />
+        <AuthorizationNumber timeLimit={timeLimit} inputRef={inputRef} />
         {isRunning ? (
           <Button clickEvent={signup}>확인</Button>
         ) : (
@@ -100,4 +99,4 @@ const SuccessSendMail = ({ email, password, closeHandler }) => {
   );
 };
 
-export default SuccessSendMail;
+export default MailAuthenticationModal;
