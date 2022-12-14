@@ -24,7 +24,7 @@ const Logo = styled.div`
   cursor: pointer;
   width: 140px;
 
-  & > img {
+  img {
     width: 100%;
   }
 `;

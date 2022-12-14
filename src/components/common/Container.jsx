@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 const ContainerBox = styled.div`
   padding: 0 10px;
   max-width: 1200px;
+  width: 90%;
   margin: 0 auto;
   min-height: calc(100% - 33px);
 `;
