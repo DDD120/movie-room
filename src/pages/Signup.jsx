@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEmailMutation } from "apis/server-api";
 import Container from "components/common/Container";
-import SuccessSendMail from "components/modal/SuccessSnedMail/SuccessSendMail";
+import MailAuthenticationModal from "components/modal/MailAuthenticationModal";
 import { useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -182,7 +182,7 @@ const Signup = () => {
           <ToLogin>로그인 하러가기</ToLogin>
         </Link>
         {isOpenModal && (
-          <SuccessSendMail
+          <MailAuthenticationModal
             email={getValues("email")}
             password={getValues("pw")}
             closeHandler={closeHandler}
