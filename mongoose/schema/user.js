@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 
 const User = new mongoose.Schema({
   profile: {
-    nickname: { type: String, required: true, unique: true },
+    nickname: { type: String, required: true },
     thumbnail: {
       type: String,
-      default: "/static/images/default-thumbnail.png",
+      default: "/assets/default-thumbnail.png",
     },
   },
   social: {
@@ -17,7 +17,6 @@ const User = new mongoose.Schema({
   email: { type: String, unique: true },
   hashedPassword: { type: String },
   salt: { type: String },
-  verified: { type: Boolean, required: true, default: false },
   reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
 });
 
@@ -30,7 +29,7 @@ User.virtual("password").set(function (password) {
 
 // salt 생성 함수
 User.method("makeSalt", function () {
-  return Math.round(new Date().valueOf() * Math.random()) + "";
+  return String(Math.round(new Date().valueOf() * Math.random()));
 });
 
 // 해시된 비밀번호 생성 함수

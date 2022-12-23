@@ -18,6 +18,7 @@ const model = (() => {
   for (let key in schema) {
     model[key] = mongoose.model(key, schema[key]);
   }
+
   return model;
 })();
 

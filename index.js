@@ -1,11 +1,13 @@
+import cookieParser from "cookie-parser";
 const express = require("express");
 const cors = require("cors");
 const { userRouter, reviewRouter } = require("./router");
 const app = express();
 const path = require("path");
-const PORT = 3000;
+const PORT = 4000;
 
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/static", express.static(path.join(__dirname, "public")));
