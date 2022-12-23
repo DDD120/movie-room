@@ -7,10 +7,10 @@ import Detail from "pages/Detail";
 import Search from "pages/Search";
 import My from "pages/My";
 import Footer from "components/common/Footer";
-import { useSelector } from "react-redux";
+import { useCheckToken } from "hooks/useCheckToken";
 
 function App() {
-  const { verified } = useSelector((state) => state.user.user);
+  useCheckToken();
 
   return (
     <BrowserRouter>
@@ -19,9 +19,9 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/my/:id" element={verified ? <My /> : <Login />} />
-        <Route path="/signup" element={verified ? <Main /> : <Signup />} />
-        <Route path="/login" element={verified ? <Main /> : <Login />} />
+        <Route path="/my/:id" element={<My />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/*" element={<Main />} />
       </Routes>
       <Footer />

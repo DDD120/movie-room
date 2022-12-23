@@ -8,7 +8,7 @@ import { useEmailMutation, useSignupMutation } from "apis/server-api";
 import AuthorizationNumber from "./AuthorizationNumber";
 import useTimer from "hooks/useTimer";
 import { useDispatch } from "react-redux";
-import { updateUserState } from "store/user";
+import { setUser } from "store/user";
 import { toast } from "react-toastify";
 
 const Base = styled.main``;
@@ -72,7 +72,7 @@ const MailAuthenticationModal = ({ email, password, closeHandler }) => {
     if (signupRes.type === "SUCCESS_SIGNUP") {
       showSuccessNotify(signupRes.msg);
       closeHandler();
-      dispatch(updateUserState(signupRes.user));
+      dispatch(setUser(signupRes.user));
     } else {
       showErrorNotify(signupRes.msg);
     }

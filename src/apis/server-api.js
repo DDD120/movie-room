@@ -2,7 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const serverApi = createApi({
   reducerPath: "serverApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:4000/",
+    credentials: "include",
+  }),
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
@@ -25,8 +28,29 @@ export const serverApi = createApi({
         body,
       }),
     }),
+    checkToken: builder.query({
+      query: () => ({
+        url: "user/token",
+      }),
+    }),
+    getReviews: builder.query({
+      query: (id) => ({ url: `review/${id}` }),
+    }),
+    createReview: builder.mutation({
+      query: (body) => ({
+        url: "review",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useEmailMutation, useSignupMutation } =
-  serverApi;
+export const {
+  useLoginMutation,
+  useEmailMutation,
+  useSignupMutation,
+  useCheckTokenQuery,
+  useGetReviewsQuery,
+  useCreateReviewMutation,
+} = serverApi;

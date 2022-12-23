@@ -47,7 +47,8 @@ const NavItem = styled.div`
 `;
 
 const Header = () => {
-  const { verified, id } = useSelector((state) => state.user.user);
+  const { isLoggedIn } = useSelector((state) => state.user);
+  const { id } = useSelector((state) => state.user.user);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const openHandler = () => {
@@ -72,7 +73,7 @@ const Header = () => {
           <FiSearch />
         </NavItem>
         {isOpenModal && <SearchModal closeHandler={closeHandler} />}
-        <Link to={verified ? `/my/${id}` : "/login"}>
+        <Link to={isLoggedIn ? `/my/${id}` : "/login"}>
           <NavItem color={Common.colors.cyan}>
             <BsFillPersonFill />
           </NavItem>
