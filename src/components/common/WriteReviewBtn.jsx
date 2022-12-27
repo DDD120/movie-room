@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Common } from "styles/common";
 import { BsPen } from "react-icons/bs";
 
-const Button = styled.button`
+const Base = styled.button`
   cursor: pointer;
   font-weight: 700;
   border: none;
@@ -13,28 +13,26 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   transition: 0.2s;
-  position: absolute;
-  bottom: 2px;
   &:hover {
     background-color: ${Common.colors.cyan};
   }
 `;
 
-const IconContainer = styled.div`
+const PenIcon = styled.div`
   margin: 3px 8px 0 0;
 `;
 
-const Span = styled.span``;
+const Title = styled.span``;
 
-const WriteReview = () => {
+const WriteReviewBtn = ({ clickEvent }) => {
   return (
-    <Button>
-      <IconContainer>
+    <Base onClick={clickEvent}>
+      <PenIcon>
         <BsPen />
-      </IconContainer>
-      <Span>리뷰 작성</Span>
-    </Button>
+      </PenIcon>
+      <Title>리뷰 작성</Title>
+    </Base>
   );
 };
 
-export default WriteReview;
+export default WriteReviewBtn;

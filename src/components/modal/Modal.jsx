@@ -6,9 +6,6 @@ import { MdOutlineClose } from "react-icons/md";
 const Backdrop = styled.div`
   height: 100%;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   left: 0;
   top: 0;
@@ -18,23 +15,25 @@ const Backdrop = styled.div`
 `;
 
 const ModalLayouyt = styled.div`
-  position: relative;
-  margin: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 4px;
-  width: 100%;
+  width: 90%;
   max-width: 800px;
-  height: 80%;
   max-height: 500px;
+  height: 100%;
   border-radius: 12px;
   background-color: ${Common.colors.beige};
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-const IconWrapper = styled.button`
+const CloseIcon = styled.button`
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 12px;
+  right: 12px;
   font-size: 2rem;
   cursor: pointer;
   color: ${Common.colors.orangeOpacity};
@@ -50,9 +49,9 @@ const Modal = ({ children, closeHandler, backdropTouchClose }) => {
     <Backdrop onClick={closeModal} backdropTouchClose={backdropTouchClose}>
       <ModalLayouyt>
         {children}
-        <IconWrapper onClick={closeHandler}>
+        <CloseIcon onClick={closeHandler}>
           <MdOutlineClose />
-        </IconWrapper>
+        </CloseIcon>
       </ModalLayouyt>
     </Backdrop>,
     document.getElementById("modal")

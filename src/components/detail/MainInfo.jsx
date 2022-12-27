@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
 import { Common, NoImg } from "styles/common";
-import WriteReview from "components/common/WriteReview";
 import SkeletonMainInfo from "components/loading/SkeletonMainInfo";
+import WriteReviewBtn from "components/common/WriteReviewBtn";
+import { useState } from "react";
+import WirteReviewModal from "components/modal/WirteReviewModal";
+import { useSelector } from "react-redux";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -68,8 +71,23 @@ const Overview = styled.p`
   margin: 10px 0;
 `;
 
+const WriteRevieBtnWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+`;
+
 const MainInfo = ({ movie, isLoading }) => {
+  const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
+  const { isLoggedIn } = useSelector((state) => state.user);
   const releaseYear = movie?.release_date.slice(0, 4);
+
+  const openWriteReviewModal = () => {
+    setShowWriteReviewModal(true);
+  };
+
+  const closeHandler = () => {
+    setShowWriteReviewModal(false);
+  };
 
   return (
     <>
@@ -107,7 +125,14 @@ const MainInfo = ({ movie, isLoading }) => {
               </Info>
               {movie.tagline && <Tagline>"{movie.tagline}"</Tagline>}
               <Overview>{movie.overview}</Overview>
-              <WriteReview />
+              {isLoggedIn && (
+                <WriteRevieBtnWrapper onClick={openWriteReviewModal}>
+                  <WriteReviewBtn />
+                </WriteRevieBtnWrapper>
+              )}
+              {showWriteReviewModal && (
+                <WirteReviewModal movie={movie} closeHandler={closeHandler} />
+              )}
             </InfoContainer>
           </MainInfoContiner>
         </Background>
