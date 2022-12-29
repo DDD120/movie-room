@@ -3,11 +3,8 @@ import { css } from "@emotion/react";
 import { Common } from "styles/common";
 
 const Base = styled.button`
-  font-family: "Noto Sans KR", sans-serif;
-
   cursor: pointer;
   border-radius: 50px;
-
   background-color: ${Common.colors.cyan};
   transition: filter 0.3s;
 

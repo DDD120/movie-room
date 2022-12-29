@@ -3,7 +3,9 @@ import { Common } from "styles/common";
 import { AiFillStar } from "react-icons/ai";
 import { useGetMainInfoQuery } from "apis/movie-db-api";
 import { Link } from "react-router-dom";
-import Button from "components/common/Button";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { useRef, useState } from "react";
+import useOutsideClick from "hooks/useOutsideClick";
 
 const Base = styled.div`
   flex-shrink: 0;
@@ -13,7 +15,6 @@ const Base = styled.div`
   border-radius: 12px;
   border: 2px solid ${Common.colors.greyOpacity};
   background-color: ${Common.colors.beige};
-  overflow: hidden;
 `;
 
 const Head = styled.div`
@@ -58,19 +59,53 @@ const ReleaseYear = styled.span`
   font-weight: 400;
 `;
 
-const Edit = styled.div`
+const Menu = styled.div`
+  position: relative;
   display: flex;
   justify-content: flex-end;
 `;
 
+const MenuBtn = styled.button`
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 1.2rem;
+`;
+
+const MenuList = styled.ul`
+  position: absolute;
+  bottom: -60px;
+  background-color: ${Common.colors.beige};
+  z-index: 1;
+  border-radius: 4px;
+  border: 2px solid ${Common.colors.greyOpacity};
+`;
+
+const MenuListItemBtn = styled.button`
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: filter 0.3s;
+  background-color: ${Common.colors.beige};
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+`;
+
 const MyReviewItem = ({ review }) => {
+  const [isShowMenuList, setIsShowMenuList] = useState(false);
   const { data: movieData, isLoading } = useGetMainInfoQuery(review.movieId);
+  const itemRef = useRef();
 
   const releaseYear = movieData?.release_date.slice(0, 4);
 
-  const handleEditButton = () => {
-    return;
+  const handleClickMenuButton = () => {
+    setIsShowMenuList((value) => !value);
   };
+
+  useOutsideClick(itemRef, setIsShowMenuList);
 
   return (
     <Base>
@@ -87,13 +122,22 @@ const MyReviewItem = ({ review }) => {
               {review.rating}
             </Rating>
           </Head>
-
           <ReviewContent>{review.content}</ReviewContent>
-          <Edit>
-            <Button size="small" clickEvent={handleEditButton}>
-              수정
-            </Button>
-          </Edit>
+          <Menu>
+            <MenuBtn onClick={handleClickMenuButton}>
+              <BiDotsVerticalRounded />
+            </MenuBtn>
+            {isShowMenuList && (
+              <MenuList ref={itemRef}>
+                <li>
+                  <MenuListItemBtn>리뷰 수정</MenuListItemBtn>
+                </li>
+                <li>
+                  <MenuListItemBtn>리뷰 삭제</MenuListItemBtn>
+                </li>
+              </MenuList>
+            )}
+          </Menu>
         </>
       )}
     </Base>
