@@ -38,6 +38,7 @@ const Rating = styled.span`
 `;
 
 const ReviewContent = styled.div`
+  white-space: pre-line;
   word-break: break-all;
   overflow-y: scroll;
   margin: 10px 0;
@@ -62,7 +63,7 @@ const Edit = styled.div`
   justify-content: flex-end;
 `;
 
-const ReviewItem = ({ review }) => {
+const MyReviewItem = ({ review }) => {
   const { data: movieData, isLoading } = useGetMainInfoQuery(review.movieId);
 
   const releaseYear = movieData?.release_date.slice(0, 4);
@@ -99,4 +100,4 @@ const ReviewItem = ({ review }) => {
   );
 };
 
-export default ReviewItem;
+export default MyReviewItem;
