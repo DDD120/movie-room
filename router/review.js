@@ -13,8 +13,6 @@ router.post("/", async (req, res) => {
     content,
   }).save();
 
-  console.log(newReview);
-
   res.send(
     newReview._id
       ? {
@@ -31,9 +29,11 @@ router.post("/", async (req, res) => {
 
 // Read : 유저 리뷰 목록 가져오기
 router.get("/:id", async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.params;
 
-  const getReviewList = await Review.find({ userId });
+  const getReviewList = await Review.find({ userId: id });
+
+  console.log(getReviewList);
 
   res.send(getReviewList);
 });

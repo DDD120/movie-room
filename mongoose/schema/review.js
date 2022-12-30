@@ -7,7 +7,7 @@ const Review = new mongoose.Schema(
   {
     movieId: { type: Number, required: true },
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    rating: { type: Number, min: 0.5, max: 5, required: true },
+    rating: { type: Number, min: 0, max: 5, required: true },
     content: { type: String, required: true },
   },
   { timestamps: true }
