@@ -7,6 +7,7 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useRef, useState } from "react";
 import useOutsideClick from "hooks/useOutsideClick";
 import dayjs from "dayjs";
+import { useDeleteReviewMutation } from "apis/server-api";
 
 const Base = styled.div`
   position: relative;
@@ -108,12 +109,17 @@ const MenuListItemBtn = styled.button`
 const MyReviewItem = ({ review }) => {
   const [isShowMenuList, setIsShowMenuList] = useState(false);
   const { data: movieData, isLoading } = useGetMainInfoQuery(review.movieId);
+  const [deleteReview] = useDeleteReviewMutation();
   const itemRef = useRef();
 
   const releaseYear = movieData?.release_date.slice(0, 4);
 
-  const handleClickMenuButton = () => {
+  const handleMenuBtnClick = () => {
     setIsShowMenuList((value) => !value);
+  };
+
+  const handleDeleteBtnClick = () => {
+    deleteReview({ id: review._id });
   };
 
   useOutsideClick(itemRef, setIsShowMenuList);
@@ -136,7 +142,7 @@ const MyReviewItem = ({ review }) => {
           <ReviewContent>{review.content}</ReviewContent>
           <Date>{dayjs(review.updatedAt).format("YY.MM.DD")}</Date>
           <Menu>
-            <MenuBtn onClick={handleClickMenuButton}>
+            <MenuBtn onClick={handleMenuBtnClick}>
               <BiDotsVerticalRounded />
             </MenuBtn>
             {isShowMenuList && (
@@ -145,7 +151,9 @@ const MyReviewItem = ({ review }) => {
                   <MenuListItemBtn>리뷰 수정</MenuListItemBtn>
                 </li>
                 <li>
-                  <MenuListItemBtn>리뷰 삭제</MenuListItemBtn>
+                  <MenuListItemBtn onClick={handleDeleteBtnClick}>
+                    리뷰 삭제
+                  </MenuListItemBtn>
                 </li>
               </MenuList>
             )}
