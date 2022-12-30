@@ -59,12 +59,11 @@ router.patch("/", async (req, res) => {
 });
 
 //  Delete : 리뷰 삭제
-router.delete("/", async (req, res) => {
-  const { id, movieId } = req.body;
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
 
   const deleteReview = await Review.deleteOne({
     _id: id,
-    movieId,
   });
 
   res.send(deleteReview);
