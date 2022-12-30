@@ -4,11 +4,8 @@ const initialState = {
   user: {
     id: "",
     email: "",
-    profile: {
-      nickname: "",
-      thumbnail: "",
-    },
-    reviews: [],
+    nickname: "",
+    thumbnail: "",
   },
   isLoggedIn: false,
 };

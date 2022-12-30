@@ -29,9 +29,7 @@ const Nickname = styled.p`
 `;
 
 const MyProfile = () => {
-  const {
-    profile: { thumbnail, nickname },
-  } = useSelector((state) => state.user.user);
+  const { thumbnail, nickname } = useSelector((state) => state.user.user);
 
   return (
     <Base>

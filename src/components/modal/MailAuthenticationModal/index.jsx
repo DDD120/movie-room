@@ -72,7 +72,7 @@ const MailAuthenticationModal = ({ email, password, closeHandler }) => {
     if (signupRes.type === "SUCCESS_SIGNUP") {
       showSuccessNotify(signupRes.msg);
       closeHandler();
-      dispatch(setUser(signupRes.user));
+      dispatch(setUser({ user: signupRes.user }));
     } else {
       showErrorNotify(signupRes.msg);
     }
