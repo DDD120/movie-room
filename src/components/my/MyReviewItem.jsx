@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useRef, useState } from "react";
 import useOutsideClick from "hooks/useOutsideClick";
+import dayjs from "dayjs";
 
 const Base = styled.div`
+  position: relative;
   flex-shrink: 0;
   max-width: 320px;
   width: 100%;
@@ -54,13 +56,20 @@ const ReviewContent = styled.div`
   }
 `;
 
+const Date = styled.p`
+  font-size: 0.9rem;
+  color: ${Common.colors.grey};
+`;
+
 const ReleaseYear = styled.span`
   font-size: 0.8rem;
   font-weight: 400;
 `;
 
 const Menu = styled.div`
-  position: relative;
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
   display: flex;
   justify-content: flex-end;
 `;
@@ -75,6 +84,7 @@ const MenuBtn = styled.button`
 `;
 
 const MenuList = styled.ul`
+  width: 80px;
   position: absolute;
   bottom: -60px;
   background-color: ${Common.colors.beige};
@@ -84,6 +94,7 @@ const MenuList = styled.ul`
 `;
 
 const MenuListItemBtn = styled.button`
+  width: 100%;
   padding: 4px 8px;
   cursor: pointer;
   transition: filter 0.3s;
@@ -123,6 +134,7 @@ const MyReviewItem = ({ review }) => {
             </Rating>
           </Head>
           <ReviewContent>{review.content}</ReviewContent>
+          <Date>{dayjs(review.updatedAt).format("YY.MM.DD")}</Date>
           <Menu>
             <MenuBtn onClick={handleClickMenuButton}>
               <BiDotsVerticalRounded />
