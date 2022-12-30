@@ -3,44 +3,52 @@ const router = express.Router();
 const { Review, User } = require("../mongoose/model");
 
 // Create : 리뷰 생성
-router.post("/create", async (req, res) => {
-  const { title, id, content, releaseDate } = req.body;
+router.post("/", async (req, res) => {
+  const { userId, movieId, content, rating } = req.body;
 
   const newReview = await Review({
-    title,
-    author: id,
-    releaseDate,
+    movieId,
+    userId,
+    rating,
     content,
   }).save();
 
-  const userReviewsUpdate = await User.findOneAndUpdate(
-    { _id: id },
-    { $push: { reviews: newReview } }
-  );
+  console.log(newReview);
 
-  res.send(newReview._id && userReviewsUpdate ? true : false);
+  res.send(
+    newReview._id
+      ? {
+          type: "SUCCESS_CREATE_REVIEW",
+          msg: "리뷰 등록에 성공하였습니다.",
+          review: newReview,
+        }
+      : {
+          type: "FAIL_CREATE_REVIEW",
+          msg: "리뷰 등록에 실패하였습니다.",
+        }
+  );
 });
 
 // Read : 유저 리뷰 목록 가져오기
 router.get("/:id", async (req, res) => {
-  const { id } = req.params;
+  const { userId } = req.params;
 
-  const getReviewList = await User.findOne({ _id: id }).populate("reviews");
-  res.send(getReviewList.reviews);
+  const getReviewList = await Review.find({ userId });
+
+  res.send(getReviewList);
 });
 
 // Update : 리뷰 수정
-router.patch("/update", async (req, res) => {
-  const { title, id, content, releaseDate } = req.body;
+router.patch("/", async (req, res) => {
+  const { userId, content, rating } = req.body;
   const updateReview = await Review.findOneAndUpdate(
     {
-      _id: id,
+      _id: userId,
     },
     {
       $set: {
-        title,
         content,
-        releaseDate,
+        rating,
       },
     },
     {
@@ -51,11 +59,12 @@ router.patch("/update", async (req, res) => {
 });
 
 //  Delete : 리뷰 삭제
-router.delete("/delete", async (req, res) => {
-  const { id } = req.body;
+router.delete("/", async (req, res) => {
+  const { id, movieId } = req.body;
 
   const deleteReview = await Review.deleteOne({
     _id: id,
+    movieId,
   });
 
   res.send(deleteReview);

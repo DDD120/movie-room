@@ -34,7 +34,7 @@ router.post("/signin", async (req, res) => {
 
     res.send({
       type: "SUCCESS_LOGIN",
-      msg: `반가워요 ${user.profile.nickname}님 👋`,
+      msg: `반가워요 ${user.nickname}님 👋`,
       user,
     });
   } catch (error) {
@@ -145,31 +145,25 @@ router.post("/signup", async (req, res) => {
       const newUser = await User({
         email,
         password,
-        profile: {
-          nickname: email,
-        },
+        nickname: email,
       }).save();
 
-      return res.send(
-        newUser._id
-          ? res.send({
-              type: "SUCCESS_SIGNUP",
-              msg: "회원가입이 완료되었습니다.",
-              user: {
-                email: newUser.email,
-                profile: {
-                  nickname: newUser.email,
-                  thumbnail: newUser.profilethumbnail,
-                },
-                reviews: newUser.reviews,
-                id: newUser._id,
-              },
-            })
-          : res.send({
-              type: "FAIL_SIGNUP",
-              msg: "회원가입 처리 도중 오류가 발생하였습니다.",
-            })
-      );
+      const user = me(newUser);
+      const token = await generateToken(user);
+      setTokenCookie(res, token);
+
+      console.log(user);
+
+      return user.id
+        ? res.send({
+            type: "SUCCESS_SIGNUP",
+            msg: "회원가입이 완료되었습니다.",
+            user,
+          })
+        : res.send({
+            type: "FAIL_SIGNUP",
+            msg: "회원가입 처리 도중 오류가 발생하였습니다.",
+          });
     } catch (err) {
       console.error(err);
       return res.send({

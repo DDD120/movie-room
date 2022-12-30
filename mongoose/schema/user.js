@@ -1,23 +1,19 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
-const Schema = mongoose.Schema;
 
 const User = new mongoose.Schema({
-  profile: {
-    nickname: { type: String, required: true },
-    thumbnail: {
-      type: String,
-      default: "/assets/default-thumbnail.png",
-    },
+  nickname: { type: String, required: true },
+  thumbnail: {
+    type: String,
+    default: "/assets/default-thumbnail.png",
   },
   social: {
     platformUserId: { type: String },
     platform: { type: String },
   },
-  email: { type: String, unique: true },
+  email: { type: String, required: true, unique: true },
   hashedPassword: { type: String },
   salt: { type: String },
-  reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
 });
 
 // password 가상 선택자

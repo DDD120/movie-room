@@ -5,9 +5,9 @@ const Schema = mongoose.Schema;
 
 const Review = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    releaseDate: { type: String, required: true },
+    movieId: { type: Number, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    rating: { type: Number, min: 0.5, max: 5, required: true },
     content: { type: String, required: true },
   },
   { timestamps: true }
