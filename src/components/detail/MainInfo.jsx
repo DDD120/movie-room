@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import { Common, NoImg } from "styles/common";
 import SkeletonMainInfo from "components/loading/SkeletonMainInfo";
-import WriteReviewBtn from "components/common/WriteReviewBtn";
+import { BsPen } from "react-icons/bs";
 import { useState } from "react";
 import CreateReview from "components/modal/ReviewModal/CreateReview";
 import { useSelector } from "react-redux";
+import Button from "components/common/Button";
+import useCheckWrittenReview from "hooks/useCheckWrittenReview";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -71,15 +73,23 @@ const Overview = styled.p`
   margin: 10px 0;
 `;
 
-const WriteRevieBtnWrapper = styled.div`
+const WriteReviewBtnWrapper = styled.div`
   position: absolute;
   bottom: 0;
+`;
+
+const PenIcon = styled.span`
+  display: inline-block;
+  margin-right: 8px;
+  transform: translateY(2px);
 `;
 
 const MainInfo = ({ movie, isLoading }) => {
   const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.user);
   const releaseYear = movie?.release_date.slice(0, 4);
+
+  const isWritten = useCheckWrittenReview(movie?.id);
 
   const openWriteReviewModal = () => {
     setShowWriteReviewModal(true);
@@ -125,10 +135,15 @@ const MainInfo = ({ movie, isLoading }) => {
               </Info>
               {movie.tagline && <Tagline>"{movie.tagline}"</Tagline>}
               <Overview>{movie.overview}</Overview>
-              {isLoggedIn && (
-                <WriteRevieBtnWrapper onClick={openWriteReviewModal}>
-                  <WriteReviewBtn />
-                </WriteRevieBtnWrapper>
+              {isLoggedIn && !isWritten && (
+                <WriteReviewBtnWrapper>
+                  <Button onClick={openWriteReviewModal}>
+                    <PenIcon>
+                      <BsPen />
+                    </PenIcon>
+                    리뷰 작성
+                  </Button>
+                </WriteReviewBtnWrapper>
               )}
               {showWriteReviewModal && (
                 <CreateReview movie={movie} closeHandler={closeHandler} />

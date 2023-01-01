@@ -24,7 +24,7 @@ const ReviewContainer = styled.div`
 
 const MyReview = () => {
   const { id } = useParams();
-  const { data: reviews } = useGetReviewsQuery(id);
+  const { data: reviews = [] } = useGetReviewsQuery(id);
 
   return (
     <Base>

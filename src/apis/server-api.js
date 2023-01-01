@@ -35,6 +35,7 @@ export const serverApi = createApi({
     }),
     getReviews: builder.query({
       query: (id) => ({ url: `review/${id}` }),
+      transformResponse: (response) => response.review,
     }),
     createReview: builder.mutation({
       query: (body) => ({
