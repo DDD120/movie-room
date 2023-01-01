@@ -13,18 +13,18 @@ router.post("/", async (req, res) => {
     content,
   }).save();
 
-  res.send(
-    newReview._id
-      ? {
-          type: "SUCCESS_CREATE_REVIEW",
-          msg: "리뷰 등록에 성공하였습니다.",
-          review: newReview,
-        }
-      : {
-          type: "FAIL_CREATE_REVIEW",
-          msg: "리뷰 등록에 실패하였습니다.",
-        }
-  );
+  if (!newReview) {
+    return res.send({
+      type: "FAIL_CREATE_REVIEW",
+      msg: "리뷰 등록에 실패하였습니다.",
+    });
+  }
+
+  return res.send({
+    type: "SUCCESS_CREATE_REVIEW",
+    msg: "리뷰 등록에 성공하였습니다.",
+    review: newReview,
+  });
 });
 
 // Read : 유저 리뷰 목록 가져오기
@@ -33,17 +33,27 @@ router.get("/:id", async (req, res) => {
 
   const getReviewList = await Review.find({ userId: id });
 
-  console.log(getReviewList);
+  if (!getReviewList) {
+    return res.send({
+      type: "FAIL_GET_REVIEW",
+      msg: "리뷰 가져오기에 실패하였습니다.",
+    });
+  }
 
-  res.send(getReviewList);
+  return res.send({
+    type: "SUCCESS_GET_REVIEW",
+    msg: "리뷰 등록에 성공하였습니다.",
+    review: getReviewList,
+  });
 });
 
 // Update : 리뷰 수정
 router.patch("/", async (req, res) => {
-  const { userId, content, rating } = req.body;
+  const { id, content, rating } = req.body;
+
   const updateReview = await Review.findOneAndUpdate(
     {
-      _id: userId,
+      _id: id,
     },
     {
       $set: {
@@ -55,7 +65,19 @@ router.patch("/", async (req, res) => {
       new: true,
     }
   );
-  res.send(updateReview);
+
+  if (!updateReview) {
+    return res.send({
+      type: "FAIL_UPDATE_REVIEW",
+      msg: "리뷰 수정에 실패하였습니다.",
+    });
+  }
+
+  return res.send({
+    type: "SUCCESS_UPDATE_REVIEW",
+    msg: "리뷰 수정에 성공하였습니다.",
+    review: updateReview,
+  });
 });
 
 //  Delete : 리뷰 삭제
@@ -66,7 +88,17 @@ router.delete("/:id", async (req, res) => {
     _id: id,
   });
 
-  res.send(deleteReview);
+  if (!deleteReview) {
+    return res.send({
+      type: "FAIL_DELETE_REVIEW",
+      msg: "리뷰 삭제에 실패하였습니다.",
+    });
+  }
+
+  return res.send({
+    type: "SUCCESS_DELETE_REVIEW",
+    msg: "리뷰 삭제에 성공하였습니다.",
+  });
 });
 
 module.exports = router;
