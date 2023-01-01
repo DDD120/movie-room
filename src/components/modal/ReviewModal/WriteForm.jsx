@@ -24,7 +24,12 @@ const NumberOfCharacters = styled.span`
   color: ${Common.colors.grey};
 `;
 
-const WriteForm = ({ onReviewContentChange, contentLength, ...rest }) => {
+const WriteForm = ({
+  onReviewContentChange,
+  value,
+  contentLength,
+  ...rest
+}) => {
   return (
     <Base>
       <TextArea
@@ -33,6 +38,7 @@ const WriteForm = ({ onReviewContentChange, contentLength, ...rest }) => {
         type="text"
         cols="30"
         rows="8"
+        value={value}
         maxLength="300"
         placeholder="리뷰를 작성하세요"
         onChange={onReviewContentChange}

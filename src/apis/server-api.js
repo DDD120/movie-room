@@ -46,6 +46,9 @@ export const serverApi = createApi({
     deleteReview: builder.mutation({
       query: ({ id }) => ({ url: `review/${id}`, method: "DELETE" }),
     }),
+    updateReview: builder.mutation({
+      query: (body) => ({ url: "review", method: "PATCH", body }),
+    }),
   }),
 });
 
@@ -57,4 +60,5 @@ export const {
   useGetReviewsQuery,
   useCreateReviewMutation,
   useDeleteReviewMutation,
+  useUpdateReviewMutation,
 } = serverApi;

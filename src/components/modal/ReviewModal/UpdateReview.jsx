@@ -2,9 +2,9 @@ import Modal from "../Modal";
 import Button from "components/common/Button";
 import styled from "@emotion/styled";
 import StarRating from "./StarRating";
-import { useCreateReviewMutation } from "apis/server-api";
+import { useUpdateReviewMutation } from "apis/server-api";
 import WriteForm from "./WriteForm";
-import { useSelector } from "react-redux";
+
 import { useEffect, useState } from "react";
 
 const Base = styled.form`
@@ -16,21 +16,19 @@ const Title = styled.h1`
   font-size: 1.8rem;
 `;
 
-const WirteReviewModal = ({ movie, closeHandler }) => {
-  const [reviewContent, setReviewContent] = useState("");
-  const [rating, setRating] = useState(0);
-  const [createReview, { isLoading, isSuccess }] = useCreateReviewMutation();
-  const { id } = useSelector((state) => state.user.user);
+const UpdateReview = ({ review, movie, closeHandler }) => {
+  const [reviewContent, setReviewContent] = useState(review.content);
+  const [rating, setRating] = useState(review.rating);
+  const [updateReview, { isLoading, isSuccess }] = useUpdateReviewMutation();
   const releaseYear = movie.release_date?.slice(0, 4);
 
   const handleWirteReviewSubmit = async (e) => {
     e.preventDefault();
     if (reviewContent.trim()) {
-      await createReview({
-        userId: id,
-        movieId: movie.id,
+      await updateReview({
+        id: review._id,
         content: reviewContent,
-        rating: rating,
+        rating,
       });
     }
   };
@@ -60,13 +58,14 @@ const WirteReviewModal = ({ movie, closeHandler }) => {
         />
         <WriteForm
           onReviewContentChange={handleReviewContentChange}
+          value={reviewContent}
           contentLength={reviewContent.length}
           disabled={isLoading}
         />
-        <Button disabled={isLoading}>등록</Button>
+        <Button disabled={isLoading}>수정</Button>
       </Base>
     </Modal>
   );
 };
 
-export default WirteReviewModal;
+export default UpdateReview;

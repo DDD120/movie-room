@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import useOutsideClick from "hooks/useOutsideClick";
 import dayjs from "dayjs";
 import { useDeleteReviewMutation } from "apis/server-api";
+import UpdateReview from "components/modal/ReviewModal/UpdateReview";
 
 const Base = styled.div`
   position: relative;
@@ -108,6 +109,7 @@ const MenuListItemBtn = styled.button`
 
 const MyReviewItem = ({ review }) => {
   const [isShowMenuList, setIsShowMenuList] = useState(false);
+  const [isShowReviewModal, setIsShowReviewModal] = useState(false);
   const { data: movieData, isLoading } = useGetMainInfoQuery(review.movieId);
   const [deleteReview] = useDeleteReviewMutation();
   const itemRef = useRef();
@@ -118,11 +120,19 @@ const MyReviewItem = ({ review }) => {
     setIsShowMenuList((value) => !value);
   };
 
+  const closeHandler = () => {
+    setIsShowReviewModal(false);
+  };
+
+  const handleUpdateBtnClick = () => {
+    setIsShowReviewModal(true);
+  };
+
   const handleDeleteBtnClick = () => {
     deleteReview({ id: review._id });
   };
 
-  useOutsideClick(itemRef, setIsShowMenuList);
+  // useOutsideClick(itemRef, setIsShowMenuList);
 
   return (
     <Base>
@@ -148,7 +158,16 @@ const MyReviewItem = ({ review }) => {
             {isShowMenuList && (
               <MenuList ref={itemRef}>
                 <li>
-                  <MenuListItemBtn>리뷰 수정</MenuListItemBtn>
+                  <MenuListItemBtn onClick={handleUpdateBtnClick}>
+                    리뷰 수정
+                  </MenuListItemBtn>
+                  {isShowReviewModal && (
+                    <UpdateReview
+                      review={review}
+                      movie={movieData}
+                      closeHandler={closeHandler}
+                    />
+                  )}
                 </li>
                 <li>
                   <MenuListItemBtn onClick={handleDeleteBtnClick}>

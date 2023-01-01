@@ -3,7 +3,7 @@ import { Common, NoImg } from "styles/common";
 import SkeletonMainInfo from "components/loading/SkeletonMainInfo";
 import WriteReviewBtn from "components/common/WriteReviewBtn";
 import { useState } from "react";
-import WirteReviewModal from "components/modal/WirteReviewModal";
+import CreateReview from "components/modal/ReviewModal/CreateReview";
 import { useSelector } from "react-redux";
 
 const Background = styled.div`
@@ -131,7 +131,7 @@ const MainInfo = ({ movie, isLoading }) => {
                 </WriteRevieBtnWrapper>
               )}
               {showWriteReviewModal && (
-                <WirteReviewModal movie={movie} closeHandler={closeHandler} />
+                <CreateReview movie={movie} closeHandler={closeHandler} />
               )}
             </InfoContainer>
           </MainInfoContiner>

@@ -39,35 +39,65 @@ const StarRating = ({ handleRatingClick, currentRating }) => {
     <Base>
       <Name>별점</Name>
       <RatingField>
-        <StarInput onRatingClick={handleRatingClick} value={5} isHalf={false} />
+        <StarInput
+          onRatingClick={handleRatingClick}
+          value={5}
+          isHalf={false}
+          currentRating={currentRating}
+        />
         <StarInput
           onRatingClick={handleRatingClick}
           value={4.5}
           isHalf={true}
+          currentRating={currentRating}
         />
-        <StarInput onRatingClick={handleRatingClick} value={4} isHalf={false} />
+        <StarInput
+          onRatingClick={handleRatingClick}
+          value={4}
+          isHalf={false}
+          currentRating={currentRating}
+        />
         <StarInput
           onRatingClick={handleRatingClick}
           value={3.5}
           isHalf={true}
+          currentRating={currentRating}
         />
-        <StarInput onRatingClick={handleRatingClick} value={3} isHalf={false} />
+        <StarInput
+          onRatingClick={handleRatingClick}
+          value={3}
+          isHalf={false}
+          currentRating={currentRating}
+        />
         <StarInput
           onRatingClick={handleRatingClick}
           value={2.5}
           isHalf={true}
+          currentRating={currentRating}
         />
-        <StarInput onRatingClick={handleRatingClick} value={2} isHalf={false} />
+        <StarInput
+          onRatingClick={handleRatingClick}
+          value={2}
+          isHalf={false}
+          currentRating={currentRating}
+        />
         <StarInput
           onRatingClick={handleRatingClick}
           value={1.5}
           isHalf={true}
+          currentRating={currentRating}
         />
-        <StarInput onRatingClick={handleRatingClick} value={1} isHalf={false} />
+        <StarInput
+          onRatingClick={handleRatingClick}
+          value={1}
+          isHalf={false}
+          currentRating={currentRating}
+        />
         <StarInput
           onRatingClick={handleRatingClick}
           value={0.5}
           isHalf={true}
+          currentRating={currentRating}
         />
       </RatingField>
       <RatingValue>{currentRating}</RatingValue>

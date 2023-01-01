@@ -37,14 +37,20 @@ const Label = styled.label`
     `}
 `;
 
-const StarInput = ({ onRatingClick, value, isHalf }) => {
+const StarInput = ({ onRatingClick, value, isHalf, currentRating }) => {
   const handleStarClick = () => {
     onRatingClick(value);
   };
 
   return (
     <>
-      <Input type="radio" name="rating" id={`star${value}`} value={value} />
+      <Input
+        type="radio"
+        name="rating"
+        id={`star${value}`}
+        value={value}
+        defaultChecked={value === currentRating}
+      />
       <Label onClick={handleStarClick} isHalf={isHalf} htmlFor={`star${value}`}>
         {isHalf ? <FaStarHalf /> : <FaStar />}
       </Label>
