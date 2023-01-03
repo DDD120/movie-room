@@ -11,6 +11,7 @@ const Base = styled.div`
   &:hover {
     background-color: ${Common.colors.orangeOpacity};
   }
+  background-color: ${({ isFocus }) => isFocus && Common.colors.orangeOpacity};
 `;
 
 const ImgWrapper = styled.div`
@@ -30,9 +31,9 @@ const Title = styled.p`
   text-align: left;
 `;
 
-const SearchResultItem = ({ movie }) => {
+const SearchResultItem = ({ movie, isFocus, scrollRef }) => {
   return (
-    <Base>
+    <Base ref={isFocus ? scrollRef : undefined} isFocus={isFocus}>
       <ImgWrapper>
         {movie.poster_path ? (
           <Poster

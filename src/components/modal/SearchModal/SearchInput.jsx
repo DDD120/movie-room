@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
-import { debounce } from "lodash";
 import { Common } from "styles/common";
 
 const SearchContainer = styled.div`
@@ -28,10 +27,14 @@ const SearchIcon = styled.button`
   color: ${Common.colors.black};
 `;
 
-const SearchInput = ({ goToSearch, InputChangeHandler }) => {
-  const isEnter = (e) => {
-    if (e.keyCode === 13) goToSearch();
-  };
+const SearchInput = ({
+  onKeyUp,
+  goToSearch,
+  onInputChage,
+  searchKeyword,
+  isAutoSearch,
+  autoSearchKeyword,
+}) => {
   return (
     <SearchContainer>
       <SearchIcon onClick={goToSearch}>
@@ -41,8 +44,10 @@ const SearchInput = ({ goToSearch, InputChangeHandler }) => {
         type="text"
         placeholder="영화를 검색해보세요"
         title="검색"
-        onChange={debounce(InputChangeHandler, 200)}
-        onKeyDown={isEnter}
+        name="검색"
+        value={isAutoSearch ? autoSearchKeyword : searchKeyword}
+        onChange={onInputChage}
+        onKeyUp={onKeyUp}
       />
     </SearchContainer>
   );

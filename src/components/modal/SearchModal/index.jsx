@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Modal from "../Modal";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLazyGetSearchQuery } from "apis/movie-db-api";
 import SearchInput from "./SearchInput";
@@ -14,10 +14,14 @@ const Base = styled.div`
 `;
 
 const SearchModal = ({ closeHandler }) => {
+  const [isAutoSearch, setIsAutoSearch] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [autoSearchKeyword, setAutoSearchKeyword] = useState("");
+  const [focusIndex, setFocusIndex] = useState(-1);
+  const focusRef = useRef(null);
   const navigate = useNavigate();
 
-  const [trigger, { data: searchModalList = [], isLoading }] =
+  const [trigger, { data: autoSearchList = [], isLoading }] =
     useLazyGetSearchQuery(searchKeyword);
 
   const isNull = useCallback(() => {
@@ -25,33 +29,98 @@ const SearchModal = ({ closeHandler }) => {
     return searchKeyword.replace(blank_pattern, "") === "";
   }, [searchKeyword]);
 
-  const InputChangeHandler = (evnet) => {
-    if (searchKeyword.trim() === evnet.target.value.trim()) return;
-    setSearchKeyword(evnet.target.value.trim());
+  const handleInputChange = (e) => {
+    const enteredValue =
+      e.nativeEvent.inputType === "deleteContentBackward"
+        ? ""
+        : e.nativeEvent.data;
+    if (isAutoSearch) {
+      focusIndex >= 0 && setSearchKeyword(autoSearchKeyword + enteredValue);
+      setIsAutoSearch(false);
+      setFocusIndex(-1);
+      return;
+    }
+
+    setSearchKeyword(e.target.value);
   };
 
   const goToSearch = () => {
     if (isNull()) return;
-    navigate(`/search?query=${searchKeyword}`);
+    navigate(
+      `/search?query=${isAutoSearch ? autoSearchKeyword : searchKeyword}`
+    );
     closeHandler();
   };
 
+  const KeyEvent = {
+    Enter: () => {
+      goToSearch();
+    },
+    ArrowDown: () => {
+      if (autoSearchList.results.length === 0) {
+        return;
+      }
+      if (focusRef.current.childElementCount === focusIndex + 1) {
+        setFocusIndex(() => 0);
+        return;
+      }
+      if (focusIndex === -1) {
+        setIsAutoSearch(true);
+      }
+      setFocusIndex((index) => index + 1);
+      setAutoSearchKeyword(autoSearchList.results[focusIndex + 1].title);
+    },
+    ArrowUp: () => {
+      if (focusIndex === -1) {
+        return;
+      }
+      if (focusIndex === 0) {
+        setAutoSearchKeyword("");
+        setFocusIndex((index) => index - 1);
+        setIsAutoSearch(false);
+        return;
+      }
+
+      setFocusIndex((index) => index - 1);
+      setAutoSearchKeyword(autoSearchList.results[focusIndex - 1].title);
+    },
+    Escape: () => {
+      setAutoSearchKeyword("");
+      setFocusIndex(-1);
+      setIsAutoSearch(false);
+    },
+  };
+
+  const handleKeyUp = (e) => {
+    for (const key in KeyEvent) {
+      key === e.key && KeyEvent[e.key]();
+    }
+  };
+
   useEffect(() => {
-    if (isNull()) return;
+    if (isAutoSearch) {
+      return;
+    }
     trigger({ query: searchKeyword });
-  }, [isNull, trigger, searchKeyword]);
+  }, [trigger, searchKeyword, isAutoSearch]);
 
   return (
     <Modal closeHandler={closeHandler} backdropTouchClose={true}>
       <Base>
         <SearchInput
           goToSearch={goToSearch}
-          InputChangeHandler={InputChangeHandler}
+          onInputChage={handleInputChange}
+          onKeyUp={handleKeyUp}
+          searchKeyword={searchKeyword}
+          isAutoSearch={isAutoSearch}
+          autoSearchKeyword={autoSearchKeyword}
         />
         <SearchResultList
           isLoading={isLoading}
           closeHandler={closeHandler}
-          searchModalList={searchModalList}
+          autoSearchList={autoSearchList}
+          focusRef={focusRef}
+          focusIndex={focusIndex}
         />
       </Base>
     </Modal>

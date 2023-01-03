@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Common } from "styles/common";
 import SearchResultItem from "./SearchResultItem";
@@ -19,13 +20,32 @@ const Base = styled.div`
   }
 `;
 
-const SearchResultList = ({ isLoading, closeHandler, searchModalList }) => {
+const SearchResultList = ({
+  focusRef,
+  isLoading,
+  closeHandler,
+  autoSearchList,
+  focusIndex,
+}) => {
+  const scrollRef = useRef(null);
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [focusIndex]);
+
   return (
-    <Base>
+    <Base ref={focusRef}>
       {!isLoading &&
-        searchModalList.results?.map((movie, index) => (
-          <Link to={`/detail/${movie.id}`} onClick={closeHandler} key={index}>
-            <SearchResultItem movie={movie} />
+        autoSearchList.results?.map((movie, listIndex) => (
+          <Link
+            to={`/detail/${movie.id}`}
+            onClick={closeHandler}
+            key={movie.id}
+          >
+            <SearchResultItem
+              movie={movie}
+              isFocus={listIndex === focusIndex}
+              scrollRef={scrollRef}
+            />
           </Link>
         ))}
     </Base>
