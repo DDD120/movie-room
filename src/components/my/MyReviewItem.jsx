@@ -110,7 +110,7 @@ const MenuListItemBtn = styled.button`
 const MyReviewItem = ({ review }) => {
   const [isShowMenuList, setIsShowMenuList] = useState(false);
   const [isShowReviewModal, setIsShowReviewModal] = useState(false);
-  const { data: movieData, isLoading } = useGetMainInfoQuery(review.movieId);
+  const { data: movieData } = useGetMainInfoQuery(review.movieId);
   const [deleteReview] = useDeleteReviewMutation();
   const itemRef = useRef();
 
@@ -132,53 +132,50 @@ const MyReviewItem = ({ review }) => {
     deleteReview({ id: review._id });
   };
 
-  // useOutsideClick(itemRef, setIsShowMenuList);
+  useOutsideClick(itemRef, setIsShowMenuList, isShowReviewModal);
 
   return (
     <Base>
-      {!isLoading && (
-        <>
-          <Head>
-            <Link to={`/detail/${review.movieId}`}>
-              <Title>
-                {movieData.title} <ReleaseYear>({releaseYear})</ReleaseYear>
-              </Title>
-            </Link>
-            <Rating>
-              <AiFillStar />
-              {review.rating}
-            </Rating>
-          </Head>
-          <ReviewContent>{review.content}</ReviewContent>
-          <Date>{dayjs(review.updatedAt).format("YY.MM.DD")}</Date>
-          <Menu>
-            <MenuBtn onClick={handleMenuBtnClick}>
-              <BiDotsVerticalRounded />
-            </MenuBtn>
-            {isShowMenuList && (
-              <MenuList ref={itemRef}>
-                <li>
-                  <MenuListItemBtn onClick={handleUpdateBtnClick}>
-                    리뷰 수정
-                  </MenuListItemBtn>
-                  {isShowReviewModal && (
-                    <UpdateReview
-                      review={review}
-                      movie={movieData}
-                      closeHandler={closeHandler}
-                    />
-                  )}
-                </li>
-                <li>
-                  <MenuListItemBtn onClick={handleDeleteBtnClick}>
-                    리뷰 삭제
-                  </MenuListItemBtn>
-                </li>
-              </MenuList>
-            )}
-          </Menu>
-        </>
-      )}
+      <Head>
+        <Link to={`/detail/${review.movieId}`}>
+          <Title>
+            {movieData?.title} <ReleaseYear>({releaseYear})</ReleaseYear>
+          </Title>
+        </Link>
+
+        <Rating>
+          <AiFillStar />
+          {review.rating}
+        </Rating>
+      </Head>
+      <ReviewContent>{review.content}</ReviewContent>
+      <Date>{dayjs(review.updatedAt).format("YY.MM.DD")}</Date>
+      <Menu>
+        <MenuBtn onClick={handleMenuBtnClick}>
+          <BiDotsVerticalRounded />
+        </MenuBtn>
+        {isShowMenuList && (
+          <MenuList ref={itemRef}>
+            <li>
+              <MenuListItemBtn onClick={handleUpdateBtnClick}>
+                리뷰 수정
+              </MenuListItemBtn>
+              {isShowReviewModal && (
+                <UpdateReview
+                  review={review}
+                  movie={movieData}
+                  closeHandler={closeHandler}
+                />
+              )}
+            </li>
+            <li>
+              <MenuListItemBtn onClick={handleDeleteBtnClick}>
+                리뷰 삭제
+              </MenuListItemBtn>
+            </li>
+          </MenuList>
+        )}
+      </Menu>
     </Base>
   );
 };
