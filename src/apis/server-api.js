@@ -6,6 +6,7 @@ export const serverApi = createApi({
     baseUrl: "http://localhost:4000/",
     credentials: "include",
   }),
+  tagTypes: ["User"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
@@ -36,6 +37,7 @@ export const serverApi = createApi({
     getReviews: builder.query({
       query: (id) => ({ url: `review/${id}` }),
       transformResponse: (response) => response.review,
+      providesTags: ["Review"],
     }),
     createReview: builder.mutation({
       query: (body) => ({
@@ -43,12 +45,15 @@ export const serverApi = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Review"],
     }),
     deleteReview: builder.mutation({
       query: ({ id }) => ({ url: `review/${id}`, method: "DELETE" }),
+      invalidatesTags: ["Review"],
     }),
     updateReview: builder.mutation({
       query: (body) => ({ url: "review", method: "PATCH", body }),
+      invalidatesTags: ["Review"],
     }),
   }),
 });
