@@ -6,13 +6,19 @@ export const serverApi = createApi({
     baseUrl: "http://localhost:4000/",
     credentials: "include",
   }),
-  tagTypes: ["User"],
+  tagTypes: ["Review"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
         url: "user/signin",
         method: "POST",
         body,
+      }),
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "user/logout",
+        method: "POST",
       }),
     }),
     email: builder.mutation({
@@ -60,6 +66,7 @@ export const serverApi = createApi({
 
 export const {
   useLoginMutation,
+  useLogoutMutation,
   useEmailMutation,
   useSignupMutation,
   useCheckTokenQuery,

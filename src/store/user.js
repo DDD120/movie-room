@@ -19,7 +19,13 @@ export const userSlice = createSlice({
       state.isLoggedIn = true;
     },
     logout: (state) => {
-      state = initialState;
+      state.user = {
+        id: "",
+        email: "",
+        nickname: "",
+        thumbnail: "",
+      };
+      state.isLoggedIn = false;
     },
   },
 });

@@ -2,10 +2,11 @@ import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Common } from "styles/common";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SearchModal from "../modal/SearchModal";
 import { useSelector } from "react-redux";
+import MyMenuCard from "./MyMenuCard";
 
 const Head = styled.header`
   width: 100%;
@@ -47,9 +48,12 @@ const NavItem = styled.div`
 `;
 
 const Header = () => {
+  const [showMyMenu, setShowMyMenu] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.user);
-  const { id } = useSelector((state) => state.user.user);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const navigate = useNavigate();
+
+  console.log(isLoggedIn);
 
   const openHandler = () => {
     setIsOpenModal(true);
@@ -59,6 +63,18 @@ const Header = () => {
   const closeHandler = () => {
     setIsOpenModal(false);
     document.body.classList.remove("scroll_hidden");
+  };
+
+  const handlePersonIconBtnCLick = () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+    setShowMyMenu((state) => !state);
+  };
+
+  const closeMyMenuCard = () => {
+    setShowMyMenu(false);
   };
 
   return (
@@ -73,11 +89,10 @@ const Header = () => {
           <FiSearch />
         </NavItem>
         {isOpenModal && <SearchModal closeHandler={closeHandler} />}
-        <Link to={isLoggedIn ? `/my/${id}` : "/login"}>
-          <NavItem color={Common.colors.cyan}>
-            <BsFillPersonFill />
-          </NavItem>
-        </Link>
+        <NavItem color={Common.colors.cyan} onClick={handlePersonIconBtnCLick}>
+          <BsFillPersonFill />
+        </NavItem>
+        {showMyMenu && <MyMenuCard onMyMenuClose={closeMyMenuCard} />}
       </Nav>
     </Head>
   );
