@@ -7,7 +7,7 @@ import { useLoginMutation } from "apis/server-api";
 import { useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { setUser } from "store/user";
+import { login as storeLogin } from "store/user";
 
 const Layout = styled.div`
   display: flex;
@@ -128,9 +128,8 @@ const Login = () => {
 
   useEffect(() => {
     if (loginRes.type === "SUCCESS_LOGIN") {
-      console.log(loginRes);
       navigate("/");
-      dispatch(setUser({ user: loginRes.user }));
+      dispatch(storeLogin({ user: loginRes.user }));
       showSuccessNotify(loginRes.msg);
     }
     error && showErrorNotify(loginRes.msg);
