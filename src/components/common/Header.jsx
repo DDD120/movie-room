@@ -3,10 +3,11 @@ import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Common } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SearchModal from "../modal/SearchModal";
 import { useSelector } from "react-redux";
 import MyMenuCard from "./MyMenuCard";
+import useOutsideClick from "hooks/useOutsideClick";
 
 const Head = styled.header`
   width: 100%;
@@ -53,8 +54,6 @@ const Header = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
 
-  console.log(isLoggedIn);
-
   const openHandler = () => {
     setIsOpenModal(true);
     document.body.classList.add("scroll_hidden");
@@ -92,7 +91,12 @@ const Header = () => {
         <NavItem color={Common.colors.cyan} onClick={handlePersonIconBtnCLick}>
           <BsFillPersonFill />
         </NavItem>
-        {showMyMenu && <MyMenuCard onMyMenuClose={closeMyMenuCard} />}
+        {showMyMenu && (
+          <MyMenuCard
+            setShowMyMenu={setShowMyMenu}
+            onMyMenuClose={closeMyMenuCard}
+          />
+        )}
       </Nav>
     </Head>
   );

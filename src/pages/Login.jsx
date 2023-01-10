@@ -8,6 +8,7 @@ import { useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { login as storeLogin } from "store/user";
+import useProtectedRoute from "hooks/useProtectedRoute";
 
 const Layout = styled.div`
   display: flex;
@@ -142,6 +143,8 @@ const Login = () => {
     showErrorNotify,
     dispatch,
   ]);
+
+  useProtectedRoute();
 
   return (
     <Container>

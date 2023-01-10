@@ -8,10 +8,10 @@ export const useCheckToken = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!user || user.type === "FAIL_CHECK_TOKEN") {
+    if (!user) {
       dispatch(logout());
       return;
     }
-    dispatch(login({ user: user.user }));
+    dispatch(login({ user }));
   }, [dispatch, user]);
 };

@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
 import { useLogoutMutation } from "apis/server-api";
+import ProfileEditModal from "components/modal/ProfileEditModal";
+import useOutsideClick from "hooks/useOutsideClick";
+import { useRef, useState } from "react";
 import { MdSettings } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -34,6 +37,8 @@ const Thumbnail = styled.div`
 
   img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -74,30 +79,44 @@ const MenuItem = styled.li`
   }
 `;
 
-const MyMenuCard = ({ onMyMenuClose }) => {
+const MyMenuCard = ({ onMyMenuClose, setShowMyMenu }) => {
+  const [isShowProfileEditModal, setIsShowProfileEditModal] = useState(false);
   const { id, nickname, thumbnail } = useSelector((state) => state.user.user);
   const [logoutTrigger] = useLogoutMutation();
   const dispatch = useDispatch();
+  const cardRef = useRef(null);
+
+  const handleProfileEditBtnClick = () => {
+    setIsShowProfileEditModal(true);
+  };
 
   const handleLogoutBtnClick = () => {
-    console.log("로그아웃");
     logoutTrigger();
     dispatch(logout());
     onMyMenuClose();
   };
 
+  const closeHandler = () => {
+    setIsShowProfileEditModal(false);
+  };
+
+  useOutsideClick(cardRef, setShowMyMenu, isShowProfileEditModal);
+
   return (
-    <Base>
+    <Base ref={cardRef}>
       <Profile>
         <Thumbnail>
           <img src={thumbnail} alt="프로필 사진" />
         </Thumbnail>
         <Info>
           <Nickname>{nickname}</Nickname>
-          <ProfileEdit>
+          <ProfileEdit onClick={handleProfileEditBtnClick}>
             <MdSettings />
             회원정보 수정
           </ProfileEdit>
+          {isShowProfileEditModal && (
+            <ProfileEditModal closeHandler={closeHandler} />
+          )}
         </Info>
       </Profile>
       <MenuList>

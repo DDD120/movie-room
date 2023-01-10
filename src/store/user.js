@@ -27,9 +27,13 @@ export const userSlice = createSlice({
       };
       state.isLoggedIn = false;
     },
+    setUser: (state, action) => {
+      state.user.nickname = action.payload.nickname;
+      state.user.thumbnail = action.payload.thumbnail;
+    },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, setUser } = userSlice.actions;
 
 export default userSlice.reducer;

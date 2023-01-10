@@ -40,6 +40,13 @@ export const serverApi = createApi({
         url: "user/token",
       }),
     }),
+    updateProfile: builder.mutation({
+      query: (body) => ({
+        url: "user/profile",
+        method: "PATCH",
+        body,
+      }),
+    }),
     getReviews: builder.query({
       query: (id) => ({ url: `review/${id}` }),
       transformResponse: (response) => response.review,
@@ -70,6 +77,7 @@ export const {
   useEmailMutation,
   useSignupMutation,
   useCheckTokenQuery,
+  useUpdateProfileMutation,
   useGetReviewsQuery,
   useCreateReviewMutation,
   useDeleteReviewMutation,
