@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import { Common } from "styles/common";
 
 const Base = styled.button`
@@ -17,6 +18,20 @@ const Base = styled.button`
   &:disabled {
     filter: grayscale(0.9);
   }
+
+  ${({ size }) =>
+    size === "small" &&
+    css`
+      padding: 8px 20px;
+      font-size: 1rem;
+    `}
+
+  ${({ variant }) =>
+    variant === "cancel" &&
+    css`
+      background-color: ${Common.colors.beige};
+      border: 2px solid ${Common.colors.cyan};
+    `}
 `;
 
 const Button = ({ clickEvent, children, ...rest }) => {

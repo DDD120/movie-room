@@ -3,11 +3,11 @@ import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Common } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import SearchModal from "../modal/SearchModal";
 import { useSelector } from "react-redux";
 import MyMenuCard from "./MyMenuCard";
-import useOutsideClick from "hooks/useOutsideClick";
+import { useCallback } from "react";
 
 const Head = styled.header`
   width: 100%;
@@ -72,9 +72,9 @@ const Header = () => {
     setShowMyMenu((state) => !state);
   };
 
-  const closeMyMenuCard = () => {
+  const closeMyMenuCard = useCallback(() => {
     setShowMyMenu(false);
-  };
+  }, []);
 
   return (
     <Head>

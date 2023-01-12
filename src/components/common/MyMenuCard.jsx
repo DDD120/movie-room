@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useLogoutMutation } from "apis/server-api";
 import ProfileEditModal from "components/modal/ProfileEditModal";
 import useOutsideClick from "hooks/useOutsideClick";
+import { useCallback } from "react";
 import { useRef, useState } from "react";
 import { MdSettings } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -96,9 +97,10 @@ const MyMenuCard = ({ onMyMenuClose, setShowMyMenu }) => {
     onMyMenuClose();
   };
 
-  const closeHandler = () => {
+  const closeHandler = useCallback(() => {
+    onMyMenuClose();
     setIsShowProfileEditModal(false);
-  };
+  }, [onMyMenuClose]);
 
   useOutsideClick(cardRef, setShowMyMenu, isShowProfileEditModal);
 

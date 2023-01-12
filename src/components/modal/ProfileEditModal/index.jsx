@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiEdit3 } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useUpdateProfileMutation } from "apis/server-api";
+import { useSignoutMutation, useUpdateProfileMutation } from "apis/server-api";
 import Button from "components/common/Button";
-import { setUser } from "store/user";
+import SignoutMessage from "./SignoutMessage";
+import { logout } from "store/user";
 
 const Base = styled.form`
   width: 80%;
+  position: relative;
 `;
 
 const Content = styled.div`
@@ -97,30 +99,54 @@ const ErrorMsg = styled.p`
   font-size: 0.9rem;
 `;
 
+const DeleteAccountBtn = styled.button`
+  cursor: pointer;
+`;
+
 const ProfileEditModal = ({ closeHandler }) => {
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({ mode: "onChange" });
   const [isThumbnailChage, setIsThumbnailChage] = useState(false);
   const [newThumbnailUrl, setNewThumbnailUrl] = useState("");
-  const [updateProfile, { data: profileRes = {}, isSuccess }] =
-    useUpdateProfileMutation();
-  const dispatch = useDispatch();
+  const [isShowMessage, setIsShowMessage] = useState(false);
+  const [
+    updateProfile,
+    { isLoading: isUpdateLoading, isSuccess: isUpdateSuccess },
+  ] = useUpdateProfileMutation();
+  const [
+    signout,
+    { isLoading: isSignoutLoading, isSuccess: isSignoutSuccess },
+  ] = useSignoutMutation();
   const { id, nickname, email, thumbnail } = useSelector(
     (state) => state.user.user
   );
 
+  const dispatch = useDispatch();
+
   const image = watch("image");
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("image", data.image[0]);
     formData.append("nickname", data.nickname);
     formData.append("id", id);
-    await updateProfile(formData);
+    updateProfile(formData);
+  };
+
+  const handleShowMessage = () => {
+    setIsShowMessage(true);
+  };
+
+  const handleCancelBtnClick = () => {
+    setIsShowMessage(false);
+  };
+
+  const handleDeleteBtnClick = () => {
+    signout({ id });
   };
 
   useEffect(() => {
@@ -132,16 +158,17 @@ const ProfileEditModal = ({ closeHandler }) => {
   }, [image]);
 
   useEffect(() => {
-    if (isSuccess) {
-      dispatch(
-        setUser({
-          nickname: profileRes.nickname,
-          thumbnail: profileRes.thumbnail,
-        })
-      );
+    if (isUpdateSuccess) {
       closeHandler();
     }
-  }, [isSuccess, dispatch, profileRes, closeHandler]);
+  }, [isUpdateSuccess, closeHandler]);
+
+  useEffect(() => {
+    if (isSignoutSuccess) {
+      dispatch(logout());
+      closeHandler();
+    }
+  }, [isSignoutSuccess, dispatch, closeHandler]);
 
   return (
     <Modal closeHandler={closeHandler}>
@@ -186,12 +213,19 @@ const ProfileEditModal = ({ closeHandler }) => {
               <Name>이메일</Name>
               <Input type="text" disabled value={email} />
             </InfoItem>
-            <div>
-              <button>회원탈퇴</button>
-            </div>
+            <DeleteAccountBtn type="button" onClick={handleShowMessage}>
+              <u>회원탈퇴</u>
+            </DeleteAccountBtn>
+            {isShowMessage && (
+              <SignoutMessage
+                isSignoutLoading={isSignoutLoading}
+                onCancelBtnClick={handleCancelBtnClick}
+                onDeleteBtnClick={handleDeleteBtnClick}
+              />
+            )}
           </Info>
         </Content>
-        <Button type="submit" disabled={isSubmitting}>
+        <Button type="submit" disabled={isUpdateLoading}>
           수정
         </Button>
       </Base>

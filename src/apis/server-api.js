@@ -6,7 +6,7 @@ export const serverApi = createApi({
     baseUrl: "http://localhost:4000/",
     credentials: "include",
   }),
-  tagTypes: ["Review"],
+  tagTypes: ["User", "Review"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
@@ -39,6 +39,7 @@ export const serverApi = createApi({
       query: () => ({
         url: "user/token",
       }),
+      providesTags: ["User"],
     }),
     updateProfile: builder.mutation({
       query: (body) => ({
@@ -46,6 +47,15 @@ export const serverApi = createApi({
         method: "PATCH",
         body,
       }),
+      invalidatesTags: ["User"],
+    }),
+    signout: builder.mutation({
+      query: (body) => ({
+        url: "user",
+        method: "DELETE",
+        body,
+      }),
+      invalidatesTags: ["User"],
     }),
     getReviews: builder.query({
       query: (id) => ({ url: `review/${id}` }),
@@ -78,6 +88,7 @@ export const {
   useSignupMutation,
   useCheckTokenQuery,
   useUpdateProfileMutation,
+  useSignoutMutation,
   useGetReviewsQuery,
   useCreateReviewMutation,
   useDeleteReviewMutation,

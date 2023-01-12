@@ -10,6 +10,7 @@ import useTimer from "hooks/useTimer";
 import { useDispatch } from "react-redux";
 import { login } from "store/user";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Base = styled.main``;
 
@@ -30,6 +31,7 @@ const MailIcon = styled.div`
 const MailAuthenticationModal = ({ email, password, closeHandler }) => {
   const { timeLimit, isRunning, reset } = useTimer();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const inputRef = useRef();
   const [emailTrigger, { data: emailRes = {} }] = useEmailMutation();
@@ -72,11 +74,19 @@ const MailAuthenticationModal = ({ email, password, closeHandler }) => {
     if (signupRes.type === "SUCCESS_SIGNUP") {
       showSuccessNotify(signupRes.msg);
       closeHandler();
+      navigate("/");
       dispatch(login({ user: signupRes.user }));
     } else {
       showErrorNotify(signupRes.msg);
     }
-  }, [signupRes, showSuccessNotify, showErrorNotify, closeHandler, dispatch]);
+  }, [
+    signupRes,
+    showSuccessNotify,
+    showErrorNotify,
+    closeHandler,
+    dispatch,
+    navigate,
+  ]);
 
   return (
     <Modal closeHandler={closeHandler} backdropTouchClose={false}>
