@@ -89,6 +89,7 @@ const MyMenuCard = ({ onMyMenuClose, setShowMyMenu }) => {
 
   const handleProfileEditBtnClick = () => {
     setIsShowProfileEditModal(true);
+    document.body.classList.add("scroll_hidden");
   };
 
   const handleLogoutBtnClick = () => {
@@ -100,6 +101,7 @@ const MyMenuCard = ({ onMyMenuClose, setShowMyMenu }) => {
   const closeHandler = useCallback(() => {
     onMyMenuClose();
     setIsShowProfileEditModal(false);
+    document.body.classList.remove("scroll_hidden");
   }, [onMyMenuClose]);
 
   useOutsideClick(cardRef, setShowMyMenu, isShowProfileEditModal);

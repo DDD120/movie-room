@@ -93,10 +93,12 @@ const MainInfo = ({ movie, isLoading }) => {
 
   const openWriteReviewModal = () => {
     setShowWriteReviewModal(true);
+    document.body.classList.add("scroll_hidden");
   };
 
   const closeHandler = () => {
     setShowWriteReviewModal(false);
+    document.body.classList.remove("scroll_hidden");
   };
 
   return (
