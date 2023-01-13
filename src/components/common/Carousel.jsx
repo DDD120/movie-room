@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
 import { Common } from "styles/common";
 import Title from "./Title";
+import { isMobile } from "react-device-detect";
 
 const Base = styled.div`
   margin: 40px 0;
 `;
 
-const Container = styled.div`
+const CarouseContainer = styled.div`
   position: relative;
 `;
 
@@ -33,12 +34,21 @@ const ArrowButton = styled.button`
   &:hover {
     color: ${Common.colors.orange};
   }
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const CarouselList = styled.ul`
   display: flex;
   padding: 24px 0;
-  overflow: hidden;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Carousel = ({
@@ -49,21 +59,21 @@ const Carousel = ({
   showCount,
   children,
 }) => {
-  const [leftBtnShow, setLeftBtnShow] = useState(false);
-  const [rightBtnShow, setRightBtnShow] = useState(true);
+  const [isShowLeftBtn, setIsShowLeftBtn] = useState(false);
+  const [isShowRightBtn, setIsShowRightBtn] = useState(true);
 
   useEffect(() => {
-    activeIndex ? setLeftBtnShow(true) : setLeftBtnShow(false);
+    activeIndex ? setIsShowLeftBtn(true) : setIsShowLeftBtn(false);
     activeIndex + showCount < itemCount
-      ? setRightBtnShow(true)
-      : setRightBtnShow(false);
+      ? setIsShowRightBtn(true)
+      : setIsShowRightBtn(false);
   }, [activeIndex, itemCount, showCount]);
 
-  const prevButtonHandler = () => {
+  const handlePreBtnClick = () => {
     setActiveIndex((activeIndex) => activeIndex - showCount);
   };
 
-  const nextButtonHandler = () => {
+  const handleNextBtnClick = () => {
     if (activeIndex < itemCount) {
       setActiveIndex((activeIndex) => activeIndex + showCount);
     }
@@ -74,19 +84,19 @@ const Carousel = ({
       {itemCount > 0 && (
         <>
           <Title name={name} />
-          <Container>
-            {leftBtnShow && (
-              <ArrowButton left onClick={prevButtonHandler}>
+          <CarouseContainer>
+            {!isMobile && isShowLeftBtn && (
+              <ArrowButton left onClick={handlePreBtnClick}>
                 <RiArrowDropLeftLine />
               </ArrowButton>
             )}
             <CarouselList>{children}</CarouselList>
-            {rightBtnShow && (
-              <ArrowButton right onClick={nextButtonHandler}>
+            {!isMobile && isShowRightBtn && (
+              <ArrowButton right onClick={handleNextBtnClick}>
                 <RiArrowDropRightLine />
               </ArrowButton>
             )}
-          </Container>
+          </CarouseContainer>
         </>
       )}
     </Base>

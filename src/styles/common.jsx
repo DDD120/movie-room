@@ -21,9 +21,10 @@ export const CarouselItem = styled.li`
   flex: 0 0 20%;
   transition: 200ms ease;
   transform: ${({ activeIndex }) => `translateX(-${activeIndex * 100}%)`};
-  > img {
+  img {
     width: 100%;
   }
+  scroll-snap-align: start;
 `;
 
 export const CarouselContainer = styled.section`
