@@ -9,6 +9,7 @@ import useIntersectionObserver from "hooks/useIntersectionObserver";
 import ToTop from "components/common/ToTop";
 import ScrollRestoration from "components/common/ScrollRestoration";
 import { useLazyGetSearchQuery } from "apis/movie-db-api";
+import { arrayDeduplication } from "lib/filter";
 
 const Head = styled.div`
   display: flex;
@@ -37,6 +38,12 @@ const SearchItem = styled.div`
   flex: 0 0 20%;
 `;
 
+const ObserverContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100px;
+`;
+
 const Observer = styled.div`
   display: flex;
   justify-content: center;
@@ -45,7 +52,7 @@ const Observer = styled.div`
 const Search = () => {
   const location = useLocation();
   const searchKeyword = new URLSearchParams(location.search).get("query");
-
+  const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   const [
@@ -53,24 +60,45 @@ const Search = () => {
     {
       data: searchData = {},
 
-      isLoading,
+      isFetching,
+      isSuccess,
     },
   ] = useLazyGetSearchQuery();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setSearchResults((list) => {
+        const serarchList = arrayDeduplication([
+          ...list,
+          ...searchData.results,
+        ]);
+        return serarchList;
+      });
+    }
+  }, [isSuccess, searchData.page, searchData.results]);
 
   useEffect(() => {
     trigger({ query: searchKeyword, page: currentPage });
   }, [trigger, searchKeyword, currentPage]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+    setSearchResults([]);
+  }, [searchKeyword]);
+
   const onIntersect = useCallback(
     (entry, observer) => {
       if (entry[0].isIntersecting) {
-        if (searchData.total_pages >= currentPage) {
+        if (
+          searchData.total_pages >= currentPage &&
+          searchData.page === currentPage
+        ) {
           setCurrentPage((page) => page + 1);
         }
         observer.unobserve(entry[0].target);
       }
     },
-    [searchData.total_pages, currentPage]
+    [searchData.total_pages, currentPage, searchData.page]
   );
 
   const { setTarget } = useIntersectionObserver({ onIntersect });
@@ -87,19 +115,27 @@ const Search = () => {
       <TotalCount>
         총 {searchData.total_results}편의 영화가 검색되었습니다.
       </TotalCount>
+
       <SearchList>
-        {searchData.results?.map((movie) => (
-          <SearchItem key={movie.id}>
-            <MovieCard
-              id={movie.id}
-              poster_path={movie.poster_path}
-              title={movie.title}
-              release_date={movie.release_date}
-            />
-          </SearchItem>
-        ))}
+        {searchResults.length > 0 &&
+          searchResults.map((movie) => (
+            <SearchItem key={movie.id}>
+              <MovieCard
+                id={movie.id}
+                poster_path={movie.poster_path}
+                title={movie.title}
+                release_date={movie.release_date}
+              />
+            </SearchItem>
+          ))}
       </SearchList>
-      <Observer ref={setTarget}>{isLoading && <LoadingAnimation />}</Observer>
+      <ObserverContainer>
+        {isFetching ? (
+          <LoadingAnimation />
+        ) : (
+          <Observer ref={setTarget}></Observer>
+        )}
+      </ObserverContainer>
       <ToTop />
     </Container>
   );
