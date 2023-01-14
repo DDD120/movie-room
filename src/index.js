@@ -7,6 +7,7 @@ import store from "store";
 import { ToastContainer } from "react-toastify";
 import { Common } from "styles/common";
 import styled from "@emotion/styled";
+import "react-toastify/dist/ReactToastify.css";
 
 const StyledContainer = styled(ToastContainer)`
   .Toastify__toast {

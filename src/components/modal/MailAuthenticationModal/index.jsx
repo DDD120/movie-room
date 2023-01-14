@@ -1,7 +1,7 @@
 import { GoMailRead } from "react-icons/go";
 import styled from "@emotion/styled";
 import { Common } from "styles/common";
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect } from "react";
 import Button from "components/common/Button";
 import Modal from "../Modal";
 import { useEmailMutation, useSignupMutation } from "apis/server-api";
@@ -9,8 +9,8 @@ import AuthorizationNumber from "./AuthorizationNumber";
 import useTimer from "hooks/useTimer";
 import { useDispatch } from "react-redux";
 import { login } from "store/user";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { showToast } from "lib/toast";
 
 const Base = styled.main``;
 
@@ -28,16 +28,32 @@ const MailIcon = styled.div`
   font-size: 3rem;
 `;
 
-const MailAuthenticationModal = ({ email, password, closeHandler }) => {
+const MailAuthenticationModal = ({ email, password, onClose }) => {
   const { timeLimit, isRunning, reset } = useTimer();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const inputRef = useRef();
-  const [emailTrigger, { data: emailRes = {} }] = useEmailMutation();
-  const [signupTrigger, { data: signupRes = {} }] = useSignupMutation();
+  const [
+    emailTrigger,
+    {
+      data: emailRes = {},
+      isSuccess: isEmailSuccess,
+      isError: isEmailError,
+      error: emailError,
+    },
+  ] = useEmailMutation();
+  const [
+    signupTrigger,
+    {
+      data: signupRes = {},
+      isSuccess: isSignupSuccess,
+      isError: isSignupError,
+      error: signupError,
+    },
+  ] = useSignupMutation();
 
-  const signup = () => {
+  const handleCheckClick = () => {
     signupTrigger({
       email,
       password,
@@ -45,51 +61,40 @@ const MailAuthenticationModal = ({ email, password, closeHandler }) => {
     });
   };
 
-  const resendMail = () => {
+  const handleResendMailClick = () => {
     emailTrigger({ email });
     reset();
   };
 
-  const showSuccessNotify = useCallback((msg) => {
-    toast.success(msg, {
-      autoClose: 3000,
-      hideProgressBar: true,
-    });
-  }, []);
-
-  const showErrorNotify = useCallback((msg) => {
-    toast.error(msg, {
-      autoClose: 3000,
-      hideProgressBar: true,
-    });
-  }, []);
+  useEffect(() => {
+    if (isEmailSuccess) {
+      showToast(emailRes.message);
+    }
+  }, [emailRes, isEmailSuccess]);
 
   useEffect(() => {
-    emailRes.type === "SUCCESS_SEND_EMAIL"
-      ? showSuccessNotify(emailRes.msg)
-      : showErrorNotify(emailRes.msg);
-  }, [emailRes, showSuccessNotify, showErrorNotify]);
+    if (isEmailError) {
+      showToast(emailError.data.message);
+    }
+  }, [isEmailError, emailError]);
 
   useEffect(() => {
-    if (signupRes.type === "SUCCESS_SIGNUP") {
-      showSuccessNotify(signupRes.msg);
-      closeHandler();
+    if (isSignupSuccess) {
+      showToast(signupRes.message);
+      onClose();
       navigate("/");
       dispatch(login({ user: signupRes.user }));
-    } else {
-      showErrorNotify(signupRes.msg);
     }
-  }, [
-    signupRes,
-    showSuccessNotify,
-    showErrorNotify,
-    closeHandler,
-    dispatch,
-    navigate,
-  ]);
+  }, [isSignupSuccess, signupRes, onClose, navigate, dispatch]);
+
+  useEffect(() => {
+    if (isSignupError) {
+      showToast(signupError.data.message);
+    }
+  }, [isSignupError, signupError]);
 
   return (
-    <Modal closeHandler={closeHandler} backdropTouchClose={false}>
+    <Modal closeHandler={onClose} backdropTouchClose={false}>
       <Base>
         <MailIcon>
           <GoMailRead />
@@ -100,9 +105,9 @@ const MailAuthenticationModal = ({ email, password, closeHandler }) => {
         </Explanation>
         <AuthorizationNumber timeLimit={timeLimit} inputRef={inputRef} />
         {isRunning ? (
-          <Button clickEvent={signup}>확인</Button>
+          <Button clickEvent={handleCheckClick}>확인</Button>
         ) : (
-          <Button clickEvent={resendMail}>인증 메일 재전송</Button>
+          <Button clickEvent={handleResendMailClick}>인증 메일 재전송</Button>
         )}
       </Base>
     </Modal>

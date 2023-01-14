@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Common } from "styles/common";
 
-const CertificationNumberBox = styled.div`
+const Base = styled.div`
   position: relative;
   margin: 20px 0;
 `;
@@ -33,7 +33,7 @@ const AuthorizationNumber = ({ timeLimit, inputRef }) => {
     return `${min}:${sec}`;
   };
   return (
-    <CertificationNumberBox>
+    <Base>
       <Input
         ref={inputRef}
         title="인증코드"
@@ -43,7 +43,7 @@ const AuthorizationNumber = ({ timeLimit, inputRef }) => {
         placeholder="인증코드"
       />
       <TimeLimit>{formatTime(timeLimit)}</TimeLimit>
-    </CertificationNumberBox>
+    </Base>
   );
 };
 

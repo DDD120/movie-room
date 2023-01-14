@@ -2,15 +2,14 @@ import styled from "@emotion/styled";
 import { useEmailMutation } from "apis/server-api";
 import Container from "components/common/Container";
 import MailAuthenticationModal from "components/modal/MailAuthenticationModal";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Common } from "styles/common";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import useProtectedRoute from "hooks/useProtectedRoute";
+import { showToast } from "lib/toast";
+import AuthInput from "components/common/AuthInput";
 
-const Layout = styled.div`
+const Base = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -20,7 +19,7 @@ const Layout = styled.div`
 const Logo = styled.div`
   width: 200px;
   margin: 40px 0 10px;
-  & > img {
+  img {
     width: 100%;
   }
 `;
@@ -38,33 +37,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`;
-
-const Input = styled.input`
-  margin: 4px auto;
-  width: 100%;
-  border-radius: 50px;
-  padding: 14px 30px;
-  border: none;
-  box-shadow: none;
-  color: #fff;
-  font-size: 1.025rem;
-  cursor: ${({ submit }) => submit && "pointer"};
-  background-color: ${({ submit }) =>
-    submit ? `${Common.colors.cyan}` : `${Common.colors.orange}`};
-  &::placeholder {
-    color: #fff;
-  }
-  &:-webkit-autofill,
-  :-webkit-autofill:hover,
-  :-webkit-autofill:focus,
-  :-webkit-autofill:active {
-    box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
-    -webkit-text-fill-color: #fff;
-    -webkit-transition: background-color 5000s ease-in-out 0s;
-  }
 `;
 
 const ToLogin = styled.span`
@@ -90,9 +62,8 @@ const ERROR_MSG = {
 };
 
 const Signup = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [emailTrigger, { data: emailRes = {} }] = useEmailMutation();
-
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [emailTrigger, { isSuccess, isError, error }] = useEmailMutation();
   const {
     register,
     handleSubmit,
@@ -105,39 +76,36 @@ const Signup = () => {
     emailTrigger({ email: data.email });
   };
 
-  const closeHandler = () => {
-    setIsOpenModal(false);
+  const handleModalClose = () => {
+    setIsShowModal(false);
   };
 
-  const showErrorNotify = useCallback((msg) => {
-    toast.error(msg, {
-      autoClose: 3000,
-      hideProgressBar: true,
-    });
-  }, []);
+  useEffect(() => {
+    if (isSuccess) {
+      setIsShowModal(true);
+    }
+  }, [isSuccess]);
 
   useEffect(() => {
-    emailRes.type === "SUCCESS_SEND_EMAIL"
-      ? setIsOpenModal(true)
-      : showErrorNotify(emailRes.msg);
-  }, [emailRes, showErrorNotify]);
-
-  useProtectedRoute();
+    if (isError) {
+      showToast(error.data.message);
+    }
+  }, [isError, error]);
 
   return (
     <Container>
-      <Layout>
+      <Base>
         <Logo>
           <img src="/assets/logo.png" alt="로고" />
         </Logo>
         <Head>회원가입</Head>
-        <Form onSubmit={handleSubmit(onSubmit)} action="">
-          <Input
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <AuthInput
             type="email"
             title="이메일"
             placeholder="이메일"
             autoFocus
-            {...register("email", {
+            register={register("email", {
               required: ERROR_MSG.required,
               pattern: {
                 value: EMAIL_REGEX,
@@ -146,11 +114,11 @@ const Signup = () => {
             })}
           />
           {errors.email && <ErrorMsg>{errors.email.message}</ErrorMsg>}
-          <Input
+          <AuthInput
             type="password"
             title="비밀번호"
             placeholder="비밀번호"
-            {...register("pw", {
+            register={register("pw", {
               required: ERROR_MSG.required,
               pattern: {
                 value: PW_REGEX,
@@ -160,11 +128,11 @@ const Signup = () => {
             })}
           />
           {errors.pw && <ErrorMsg>{errors.pw.message}</ErrorMsg>}
-          <Input
+          <AuthInput
             type="password"
             title="비밀번호 확인"
             placeholder="비밀번호 확인"
-            {...register("confirmPw", {
+            register={register("confirmPw", {
               required: ERROR_MSG.required,
               validate: {
                 confirmPw: (v) =>
@@ -173,7 +141,7 @@ const Signup = () => {
             })}
           />
           {errors.confirmPw && <ErrorMsg>{errors.confirmPw.message}</ErrorMsg>}
-          <Input
+          <AuthInput
             submit
             type="submit"
             title="회원가입"
@@ -184,14 +152,14 @@ const Signup = () => {
         <Link to="/login">
           <ToLogin>로그인 하러가기</ToLogin>
         </Link>
-        {isOpenModal && (
+        {isShowModal && (
           <MailAuthenticationModal
             email={getValues("email")}
             password={getValues("pw")}
-            closeHandler={closeHandler}
+            onClose={handleModalClose}
           />
         )}
-      </Layout>
+      </Base>
     </Container>
   );
 };

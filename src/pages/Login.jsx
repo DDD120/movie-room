@@ -7,8 +7,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login as storeLogin } from "store/user";
 import { useForm } from "react-hook-form";
-import { css } from "@emotion/react";
 import { showToast } from "lib/toast";
+import AuthInput from "components/common/AuthInput";
 
 const Base = styled.div`
   display: flex;
@@ -37,46 +37,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Input = styled.input`
-  margin: 4px auto;
-  max-width: 600px;
-  width: 100%;
-  border-radius: 50px;
-  padding: 14px 30px;
-  border: none;
-  box-shadow: none;
-  color: #fff;
-  font-size: 1.025rem;
-  background-color: ${Common.colors.orange};
-  &::placeholder {
-    color: #fff;
-  }
-  &:-webkit-autofill,
-  :-webkit-autofill:hover,
-  :-webkit-autofill:focus,
-  :-webkit-autofill:active {
-    box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
-    -webkit-text-fill-color: #fff;
-    -webkit-transition: background-color 5000s ease-in-out 0s;
-  }
-
-  ${({ submit }) =>
-    submit &&
-    css`
-      cursor: pointer;
-      background-color: ${Common.colors.cyan};
-      transition: filter 0.3s;
-      &:hover {
-        filter: brightness(0.9);
-      }
-      &:disabled {
-        filter: grayscale(0.9);
-      }
-    `}
 `;
 
 const Signin = styled.span`
@@ -144,20 +104,20 @@ const Login = () => {
         </Logo>
         <Head>로그인</Head>
         <Form onSubmit={handleSubmit(handleLoginSubmit)}>
-          <Input
-            {...register("email", { required: true })}
+          <AuthInput
+            register={register("email", { required: true })}
             type="email"
             title="이메일"
             placeholder="이메일"
             autoFocus
           />
-          <Input
-            {...register("password", { required: true })}
+          <AuthInput
+            register={register("password", { required: true })}
             type="password"
             title="비밀번호"
             placeholder="비밀번호"
           />
-          <Input
+          <AuthInput
             submit
             type="submit"
             title="로그인"
