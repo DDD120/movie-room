@@ -2,15 +2,15 @@ import styled from "@emotion/styled";
 import Container from "components/common/Container";
 import { Common } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
-import { useRef } from "react";
 import { useLoginMutation } from "apis/server-api";
-import { useEffect, useCallback } from "react";
-import { toast } from "react-toastify";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login as storeLogin } from "store/user";
-import useProtectedRoute from "hooks/useProtectedRoute";
+import { useForm } from "react-hook-form";
+import { css } from "@emotion/react";
+import { showToast } from "lib/toast";
 
-const Layout = styled.div`
+const Base = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -20,7 +20,7 @@ const Layout = styled.div`
 const Logo = styled.div`
   width: 200px;
   margin: 40px 0 10px;
-  & > img {
+  img {
     width: 100%;
   }
 `;
@@ -49,9 +49,7 @@ const Input = styled.input`
   box-shadow: none;
   color: #fff;
   font-size: 1.025rem;
-  cursor: ${({ submit }) => submit && "pointer"};
-  background-color: ${({ submit }) =>
-    submit ? `${Common.colors.cyan}` : `${Common.colors.orange}`};
+  background-color: ${Common.colors.orange};
   &::placeholder {
     color: #fff;
   }
@@ -65,6 +63,20 @@ const Input = styled.input`
     -webkit-text-fill-color: #fff;
     -webkit-transition: background-color 5000s ease-in-out 0s;
   }
+
+  ${({ submit }) =>
+    submit &&
+    css`
+      cursor: pointer;
+      background-color: ${Common.colors.cyan};
+      transition: filter 0.3s;
+      &:hover {
+        filter: brightness(0.9);
+      }
+      &:disabled {
+        filter: grayscale(0.9);
+      }
+    `}
 `;
 
 const Signin = styled.span`
@@ -87,7 +99,7 @@ const Social = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  & > img {
+  img {
     position: absolute;
     top: 0;
     left: 0;
@@ -96,78 +108,62 @@ const Social = styled.a`
 `;
 
 const Login = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm();
+  const [login, { data: loginRes = {}, isSuccess, isError, error }] =
+    useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [login, { data: loginRes = {}, isSuccess, error }] = useLoginMutation();
-
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    if (email && password) {
-      await login({ email, password });
-    }
+  const handleLoginSubmit = ({ email, password }) => {
+    login({ email, password });
   };
 
-  const showSuccessNotify = useCallback((msg) => {
-    toast.success(msg, {
-      autoClose: 3000,
-      hideProgressBar: true,
-    });
-  }, []);
-
-  const showErrorNotify = useCallback((msg) => {
-    toast.error(msg, {
-      autoClose: 3000,
-      hideProgressBar: true,
-    });
-  }, []);
-
   useEffect(() => {
-    if (loginRes.type === "SUCCESS_LOGIN") {
+    if (isSuccess) {
       navigate("/");
       dispatch(storeLogin({ user: loginRes.user }));
-      showSuccessNotify(loginRes.msg);
+      showToast(loginRes.message);
     }
-    error && showErrorNotify(loginRes.msg);
-  }, [
-    error,
-    isSuccess,
-    navigate,
-    loginRes,
-    showSuccessNotify,
-    showErrorNotify,
-    dispatch,
-  ]);
+  }, [navigate, loginRes, isSuccess, dispatch]);
 
-  useProtectedRoute();
+  useEffect(() => {
+    if (isError) {
+      showToast(error.data.message);
+    }
+  }, [isError, error]);
 
   return (
     <Container>
-      <Layout>
+      <Base>
         <Logo>
-          <img src="/assets/logo.png" alt="로고" />
+          <img src="/assets/logo.png" alt="MOVIE ROOM 로고" />
         </Logo>
         <Head>로그인</Head>
-        <Form onSubmit={handleLoginSubmit} action="">
+        <Form onSubmit={handleSubmit(handleLoginSubmit)}>
           <Input
-            ref={emailRef}
+            {...register("email", { required: true })}
             type="email"
             title="이메일"
             placeholder="이메일"
             autoFocus
           />
           <Input
-            ref={passwordRef}
+            {...register("password", { required: true })}
             type="password"
             title="비밀번호"
             placeholder="비밀번호"
           />
-          <Input submit type="submit" title="로그인" value="로그인" />
+          <Input
+            submit
+            type="submit"
+            title="로그인"
+            value="로그인"
+            disabled={isSubmitting}
+          />
         </Form>
         <Link to="/signup">
           <Signin>회원가입</Signin>
@@ -180,7 +176,7 @@ const Login = () => {
           <img src="/assets/kakao-symbol.png" alt="카카오 심볼" />
           <div>카카오 로그인</div>
         </Social>
-      </Layout>
+      </Base>
     </Container>
   );
 };
