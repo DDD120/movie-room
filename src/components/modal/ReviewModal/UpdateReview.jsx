@@ -4,8 +4,10 @@ import styled from "@emotion/styled";
 import StarRating from "./StarRating";
 import { useUpdateReviewMutation } from "apis/server-api";
 import WriteForm from "./WriteForm";
+import { useForm } from "react-hook-form";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { showToast } from "lib/toast";
 
 const Base = styled.form`
   width: 100%;
@@ -16,53 +18,55 @@ const Title = styled.h1`
   font-size: 1.8rem;
 `;
 
-const UpdateReview = ({ review, movie, closeHandler }) => {
-  const [reviewContent, setReviewContent] = useState(review.content);
-  const [rating, setRating] = useState(review.rating);
-  const [updateReview, { isLoading, isSuccess }] = useUpdateReviewMutation();
+const UpdateReview = ({ review, movie, onClose }) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { isSubmitting },
+  } = useForm({
+    defaultValues: {
+      content: review.content,
+      rating: review.rating,
+    },
+  });
+
+  const [updateReview, { data: updateReviewRes, isSuccess }] =
+    useUpdateReviewMutation();
   const releaseYear = movie.release_date?.slice(0, 4);
 
-  const handleWirteReviewSubmit = async (e) => {
-    e.preventDefault();
-    if (reviewContent.trim()) {
-      await updateReview({
-        id: review._id,
-        content: reviewContent,
-        rating,
-      });
-    }
-  };
-
-  const handleRatingClick = (value) => {
-    setRating(value);
-  };
-
-  const handleReviewContentChange = (e) => {
-    const reviewText = e.target.value;
-    setReviewContent(reviewText);
+  const handleWirteReviewSubmit = ({ content, rating }) => {
+    updateReview({
+      id: review._id,
+      content,
+      rating,
+    });
   };
 
   useEffect(() => {
-    isSuccess && closeHandler();
-  }, [isSuccess, closeHandler]);
+    if (isSuccess) {
+      onClose();
+      showToast(updateReviewRes.message);
+    }
+  }, [isSuccess, updateReviewRes, onClose]);
 
   return (
-    <Modal closeHandler={closeHandler} backdropTouchClose={false}>
-      <Base onSubmit={handleWirteReviewSubmit}>
+    <Modal closeHandler={onClose} backdropTouchClose={false}>
+      <Base onSubmit={handleSubmit(handleWirteReviewSubmit)}>
         <Title>
           {movie.title} <span>({releaseYear})</span>
         </Title>
         <StarRating
-          handleRatingClick={handleRatingClick}
-          currentRating={rating}
+          register={register("rating")}
+          currentRating={watch("rating")}
         />
         <WriteForm
-          onReviewContentChange={handleReviewContentChange}
-          value={reviewContent}
-          contentLength={reviewContent.length}
-          disabled={isLoading}
+          register={register("content", { required: true })}
+          value={watch("content")}
+          contentLength={watch("content").length}
+          disabled={isSubmitting}
         />
-        <Button disabled={isLoading}>수정</Button>
+        <Button disabled={isSubmitting}>수정</Button>
       </Base>
     </Modal>
   );

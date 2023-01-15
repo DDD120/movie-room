@@ -96,7 +96,7 @@ const MainInfo = ({ movie, isLoading }) => {
     document.body.classList.add("scroll_hidden");
   };
 
-  const closeHandler = () => {
+  const handleModalClose = () => {
     setShowWriteReviewModal(false);
     document.body.classList.remove("scroll_hidden");
   };
@@ -148,7 +148,7 @@ const MainInfo = ({ movie, isLoading }) => {
                 </WriteReviewBtnWrapper>
               )}
               {showWriteReviewModal && (
-                <CreateReview movie={movie} closeHandler={closeHandler} />
+                <CreateReview movie={movie} onClose={handleModalClose} />
               )}
             </InfoContainer>
           </MainInfoContiner>

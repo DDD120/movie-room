@@ -9,6 +9,8 @@ import useOutsideClick from "hooks/useOutsideClick";
 import dayjs from "dayjs";
 import { useDeleteReviewMutation } from "apis/server-api";
 import UpdateReview from "components/modal/ReviewModal/UpdateReview";
+import { useEffect } from "react";
+import { showToast } from "lib/toast";
 
 const Base = styled.div`
   position: relative;
@@ -110,27 +112,34 @@ const MenuListItemBtn = styled.button`
 const MyReviewItem = ({ review }) => {
   const [isShowMenuList, setIsShowMenuList] = useState(false);
   const [isShowReviewModal, setIsShowReviewModal] = useState(false);
-  const { data: movieData } = useGetMainInfoQuery(review.movieId);
-  const [deleteReview] = useDeleteReviewMutation();
+  const { data: movie } = useGetMainInfoQuery(review.movieId);
+  const [deleteReview, { data: deleteReviewRes, isSuccess }] =
+    useDeleteReviewMutation();
   const itemRef = useRef();
 
-  const releaseYear = movieData?.release_date.slice(0, 4);
+  const releaseYear = movie?.release_date.slice(0, 4);
 
-  const handleMenuBtnClick = () => {
+  const handleMenuClick = () => {
     setIsShowMenuList((value) => !value);
   };
 
-  const closeHandler = () => {
+  const handleModalClose = () => {
     setIsShowReviewModal(false);
   };
 
-  const handleUpdateBtnClick = () => {
+  const handleUpdateClick = () => {
     setIsShowReviewModal(true);
   };
 
   const handleDeleteBtnClick = () => {
     deleteReview({ id: review._id });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      showToast(deleteReviewRes.message);
+    }
+  }, [isSuccess, deleteReviewRes]);
 
   useOutsideClick(itemRef, setIsShowMenuList, isShowReviewModal);
 
@@ -139,7 +148,7 @@ const MyReviewItem = ({ review }) => {
       <Head>
         <Link to={`/detail/${review.movieId}`}>
           <Title>
-            {movieData?.title} <ReleaseYear>({releaseYear})</ReleaseYear>
+            {movie?.title} <ReleaseYear>({releaseYear})</ReleaseYear>
           </Title>
         </Link>
 
@@ -151,20 +160,20 @@ const MyReviewItem = ({ review }) => {
       <ReviewContent>{review.content}</ReviewContent>
       <Date>{dayjs(review.updatedAt).format("YY.MM.DD")}</Date>
       <Menu>
-        <MenuBtn onClick={handleMenuBtnClick}>
+        <MenuBtn onClick={handleMenuClick}>
           <BiDotsVerticalRounded />
         </MenuBtn>
         {isShowMenuList && (
           <MenuList ref={itemRef}>
             <li>
-              <MenuListItemBtn onClick={handleUpdateBtnClick}>
+              <MenuListItemBtn onClick={handleUpdateClick}>
                 리뷰 수정
               </MenuListItemBtn>
               {isShowReviewModal && (
                 <UpdateReview
                   review={review}
-                  movie={movieData}
-                  closeHandler={closeHandler}
+                  movie={movie}
+                  onClose={handleModalClose}
                 />
               )}
             </li>

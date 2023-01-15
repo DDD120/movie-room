@@ -34,71 +34,22 @@ const RatingField = styled.fieldset`
   }
 `;
 
-const StarRating = ({ handleRatingClick, currentRating }) => {
+const StarRating = ({ currentRating, register }) => {
+  const stars = [5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5];
+
   return (
     <Base>
       <Name>별점</Name>
       <RatingField>
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={5}
-          isHalf={false}
-          currentRating={currentRating}
-        />
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={4.5}
-          isHalf={true}
-          currentRating={currentRating}
-        />
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={4}
-          isHalf={false}
-          currentRating={currentRating}
-        />
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={3.5}
-          isHalf={true}
-          currentRating={currentRating}
-        />
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={3}
-          isHalf={false}
-          currentRating={currentRating}
-        />
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={2.5}
-          isHalf={true}
-          currentRating={currentRating}
-        />
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={2}
-          isHalf={false}
-          currentRating={currentRating}
-        />
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={1.5}
-          isHalf={true}
-          currentRating={currentRating}
-        />
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={1}
-          isHalf={false}
-          currentRating={currentRating}
-        />
-        <StarInput
-          onRatingClick={handleRatingClick}
-          value={0.5}
-          isHalf={true}
-          currentRating={currentRating}
-        />
+        {stars.map((star) => (
+          <StarInput
+            key={star}
+            register={register}
+            value={star}
+            isHalf={!Number.isInteger(star)}
+            currentRating={currentRating}
+          />
+        ))}
       </RatingField>
       <RatingValue>{currentRating}</RatingValue>
     </Base>
