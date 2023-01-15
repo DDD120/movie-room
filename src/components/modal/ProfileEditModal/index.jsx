@@ -10,6 +10,7 @@ import { useSignoutMutation, useUpdateProfileMutation } from "apis/server-api";
 import Button from "components/common/Button";
 import SignoutMessage from "./SignoutMessage";
 import { logout } from "store/user";
+import { showToast } from "lib/toast";
 
 const Base = styled.form`
   width: 80%;
@@ -95,6 +96,7 @@ const EditIcon = styled.div`
 `;
 
 const ErrorMsg = styled.p`
+  height: 20px;
   color: #da0000;
   font-size: 0.9rem;
 `;
@@ -103,24 +105,20 @@ const DeleteAccountBtn = styled.button`
   cursor: pointer;
 `;
 
-const ProfileEditModal = ({ closeHandler }) => {
+const ProfileEditModal = ({ onClose }) => {
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({ mode: "onChange" });
   const [isThumbnailChage, setIsThumbnailChage] = useState(false);
   const [newThumbnailUrl, setNewThumbnailUrl] = useState("");
   const [isShowMessage, setIsShowMessage] = useState(false);
-  const [
-    updateProfile,
-    { isLoading: isUpdateLoading, isSuccess: isUpdateSuccess },
-  ] = useUpdateProfileMutation();
-  const [
-    signout,
-    { isLoading: isSignoutLoading, isSuccess: isSignoutSuccess },
-  ] = useSignoutMutation();
+  const [updateProfile, { data: updateRes, isSuccess: isUpdateSuccess }] =
+    useUpdateProfileMutation();
+  const [signout, { data: signoutRes, isSuccess: isSignoutSuccess }] =
+    useSignoutMutation();
   const { id, nickname, email, thumbnail } = useSelector(
     (state) => state.user.user
   );
@@ -137,15 +135,15 @@ const ProfileEditModal = ({ closeHandler }) => {
     updateProfile(formData);
   };
 
-  const handleShowMessage = () => {
+  const handleDeleteAccountClick = () => {
     setIsShowMessage(true);
   };
 
-  const handleCancelBtnClick = () => {
+  const handleCancelClick = () => {
     setIsShowMessage(false);
   };
 
-  const handleDeleteBtnClick = () => {
+  const handleDeleteClick = () => {
     signout({ id });
   };
 
@@ -159,19 +157,21 @@ const ProfileEditModal = ({ closeHandler }) => {
 
   useEffect(() => {
     if (isUpdateSuccess) {
-      closeHandler();
+      onClose();
+      showToast(updateRes.message);
     }
-  }, [isUpdateSuccess, closeHandler]);
+  }, [isUpdateSuccess, updateRes, onClose]);
 
   useEffect(() => {
     if (isSignoutSuccess) {
       dispatch(logout());
-      closeHandler();
+      onClose();
+      showToast(signoutRes.message);
     }
-  }, [isSignoutSuccess, dispatch, closeHandler]);
+  }, [isSignoutSuccess, signoutRes, dispatch, onClose]);
 
   return (
-    <Modal closeHandler={closeHandler}>
+    <Modal closeHandler={onClose}>
       <Base onSubmit={handleSubmit(onSubmit)}>
         <Content>
           <Thumbnail>
@@ -205,27 +205,25 @@ const ProfileEditModal = ({ closeHandler }) => {
                   <FiEdit3 />
                 </EditIcon>
               </InputBox>
-              {errors.nickname && (
-                <ErrorMsg>{errors.nickname.message}</ErrorMsg>
-              )}
+              <ErrorMsg>{errors.nickname && errors.nickname.message}</ErrorMsg>
             </InfoItem>
             <InfoItem>
               <Name>이메일</Name>
               <Input type="text" disabled value={email} />
             </InfoItem>
-            <DeleteAccountBtn type="button" onClick={handleShowMessage}>
+            <DeleteAccountBtn type="button" onClick={handleDeleteAccountClick}>
               <u>회원탈퇴</u>
             </DeleteAccountBtn>
             {isShowMessage && (
               <SignoutMessage
-                isSignoutLoading={isSignoutLoading}
-                onCancelBtnClick={handleCancelBtnClick}
-                onDeleteBtnClick={handleDeleteBtnClick}
+                isSignoutLoading={isSubmitting}
+                onCancelBtnClick={handleCancelClick}
+                onDeleteBtnClick={handleDeleteClick}
               />
             )}
           </Info>
         </Content>
-        <Button type="submit" disabled={isUpdateLoading}>
+        <Button type="submit" disabled={isSubmitting}>
           수정
         </Button>
       </Base>

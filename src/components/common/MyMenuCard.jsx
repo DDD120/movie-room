@@ -87,18 +87,18 @@ const MyMenuCard = ({ onMyMenuClose, setShowMyMenu }) => {
   const dispatch = useDispatch();
   const cardRef = useRef(null);
 
-  const handleProfileEditBtnClick = () => {
+  const handleProfileEditClick = () => {
     setIsShowProfileEditModal(true);
     document.body.classList.add("scroll_hidden");
   };
 
-  const handleLogoutBtnClick = () => {
+  const handleLogoutClick = () => {
     logoutTrigger();
     dispatch(logout());
     onMyMenuClose();
   };
 
-  const closeHandler = useCallback(() => {
+  const handleModalClose = useCallback(() => {
     onMyMenuClose();
     setIsShowProfileEditModal(false);
     document.body.classList.remove("scroll_hidden");
@@ -114,12 +114,12 @@ const MyMenuCard = ({ onMyMenuClose, setShowMyMenu }) => {
         </Thumbnail>
         <Info>
           <Nickname>{nickname}</Nickname>
-          <ProfileEdit onClick={handleProfileEditBtnClick}>
+          <ProfileEdit onClick={handleProfileEditClick}>
             <MdSettings />
             회원정보 수정
           </ProfileEdit>
           {isShowProfileEditModal && (
-            <ProfileEditModal closeHandler={closeHandler} />
+            <ProfileEditModal onClose={handleModalClose} />
           )}
         </Info>
       </Profile>
@@ -128,7 +128,7 @@ const MyMenuCard = ({ onMyMenuClose, setShowMyMenu }) => {
           <MenuItem>My</MenuItem>
         </Link>
         <MenuItem>
-          <button onClick={handleLogoutBtnClick}>로그아웃</button>
+          <button onClick={handleLogoutClick}>로그아웃</button>
         </MenuItem>
       </MenuList>
     </Base>

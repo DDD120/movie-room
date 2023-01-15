@@ -64,7 +64,7 @@ const Header = () => {
     document.body.classList.remove("scroll_hidden");
   };
 
-  const handlePersonIconBtnCLick = () => {
+  const handlePersonClick = () => {
     if (!isLoggedIn) {
       navigate("/login");
       return;
@@ -72,7 +72,7 @@ const Header = () => {
     setShowMyMenu((state) => !state);
   };
 
-  const closeMyMenuCard = useCallback(() => {
+  const handleMyMenuClose = useCallback(() => {
     setShowMyMenu(false);
   }, []);
 
@@ -88,13 +88,13 @@ const Header = () => {
           <FiSearch />
         </NavItem>
         {isOpenModal && <SearchModal closeHandler={closeHandler} />}
-        <NavItem color={Common.colors.cyan} onClick={handlePersonIconBtnCLick}>
+        <NavItem color={Common.colors.cyan} onClick={handlePersonClick}>
           <BsFillPersonFill />
         </NavItem>
         {showMyMenu && (
           <MyMenuCard
             setShowMyMenu={setShowMyMenu}
-            onMyMenuClose={closeMyMenuCard}
+            onMyMenuClose={handleMyMenuClose}
           />
         )}
       </Nav>
