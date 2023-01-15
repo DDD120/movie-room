@@ -15,9 +15,7 @@ const useCheckWrittenReview = (movieId) => {
     const checkWritten = reviews.some((review) => {
       return review.movieId === movieId;
     });
-    if (checkWritten) {
-      setIsWritten(true);
-    }
+    checkWritten ? setIsWritten(true) : setIsWritten(false);
   }, [reviews, movieId, isLoggedIn]);
 
   return isWritten;
