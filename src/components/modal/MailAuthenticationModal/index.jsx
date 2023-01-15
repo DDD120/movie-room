@@ -12,7 +12,9 @@ import { login } from "store/user";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "lib/toast";
 
-const Base = styled.main``;
+const Base = styled.main`
+  padding: 40px 12px;
+`;
 
 const Head = styled.h1`
   font-size: 2rem;
@@ -20,6 +22,8 @@ const Head = styled.h1`
 `;
 
 const Explanation = styled.p`
+  width: 80%;
+  margin: 0 auto;
   word-break: keep-all;
 `;
 
@@ -94,7 +98,7 @@ const MailAuthenticationModal = ({ email, password, onClose }) => {
   }, [isSignupError, signupError]);
 
   return (
-    <Modal closeHandler={onClose} backdropTouchClose={false}>
+    <Modal onClose={onClose} backdropTouchClose={false}>
       <Base>
         <MailIcon>
           <GoMailRead />

@@ -7,13 +7,17 @@ import SearchInput from "./SearchInput";
 import SearchResultList from "./SearchResultList";
 
 const Base = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 500px;
+
+  @media only screen and (max-width: 800px) {
+    height: 100%;
+  }
 `;
 
-const SearchModal = ({ closeHandler }) => {
+const SearchModal = ({ onClose }) => {
   const [isAutoSearch, setIsAutoSearch] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [autoSearchKeyword, setAutoSearchKeyword] = useState("");
@@ -49,7 +53,7 @@ const SearchModal = ({ closeHandler }) => {
     navigate(
       `/search?query=${isAutoSearch ? autoSearchKeyword : searchKeyword}`
     );
-    closeHandler();
+    onClose();
   };
 
   const KeyEvent = {
@@ -105,7 +109,7 @@ const SearchModal = ({ closeHandler }) => {
   }, [trigger, searchKeyword, isAutoSearch]);
 
   return (
-    <Modal closeHandler={closeHandler} backdropTouchClose={true}>
+    <Modal onClose={onClose} backdropTouchClose={true}>
       <Base>
         <SearchInput
           goToSearch={goToSearch}
@@ -117,7 +121,7 @@ const SearchModal = ({ closeHandler }) => {
         />
         <SearchResultList
           isLoading={isLoading}
-          closeHandler={closeHandler}
+          onClose={onClose}
           autoSearchList={autoSearchList}
           focusRef={focusRef}
           focusIndex={focusIndex}

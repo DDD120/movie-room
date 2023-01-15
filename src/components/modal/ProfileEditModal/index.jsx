@@ -14,19 +14,22 @@ import { showToast } from "lib/toast";
 
 const Base = styled.form`
   width: 80%;
+  padding: 60px 24px;
   position: relative;
 `;
 
 const Content = styled.div`
   display: flex;
+  justify-content: center;
   gap: 60px;
   margin-bottom: 40px;
+  flex-wrap: wrap;
 `;
 
 const Thumbnail = styled.div`
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   overflow: hidden;
   background-color: ${Common.colors.grey};
@@ -171,7 +174,7 @@ const ProfileEditModal = ({ onClose }) => {
   }, [isSignoutSuccess, signoutRes, dispatch, onClose]);
 
   return (
-    <Modal closeHandler={onClose}>
+    <Modal onClose={onClose}>
       <Base onSubmit={handleSubmit(onSubmit)}>
         <Content>
           <Thumbnail>

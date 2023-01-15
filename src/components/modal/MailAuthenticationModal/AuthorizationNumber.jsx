@@ -7,6 +7,7 @@ const Base = styled.div`
 `;
 
 const Input = styled.input`
+  width: 80%;
   padding: 10px 10px;
   font-weight: 700;
   border: none;

@@ -87,7 +87,7 @@ const Header = () => {
         <NavItem color={Common.colors.orange} onClick={openHandler}>
           <FiSearch />
         </NavItem>
-        {isOpenModal && <SearchModal closeHandler={closeHandler} />}
+        {isOpenModal && <SearchModal onClose={closeHandler} />}
         <NavItem color={Common.colors.cyan} onClick={handlePersonClick}>
           <BsFillPersonFill />
         </NavItem>

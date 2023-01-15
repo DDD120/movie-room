@@ -7,6 +7,7 @@ import CreateReview from "components/modal/ReviewModal/CreateReview";
 import { useSelector } from "react-redux";
 import Button from "components/common/Button";
 import useCheckWrittenReview from "hooks/useCheckWrittenReview";
+import { useEffect } from "react";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -88,7 +89,6 @@ const MainInfo = ({ movie, isLoading }) => {
   const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.user);
   const releaseYear = movie?.release_date.slice(0, 4);
-
   const isWritten = useCheckWrittenReview(movie?.id);
 
   const openWriteReviewModal = () => {

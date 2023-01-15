@@ -14,21 +14,23 @@ const Backdrop = styled.div`
   background-color: ${Common.colors.greyOpacity};
 `;
 
-const ModalLayouyt = styled.div`
+const Base = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 4px;
-  width: 90%;
   max-width: 800px;
-  max-height: 500px;
-  height: 100%;
+  width: 100%;
+  padding: 4px;
   border-radius: 12px;
   background-color: ${Common.colors.beige};
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (max-width: 800px) {
+    height: 100%;
+  }
 `;
 const CloseIcon = styled.button`
   position: absolute;
@@ -39,20 +41,20 @@ const CloseIcon = styled.button`
   color: ${Common.colors.orangeOpacity};
 `;
 
-const Modal = ({ children, closeHandler, backdropTouchClose }) => {
+const Modal = ({ children, onClose, backdropTouchClose = false }) => {
   const closeModal = (event) => {
     if (!backdropTouchClose) return;
-    event.target === event.currentTarget && closeHandler();
+    event.target === event.currentTarget && onClose();
   };
 
   return createPortal(
     <Backdrop onClick={closeModal} backdropTouchClose={backdropTouchClose}>
-      <ModalLayouyt>
+      <Base>
         {children}
-        <CloseIcon onClick={closeHandler}>
+        <CloseIcon onClick={onClose}>
           <MdOutlineClose />
         </CloseIcon>
-      </ModalLayouyt>
+      </Base>
     </Backdrop>,
     document.getElementById("modal")
   );

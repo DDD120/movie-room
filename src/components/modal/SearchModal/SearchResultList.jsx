@@ -23,7 +23,7 @@ const Base = styled.div`
 const SearchResultList = ({
   focusRef,
   isLoading,
-  closeHandler,
+  onClose,
   autoSearchList,
   focusIndex,
 }) => {
@@ -36,11 +36,7 @@ const SearchResultList = ({
     <Base ref={focusRef}>
       {!isLoading &&
         autoSearchList.results?.map((movie, listIndex) => (
-          <Link
-            to={`/detail/${movie.id}`}
-            onClick={closeHandler}
-            key={movie.id}
-          >
+          <Link to={`/detail/${movie.id}`} onClick={onClose} key={movie.id}>
             <SearchResultItem
               movie={movie}
               isFocus={listIndex === focusIndex}

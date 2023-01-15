@@ -11,7 +11,7 @@ import { showToast } from "lib/toast";
 
 const Base = styled.form`
   width: 100%;
-  padding: 20px;
+  padding: 24px;
 `;
 
 const Title = styled.h1`
@@ -51,7 +51,7 @@ const UpdateReview = ({ review, movie, onClose }) => {
   }, [isSuccess, updateReviewRes, onClose]);
 
   return (
-    <Modal closeHandler={onClose} backdropTouchClose={false}>
+    <Modal onClose={onClose}>
       <Base onSubmit={handleSubmit(handleWirteReviewSubmit)}>
         <Title>
           {movie.title} <span>({releaseYear})</span>
