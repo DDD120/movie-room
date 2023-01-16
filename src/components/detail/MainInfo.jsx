@@ -7,7 +7,6 @@ import CreateReview from "components/modal/ReviewModal/CreateReview";
 import { useSelector } from "react-redux";
 import Button from "components/common/Button";
 import useCheckWrittenReview from "hooks/useCheckWrittenReview";
-import { useEffect } from "react";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -22,6 +21,7 @@ const Background = styled.div`
 
 const MainInfoContiner = styled.section`
   max-width: 1200px;
+  width: 90%;
   margin: 0 auto;
   height: auto;
   display: flex;
@@ -29,6 +29,9 @@ const MainInfoContiner = styled.section`
   gap: 28px;
   color: ${Common.colors.white};
   padding: 40px 0;
+  @media only screen and (max-width: 767px) {
+    display: block;
+  }
 `;
 const ImgWrapper = styled.div`
   flex: 2;
@@ -38,6 +41,9 @@ const ImgWrapper = styled.div`
   overflow: hidden;
   border-radius: 12px;
   position: relative;
+  @media only screen and (max-width: 767px) {
+    margin-bottom: 28px;
+  }
 `;
 const Img = styled.img`
   width: 100%;

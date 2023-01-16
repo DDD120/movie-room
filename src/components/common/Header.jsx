@@ -20,6 +20,10 @@ const Head = styled.header`
   align-items: center;
   padding: 20px 60px;
   z-index: 9;
+
+  @media only screen and (max-width: 767px) {
+    padding: 20px 30px;
+  }
 `;
 
 const Logo = styled.div`
