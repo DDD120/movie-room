@@ -21,6 +21,7 @@ const Base = styled.div`
   border-radius: 12px;
   border: 2px solid ${Common.colors.greyOpacity};
   background-color: ${Common.colors.beige};
+  text-align: left;
 `;
 
 const Head = styled.div`
@@ -109,11 +110,13 @@ const MenuListItemBtn = styled.button`
   }
 `;
 
-const MyReviewItem = ({ review }) => {
+const MyReviewItem = ({ review, showReview }) => {
   const [isShowMenuList, setIsShowMenuList] = useState(false);
   const [isShowReviewModal, setIsShowReviewModal] = useState(false);
-  const { data: movie } = useGetMainInfoQuery(review.movieId);
-  const [deleteReview, { data: deleteReviewRes, isSuccess }] =
+  const { data: movie, isSuccess: isGetSuccess } = useGetMainInfoQuery(
+    review.movieId
+  );
+  const [deleteReview, { data: deleteReviewRes, isSuccess: isDeleteSuccess }] =
     useDeleteReviewMutation();
   const itemRef = useRef();
 
@@ -136,10 +139,16 @@ const MyReviewItem = ({ review }) => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isGetSuccess) {
+      showReview();
+    }
+  }, [isGetSuccess, showReview, movie]);
+
+  useEffect(() => {
+    if (isDeleteSuccess) {
       showToast(deleteReviewRes.message);
     }
-  }, [isSuccess, deleteReviewRes]);
+  }, [isDeleteSuccess, deleteReviewRes, showReview]);
 
   useOutsideClick(itemRef, setIsShowMenuList, isShowReviewModal);
 

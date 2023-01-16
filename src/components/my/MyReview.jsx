@@ -4,6 +4,10 @@ import Title from "components/common/Title";
 import { useParams } from "react-router-dom";
 import MyReviewItem from "./MyReviewItem";
 import { MasonryGrid } from "@egjs/react-grid";
+import { memo, useCallback, useState } from "react";
+import LoadingAnimation from "components/loading/LoadingAnimation";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 const Base = styled.div`
   display: flex;
@@ -19,12 +23,25 @@ const TitleWrapper = styled.div`
 
 const ReviewContainer = styled.div`
   margin: 20px 0;
+  text-align: center;
   width: 100%;
 `;
 
 const MyReview = () => {
   const { id } = useParams();
-  const { data: reviews = [] } = useGetReviewsQuery(id);
+  const [isGetMovieInfo, setIsGetMovieInfo] = useState(false);
+  const { data: reviews = [], isLoading } = useGetReviewsQuery(id);
+  const gridRef = useRef(null);
+
+  const showReview = useCallback(() => {
+    setIsGetMovieInfo(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading && isGetMovieInfo) {
+      gridRef.current.renderItems({ useResize: true });
+    }
+  }, [isLoading, isGetMovieInfo]);
 
   return (
     <Base>
@@ -32,11 +49,24 @@ const MyReview = () => {
         <Title name="나의 리뷰" />
       </TitleWrapper>
       <ReviewContainer>
-        <MasonryGrid gap={8} defaultDirection={"end"} align={"center"}>
-          {reviews?.map((review) => (
-            <MyReviewItem key={review.movieId} review={review} />
-          ))}
-        </MasonryGrid>
+        {isLoading ? (
+          <LoadingAnimation />
+        ) : (
+          <MasonryGrid
+            gap={8}
+            defaultDirection={"end"}
+            align={"center"}
+            ref={gridRef}
+          >
+            {reviews?.map((review) => (
+              <MyReviewItem
+                key={review.movieId}
+                review={review}
+                showReview={showReview}
+              />
+            ))}
+          </MasonryGrid>
+        )}
       </ReviewContainer>
     </Base>
   );
