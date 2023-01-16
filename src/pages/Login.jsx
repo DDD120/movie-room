@@ -4,7 +4,7 @@ import { Common } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "apis/server-api";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login as storeLogin } from "store/user";
 import { useForm } from "react-hook-form";
 import { showToast } from "lib/toast";
@@ -75,6 +75,9 @@ const Login = () => {
   } = useForm();
   const [login, { data: loginRes = {}, isSuccess, isError, error }] =
     useLoginMutation();
+
+  const { isLoggedIn } = useSelector((state) => state.user);
+  const { id } = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -95,6 +98,12 @@ const Login = () => {
       showToast(error.data.message);
     }
   }, [isError, error]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(`/my/${id}`);
+    }
+  }, [isLoggedIn, navigate, id]);
 
   return (
     <Container>

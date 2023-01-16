@@ -4,10 +4,11 @@ import Container from "components/common/Container";
 import MailAuthenticationModal from "components/modal/MailAuthenticationModal";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Common } from "styles/common";
 import { showToast } from "lib/toast";
 import AuthInput from "components/common/AuthInput";
+import { useSelector } from "react-redux";
 
 const Base = styled.div`
   display: flex;
@@ -71,6 +72,8 @@ const Signup = () => {
     trigger,
     formState: { errors, isSubmitting },
   } = useForm({ mode: "onChange" });
+  const { isLoggedIn } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     emailTrigger({ email: data.email });
@@ -91,6 +94,12 @@ const Signup = () => {
       showToast(error.data.message);
     }
   }, [isError, error]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <Container>
