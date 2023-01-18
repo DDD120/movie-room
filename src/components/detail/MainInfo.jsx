@@ -7,6 +7,7 @@ import CreateReview from "components/modal/ReviewModal/CreateReview";
 import { useSelector } from "react-redux";
 import Button from "components/common/Button";
 import useCheckWrittenReview from "hooks/useCheckWrittenReview";
+import { AiOutlineShareAlt } from "react-icons/ai";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -80,9 +81,29 @@ const Overview = styled.p`
   margin: 10px 0;
 `;
 
-const WriteReviewBtnWrapper = styled.div`
+const BottomBox = styled.div`
   position: absolute;
   bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const SharIcon = styled.div`
+  width: 50px;
+  height: 50px;
+  background-color: ${Common.colors.cyan};
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${Common.colors.black};
+  font-size: 1.2rem;
+  transition: filter 0.3s;
+  &:hover {
+    filter: brightness(0.9);
+  }
 `;
 
 const PenIcon = styled.span`
@@ -105,6 +126,14 @@ const MainInfo = ({ movie, isLoading }) => {
   const handleModalClose = () => {
     setShowWriteReviewModal(false);
     document.body.classList.remove("scroll_hidden");
+  };
+
+  const handleShareClick = () => {
+    window.navigator.share({
+      title: "MOVIE ROOM",
+      text: `${movie.title} 상세정보`,
+      url: window.location.href,
+    });
   };
 
   return (
@@ -143,16 +172,19 @@ const MainInfo = ({ movie, isLoading }) => {
               </Info>
               {movie.tagline && <Tagline>"{movie.tagline}"</Tagline>}
               <Overview>{movie.overview}</Overview>
-              {isLoggedIn && !isWritten && (
-                <WriteReviewBtnWrapper>
+              <BottomBox>
+                {isLoggedIn && !isWritten && (
                   <Button onClick={openWriteReviewModal}>
                     <PenIcon>
                       <BsPen />
                     </PenIcon>
                     리뷰 작성
                   </Button>
-                </WriteReviewBtnWrapper>
-              )}
+                )}
+                <SharIcon onClick={handleShareClick}>
+                  <AiOutlineShareAlt />
+                </SharIcon>
+              </BottomBox>
               {showWriteReviewModal && (
                 <CreateReview movie={movie} onClose={handleModalClose} />
               )}
