@@ -12,6 +12,8 @@ import {
   useGetCreditsQuery,
   useGetSimilarQuery,
 } from "apis/movie-db-api";
+import ReviewCarousel from "components/detail/ReviewCarousel";
+import { useGetReviewsByMovieQuery } from "apis/server-api";
 
 const Detail = () => {
   const { id } = useParams();
@@ -22,13 +24,22 @@ const Detail = () => {
     useGetCreditsQuery(id);
   const { data: movieSimilar, isLoading: isSimilarLoading } =
     useGetSimilarQuery(id);
+  const { data: movieReviews, isLoading: isReviewsLoading } =
+    useGetReviewsByMovieQuery({ id, limit: 9 });
+
   return (
     <>
       <ScrollRestoration />
-      {<MainInfo movie={movieMainInfo} isLoading={isMainInfoLoading} />}
+      {
+        <MainInfo
+          movie={movieMainInfo}
+          isLoading={isMainInfoLoading || isReviewsLoading}
+          reviews={movieReviews}
+        />
+      }
       <Container>
         <CarouselContainer>
-          {isCreditsLoading || isSimilarLoading ? (
+          {isCreditsLoading || isSimilarLoading || isReviewsLoading ? (
             <>
               <SkeletonCarousel />
               <SkeletonCarousel />
@@ -36,6 +47,11 @@ const Detail = () => {
             </>
           ) : (
             <>
+              <ReviewCarousel
+                name={"리뷰"}
+                movie={movieMainInfo}
+                reviews={movieReviews}
+              />
               <MainCastCarousel
                 name={"주요 출연진"}
                 castList={movieCredits.cast}

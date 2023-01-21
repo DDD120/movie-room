@@ -89,7 +89,7 @@ const BottomBox = styled.div`
   gap: 8px;
 `;
 
-const SharIcon = styled.div`
+const SharIcon = styled.button`
   width: 50px;
   height: 50px;
   background-color: ${Common.colors.cyan};
@@ -112,11 +112,11 @@ const PenIcon = styled.span`
   transform: translateY(2px);
 `;
 
-const MainInfo = ({ movie, isLoading }) => {
+const MainInfo = ({ movie, isLoading, reviews }) => {
   const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.user);
   const releaseYear = movie?.release_date.slice(0, 4);
-  const isWritten = useCheckWrittenReview(movie?.id);
+  const { isWritten } = useCheckWrittenReview(reviews);
 
   const openWriteReviewModal = () => {
     setShowWriteReviewModal(true);
@@ -135,6 +135,8 @@ const MainInfo = ({ movie, isLoading }) => {
       url: window.location.href,
     });
   };
+
+  console.log(isLoading);
 
   return (
     <>

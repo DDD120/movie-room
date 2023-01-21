@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 import { Common } from "styles/common";
 import { AiFillStar } from "react-icons/ai";
-import { useGetMainInfoQuery } from "apis/movie-db-api";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { useDeleteReviewMutation } from "apis/server-api";
@@ -13,7 +11,6 @@ import { showToast } from "lib/toast";
 const Base = styled.div`
   position: relative;
   flex-shrink: 0;
-  max-width: 320px;
   width: 100%;
   padding: 16px;
   border-radius: 12px;
@@ -27,9 +24,21 @@ const Head = styled.div`
   border-bottom: 1px solid ${Common.colors.greyOpacity};
 `;
 
-const Title = styled.h1`
-  font-size: 1.3rem;
-  font-weight: 900;
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  flex-grow: 0;
+  gap: 8px;
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
+  p {
+    font-size: 1.2rem;
+    white-space: pre-line;
+    word-break: break-all;
+  }
 `;
 
 const Rating = styled.span`
@@ -37,6 +46,7 @@ const Rating = styled.span`
   gap: 4px;
   align-items: center;
   font-size: 1.2rem;
+  margin: 8px;
 
   svg {
     transform: translateY(2px);
@@ -46,6 +56,7 @@ const Rating = styled.span`
 const ReviewContent = styled.div`
   white-space: pre-line;
   word-break: break-all;
+  height: 80px;
   overflow-y: scroll;
   margin: 10px 0;
 
@@ -69,11 +80,6 @@ const Date = styled.p`
   color: ${Common.colors.grey};
 `;
 
-const ReleaseYear = styled.span`
-  font-size: 0.8rem;
-  font-weight: 400;
-`;
-
 const Menu = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -93,15 +99,10 @@ const MenuListItemBtn = styled.button`
   }
 `;
 
-const MyReviewItem = ({ review, showReview }) => {
+const ReviewItem = ({ review, movie, isMyReview }) => {
   const [isShowReviewModal, setIsShowReviewModal] = useState(false);
-  const { data: movie, isSuccess: isGetSuccess } = useGetMainInfoQuery(
-    review.movieId
-  );
   const [deleteReview, { data: deleteReviewRes, isSuccess: isDeleteSuccess }] =
     useDeleteReviewMutation();
-
-  const releaseYear = movie?.release_date.slice(0, 4);
 
   const handleModalClose = () => {
     setIsShowReviewModal(false);
@@ -118,25 +119,18 @@ const MyReviewItem = ({ review, showReview }) => {
   };
 
   useEffect(() => {
-    if (isGetSuccess) {
-      showReview();
-    }
-  }, [isGetSuccess, showReview, movie]);
-
-  useEffect(() => {
     if (isDeleteSuccess) {
       showToast(deleteReviewRes.message);
     }
-  }, [isDeleteSuccess, deleteReviewRes, showReview]);
+  }, [isDeleteSuccess, deleteReviewRes]);
 
   return (
     <Base>
       <Head>
-        <Link to={`/detail/${review.movieId}`}>
-          <Title>
-            {movie?.title} <ReleaseYear>({releaseYear})</ReleaseYear>
-          </Title>
-        </Link>
+        <User>
+          <img src={review.user.thumbnail} alt="프로필 사진" />
+          <p>{review.user.nickname}</p>
+        </User>
         <Rating>
           <AiFillStar />
           {review.rating}
@@ -145,20 +139,24 @@ const MyReviewItem = ({ review, showReview }) => {
       <ReviewContent>{review.content}</ReviewContent>
       <Bottom>
         <Date>{dayjs(review.updatedAt).format("YY.MM.DD")}</Date>
-        <Menu>
-          <MenuListItemBtn onClick={handleUpdateClick}>수정</MenuListItemBtn>
-          {isShowReviewModal && (
-            <UpdateReview
-              review={review}
-              movie={movie}
-              onClose={handleModalClose}
-            />
-          )}
-          <MenuListItemBtn onClick={handleDeleteBtnClick}>삭제</MenuListItemBtn>
-        </Menu>
+        {isMyReview && (
+          <Menu>
+            <MenuListItemBtn onClick={handleUpdateClick}>수정</MenuListItemBtn>
+            {isShowReviewModal && (
+              <UpdateReview
+                review={review}
+                movie={movie}
+                onClose={handleModalClose}
+              />
+            )}
+            <MenuListItemBtn onClick={handleDeleteBtnClick}>
+              삭제
+            </MenuListItemBtn>
+          </Menu>
+        )}
       </Bottom>
     </Base>
   );
 };
 
-export default MyReviewItem;
+export default ReviewItem;

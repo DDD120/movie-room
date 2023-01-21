@@ -62,6 +62,11 @@ export const serverApi = createApi({
       transformResponse: (response) => response.review,
       providesTags: ["Review"],
     }),
+    getReviewsByMovie: builder.query({
+      query: ({ id, limit }) => ({ url: `review/movie/${id}?limit=${limit}` }),
+      transformResponse: (response) => response.review,
+      providesTags: ["Review", "User"],
+    }),
     createReview: builder.mutation({
       query: (body) => ({
         url: "review",
@@ -90,6 +95,7 @@ export const {
   useUpdateProfileMutation,
   useSignoutMutation,
   useGetReviewsQuery,
+  useGetReviewsByMovieQuery,
   useCreateReviewMutation,
   useDeleteReviewMutation,
   useUpdateReviewMutation,

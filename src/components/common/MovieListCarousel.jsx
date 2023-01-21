@@ -19,7 +19,7 @@ const MovieListCarousel = ({ name, movieList }) => {
       showCount={5}
     >
       {movieList?.map((movie) => (
-        <CarouselItem activeIndex={activeIndex} key={movie.id}>
+        <CarouselItem showCount={5} activeIndex={activeIndex} key={movie.id}>
           <MovieCard
             id={movie.id}
             poster_path={movie.poster_path}

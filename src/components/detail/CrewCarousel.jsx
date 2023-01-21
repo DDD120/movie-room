@@ -19,7 +19,7 @@ const CrewCarousel = ({ name, crewList }) => {
       showCount={5}
     >
       {crewList?.map((crew) => (
-        <CarouselItem activeIndex={activeIndex} key={crew.id}>
+        <CarouselItem showCount={5} activeIndex={activeIndex} key={crew.id}>
           <PersonCard
             name={crew.name}
             profile_path={crew.profile_path}
