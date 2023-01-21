@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import StarInput from "./StarInput";
 
 const Base = styled.section`
@@ -30,7 +30,7 @@ const RatingField = styled.fieldset`
   labeL:hover,
   labeL:hover ~ label {
     transition: 0.2s;
-    color: ${Common.colors.orange};
+    color: ${colors.orange};
   }
 `;
 

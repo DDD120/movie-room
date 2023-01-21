@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const Foot = styled.footer`
   width: 100%;
@@ -32,9 +32,9 @@ const Footer = () => {
         <Title>MOVIE ROOM</Title>
         <span>© {getYear}. DDD120. ALL RIGHTS RESERVED</span>
       </Copyright>
-      <Box color={Common.colors.cyan} />
-      <Box color={Common.colors.orange} />
-      <Box color={Common.colors.red} />
+      <Box color={colors.cyan} />
+      <Box color={colors.orange} />
+      <Box color={colors.red} />
     </Foot>
   );
 };

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import Modal from "../Modal";
 import { IoMdReverseCamera } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,7 @@ const Thumbnail = styled.div`
   height: 160px;
   border-radius: 50%;
   overflow: hidden;
-  background-color: ${Common.colors.grey};
+  background-color: ${colors.grey};
 
   img {
     filter: brightness(0.5);
@@ -55,7 +55,7 @@ const Thumbnail = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
-    color: ${Common.colors.white};
+    color: ${colors.white};
     font-size: 2.2rem;
     cursor: pointer;
   }
@@ -83,15 +83,15 @@ const InputBox = styled.div`
 const Input = styled.input`
   width: 100%;
   border: none;
-  border-bottom: 1px solid ${Common.colors.greyOpacity};
+  border-bottom: 1px solid ${colors.greyOpacity};
   padding: 10px;
   padding-right: 40px;
-  background-color: ${Common.colors.beige};
+  background-color: ${colors.beige};
   font-size: 1.2rem;
 `;
 
 const EditIcon = styled.div`
-  color: ${Common.colors.grey};
+  color: ${colors.grey};
   position: absolute;
   top: 10px;
   right: 10px;

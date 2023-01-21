@@ -5,19 +5,18 @@ import { Provider } from "react-redux";
 import App from "./App";
 import store from "store";
 import { ToastContainer } from "react-toastify";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import styled from "@emotion/styled";
 import "react-toastify/dist/ReactToastify.css";
 
 const StyledContainer = styled(ToastContainer)`
   .Toastify__toast {
-    background-color: ${Common.colors.black};
+    background-color: ${colors.black};
     min-height: 40px;
-
-    color: ${Common.colors.white};
+    color: ${colors.white};
   }
   .Toastify__close-button {
-    color: ${Common.colors.white};
+    color: ${colors.white};
   }
 `;
 

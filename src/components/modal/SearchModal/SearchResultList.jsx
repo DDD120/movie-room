@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import SearchResultItem from "./SearchResultItem";
 
 const Base = styled.div`
@@ -15,7 +15,7 @@ const Base = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     height: 17%;
-    background-color: ${Common.colors.orange};
+    background-color: ${colors.orange};
     border-radius: 10px;
   }
 `;

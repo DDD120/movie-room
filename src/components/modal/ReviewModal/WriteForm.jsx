@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const Base = styled.div`
   text-align: right;
@@ -16,12 +16,12 @@ const TextArea = styled.textarea`
   font-size: 1.2rem;
 
   &:focus {
-    outline: 2px solid ${Common.colors.orange};
+    outline: 2px solid ${colors.orange};
   }
 `;
 
 const NumberOfCharacters = styled.span`
-  color: ${Common.colors.grey};
+  color: ${colors.grey};
 `;
 
 const WriteForm = ({ value, contentLength, register, ...rest }) => {

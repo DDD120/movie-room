@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { createPortal } from "react-dom";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import { MdOutlineClose } from "react-icons/md";
 
 const Backdrop = styled.div`
@@ -11,7 +11,7 @@ const Backdrop = styled.div`
   top: 0;
   text-align: center;
   z-index: 19;
-  background-color: ${Common.colors.greyOpacity};
+  background-color: ${colors.greyOpacity};
 `;
 
 const Base = styled.div`
@@ -23,7 +23,7 @@ const Base = styled.div`
   width: 100%;
   padding: 4px;
   border-radius: 12px;
-  background-color: ${Common.colors.beige};
+  background-color: ${colors.beige};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,7 +38,7 @@ const CloseIcon = styled.button`
   right: 12px;
   font-size: 2rem;
   cursor: pointer;
-  color: ${Common.colors.orangeOpacity};
+  color: ${colors.orangeOpacity};
 `;
 
 const Modal = ({ children, onClose, backdropTouchClose = false }) => {

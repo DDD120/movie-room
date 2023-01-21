@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const Base = styled.div`
   position: relative;
@@ -12,8 +12,8 @@ const Input = styled.input`
   font-weight: 700;
   border: none;
   border-bottom: 1px solid #000;
-  color: ${Common.colors.black};
-  background-color: ${Common.colors.beige};
+  color: ${colors.black};
+  background-color: ${colors.beige};
   outline: none;
   font-size: 1.725rem;
 `;

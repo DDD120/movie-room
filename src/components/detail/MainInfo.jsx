@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common, NoImg } from "styles/common";
+import { colors, NoImg } from "styles/common";
 import SkeletonMainInfo from "components/loading/SkeletonMainInfo";
 import { BsPen } from "react-icons/bs";
 import { useState } from "react";
@@ -28,7 +28,7 @@ const MainInfoContiner = styled.section`
   display: flex;
   justify-content: center;
   gap: 28px;
-  color: ${Common.colors.white};
+  color: ${colors.white};
   padding: 40px 0;
   @media only screen and (max-width: 767px) {
     display: block;
@@ -63,7 +63,7 @@ const Title = styled.h1`
 const Year = styled.span`
   font-size: 1.225rem;
   margin: 0 4px;
-  color: ${Common.colors.grey};
+  color: ${colors.grey};
 `;
 const Info = styled.div`
   display: grid;
@@ -71,7 +71,7 @@ const Info = styled.div`
   margin: 20px 0;
 `;
 const Category = styled.span`
-  color: ${Common.colors.grey};
+  color: ${colors.grey};
 `;
 const Tagline = styled.i`
   font-size: 1.275rem;
@@ -92,13 +92,13 @@ const BottomBox = styled.div`
 const SharIcon = styled.button`
   width: 50px;
   height: 50px;
-  background-color: ${Common.colors.cyan};
+  background-color: ${colors.cyan};
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${Common.colors.black};
+  color: ${colors.black};
   font-size: 1.2rem;
   transition: filter 0.3s;
   &:hover {

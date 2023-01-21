@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const Base = styled.button`
   cursor: pointer;
   border-radius: 50px;
-  background-color: ${Common.colors.cyan};
+  background-color: ${colors.cyan};
   transition: filter 0.3s;
   font-size: 1.125rem;
   font-weight: 700;
@@ -29,8 +29,8 @@ const Base = styled.button`
   ${({ variant }) =>
     variant === "cancel" &&
     css`
-      background-color: ${Common.colors.beige};
-      border: 2px solid ${Common.colors.cyan};
+      background-color: ${colors.beige};
+      border: 2px solid ${colors.cyan};
     `}
 `;
 

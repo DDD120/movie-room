@@ -1,6 +1,6 @@
 import { RiArrowDropUpLine } from "react-icons/ri";
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import { useState, useEffect } from "react";
 import { throttle } from "lodash";
 
@@ -11,10 +11,10 @@ const Container = styled.button`
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  color: ${Common.colors.orange};
+  color: ${colors.orange};
   font-size: 2rem;
   border: none;
-  background-color: ${Common.colors.black};
+  background-color: ${colors.black};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,8 +24,8 @@ const Container = styled.button`
   opacity: ${({ btnShow }) => (btnShow ? 1 : 0)};
   pointer-events: ${({ btnShow }) => (btnShow ? "auto" : "none")};
   &:hover {
-    color: ${Common.colors.black};
-    background-color: ${Common.colors.orange};
+    color: ${colors.black};
+    background-color: ${colors.orange};
   }
 `;
 

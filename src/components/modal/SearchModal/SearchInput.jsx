@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const SearchContainer = styled.div`
   flex: 1;
@@ -9,14 +9,14 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  border-bottom: 2px solid ${Common.colors.black};
+  border-bottom: 2px solid ${colors.black};
 `;
 
 const Input = styled.input`
   flex-grow: 1;
   padding: 10px 10px;
   border: none;
-  background-color: ${Common.colors.beige};
+  background-color: ${colors.beige};
   outline: none;
   font-size: 1.5rem;
 `;
@@ -24,7 +24,7 @@ const Input = styled.input`
 const SearchIcon = styled.button`
   font-size: 2rem;
   cursor: pointer;
-  color: ${Common.colors.black};
+  color: ${colors.black};
 `;
 
 const SearchInput = ({

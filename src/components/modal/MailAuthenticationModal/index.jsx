@@ -1,6 +1,6 @@
 import { GoMailRead } from "react-icons/go";
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import { useRef, useEffect } from "react";
 import Button from "components/common/Button";
 import Modal from "../Modal";
@@ -28,7 +28,7 @@ const Explanation = styled.p`
 `;
 
 const MailIcon = styled.div`
-  color: ${Common.colors.black};
+  color: ${colors.black};
   font-size: 3rem;
 `;
 

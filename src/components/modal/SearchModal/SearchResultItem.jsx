@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common, NoImg } from "styles/common";
+import { colors, NoImg } from "styles/common";
 
 const Base = styled.div`
   padding: 8px;
@@ -9,9 +9,9 @@ const Base = styled.div`
   transition: 0.2s;
   border-radius: 12px;
   &:hover {
-    background-color: ${Common.colors.orangeOpacity};
+    background-color: ${colors.orangeOpacity};
   }
-  background-color: ${({ isFocus }) => isFocus && Common.colors.orangeOpacity};
+  background-color: ${({ isFocus }) => isFocus && colors.orangeOpacity};
 `;
 
 const ImgWrapper = styled.div`

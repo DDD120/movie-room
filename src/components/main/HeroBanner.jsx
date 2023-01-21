@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import { MdLocalMovies } from "react-icons/md";
 
 const Banner = styled.article`
@@ -29,7 +29,7 @@ const TextContainer = styled.div`
 `;
 const TitleContainer = styled.div`
   font-size: 1.2em;
-  color: ${Common.colors.black};
+  color: ${colors.black};
   display: flex;
   align-items: center;
 `;
@@ -47,7 +47,7 @@ const Phrase = styled.p`
   font-size: 4em;
   font-family: "Roboto", sans-serif;
   font-weight: 900;
-  color: ${Common.colors.black};
+  color: ${colors.black};
   line-height: 1.1;
   position: relative;
   left: -1px;
@@ -63,7 +63,7 @@ const List = styled.li`
     left: -8px;
     width: 4px;
     height: 20px;
-    background-color: ${Common.colors.orange};
+    background-color: ${colors.orange};
     @media only screen and (max-width: 835px) {
       height: 10px;
     }

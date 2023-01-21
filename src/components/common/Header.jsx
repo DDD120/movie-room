@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SearchModal from "../modal/SearchModal";
@@ -14,7 +14,7 @@ const Head = styled.header`
   height: 60px;
   position: fixed;
   top: 0;
-  background-color: ${Common.colors.beige};
+  background-color: ${colors.beige};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,7 +43,7 @@ const Nav = styled.nav`
 const NavItem = styled.div`
   width: 36px;
   height: 36px;
-  color: ${Common.colors.black};
+  color: ${colors.black};
   background-color: ${({ color }) => color};
   border-radius: 50%;
   display: flex;
@@ -88,11 +88,11 @@ const Header = () => {
         </Logo>
       </Link>
       <Nav>
-        <NavItem color={Common.colors.orange} onClick={openHandler}>
+        <NavItem color={colors.orange} onClick={openHandler}>
           <FiSearch />
         </NavItem>
         {isOpenModal && <SearchModal onClose={closeHandler} />}
-        <NavItem color={Common.colors.cyan} onClick={handlePersonClick}>
+        <NavItem color={colors.cyan} onClick={handlePersonClick}>
           <BsFillPersonFill />
         </NavItem>
         {showMyMenu && (

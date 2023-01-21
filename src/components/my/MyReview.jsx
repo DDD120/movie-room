@@ -9,7 +9,7 @@ import LoadingAnimation from "components/loading/LoadingAnimation";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { sortArray } from "lib/sort";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const Base = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const TitleWrapper = styled.div`
 
 const SortContainer = styled.div`
   select {
-    background-color: ${Common.colors.beige};
+    background-color: ${colors.beige};
     padding: 8px 12px;
     border: none;
     outline: none;

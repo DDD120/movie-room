@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import { AiFillStar } from "react-icons/ai";
 import { useGetMainInfoQuery } from "apis/movie-db-api";
 import { Link } from "react-router-dom";
@@ -17,14 +17,14 @@ const Base = styled.div`
   width: 100%;
   padding: 16px;
   border-radius: 12px;
-  border: 2px solid ${Common.colors.greyOpacity};
-  background-color: ${Common.colors.beige};
+  border: 2px solid ${colors.greyOpacity};
+  background-color: ${colors.beige};
   text-align: left;
 `;
 
 const Head = styled.div`
   padding-bottom: 10px;
-  border-bottom: 1px solid ${Common.colors.greyOpacity};
+  border-bottom: 1px solid ${colors.greyOpacity};
 `;
 
 const Title = styled.h1`
@@ -54,7 +54,7 @@ const ReviewContent = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     height: 17%;
-    background-color: ${Common.colors.orange};
+    background-color: ${colors.orange};
     border-radius: 10px;
   }
 `;
@@ -66,7 +66,7 @@ const Bottom = styled.div`
 
 const Date = styled.p`
   font-size: 0.9rem;
-  color: ${Common.colors.grey};
+  color: ${colors.grey};
 `;
 
 const ReleaseYear = styled.span`
@@ -84,7 +84,7 @@ const MenuListItemBtn = styled.button`
   padding: 4px 6px;
   cursor: pointer;
   transition: filter 0.3s;
-  color: ${Common.colors.black};
+  color: ${colors.black};
   opacity: 0.6;
   transition: 0.3s;
 

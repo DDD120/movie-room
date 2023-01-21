@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const Base = styled.div`
   margin: 40px 0;
@@ -8,7 +8,7 @@ const Base = styled.div`
 const Title = styled.div`
   width: 100px;
   height: 40px;
-  background-color: ${Common.colors.grey};
+  background-color: ${colors.grey};
   border-radius: 50px;
 `;
 
@@ -32,7 +32,7 @@ const Img = styled.div`
   aspect-ratio: 1 / 1.416;
   width: 100%;
   overflow: hidden;
-  background-color: ${Common.colors.lightgray};
+  background-color: ${colors.lightgray};
   margin-bottom: 6px;
   border-radius: 12px;
 `;

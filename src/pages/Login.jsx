@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Container from "components/common/Container";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "apis/server-api";
 import { useEffect } from "react";
@@ -28,7 +28,7 @@ const Logo = styled.div`
 const Head = styled.h1`
   font-weight: 700;
   font-size: 1.5rem;
-  color: ${Common.colors.black};
+  color: ${colors.black};
   margin: 10px 0;
 `;
 

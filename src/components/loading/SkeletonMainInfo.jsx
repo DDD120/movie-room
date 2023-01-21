@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import LoadingAnimation from "components/loading/LoadingAnimation";
 
 const Background = styled.div`
@@ -27,7 +27,7 @@ const Img = styled.img`
   object-fit: cover;
   aspect-ratio: 1 / 1.416;
   border-radius: 12px;
-  background-color: ${Common.colors.lightgray};
+  background-color: ${colors.lightgray};
 `;
 const InfoContainer = styled.div`
   flex: 3;

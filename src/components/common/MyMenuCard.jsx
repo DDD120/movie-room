@@ -8,7 +8,7 @@ import { MdSettings } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "store/user";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const Base = styled.div`
   width: 300px;
@@ -17,14 +17,14 @@ const Base = styled.div`
   border-radius: 12px;
   position: absolute;
   top: 60px;
-  background-color: ${Common.colors.beige};
-  box-shadow: 0px 0px 10px ${Common.colors.greyOpacity};
+  background-color: ${colors.beige};
+  box-shadow: 0px 0px 10px ${colors.greyOpacity};
 `;
 
 const Profile = styled.div`
   display: flex;
   gap: 8px;
-  border-bottom: 1px solid ${Common.colors.greyOpacity};
+  border-bottom: 1px solid ${colors.greyOpacity};
   padding-bottom: 8px;
 `;
 
@@ -33,7 +33,7 @@ const Thumbnail = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: ${Common.colors.grey};
+  background-color: ${colors.grey};
   overflow: hidden;
 
   img {
@@ -67,7 +67,7 @@ const MenuItem = styled.li`
   line-height: 40px;
   text-align: center;
   cursor: pointer;
-  background-color: ${Common.colors.beige};
+  background-color: ${colors.beige};
 
   &:hover {
     filter: brightness(0.9);

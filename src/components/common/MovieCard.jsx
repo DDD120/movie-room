@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import { Link } from "react-router-dom";
 import { NoImg } from "styles/common";
 
@@ -40,7 +40,7 @@ const Title = styled.div`
 
 const Year = styled.div`
   font-size: 0.875rem;
-  color: ${Common.colors.grey};
+  color: ${colors.grey};
 `;
 
 const MovieCard = ({ poster_path, title, release_date, id }) => {

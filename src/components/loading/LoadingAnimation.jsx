@@ -1,6 +1,6 @@
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const ellipsis1 = keyframes`
   0% {
@@ -38,7 +38,7 @@ const Elipsis = styled.div`
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: ${Common.colors.orange};
+    background: ${colors.orange};
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
     &:nth-of-type(1) {
       left: 8px;

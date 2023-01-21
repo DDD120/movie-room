@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import { NoImg } from "styles/common";
 
 const CardContainer = styled.div`
@@ -13,7 +13,7 @@ const ImgWrapper = styled.div`
   overflow: hidden;
   margin-bottom: 6px;
   border-radius: 12px;
-  background-color: ${Common.colors.lightgray};
+  background-color: ${colors.lightgray};
 `;
 
 const Img = styled.img`
@@ -35,7 +35,7 @@ const Name = styled.div`
 
 const Character = styled.div`
   font-size: 0.875rem;
-  color: ${Common.colors.grey};
+  color: ${colors.grey};
 `;
 
 const PersonCard = ({ name, profile_path, character }) => {

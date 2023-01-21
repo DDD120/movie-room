@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "components/common/Button";
 import React from "react";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const Base = styled.div`
   border-radius: 12px;
@@ -11,9 +11,9 @@ const Base = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: ${Common.colors.beige};
+  background-color: ${colors.beige};
   text-align: center;
-  box-shadow: 0px 0px 10px ${Common.colors.greyOpacity};
+  box-shadow: 0px 0px 10px ${colors.greyOpacity};
 
   p {
     font-size: 0.9rem;

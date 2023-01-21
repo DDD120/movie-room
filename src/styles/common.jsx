@@ -1,18 +1,16 @@
 import styled from "@emotion/styled";
 
-export const Common = {
-  colors: {
-    black: "#1A3642",
-    beige: "#FEE0C8",
-    red: "#D0433A",
-    orange: "#FD7D36",
-    orangeOpacity: "#fd7c3662",
-    cyan: "#50ADB5",
-    lightgray: "#afb5b8",
-    greyOpacity: "#76818699",
-    grey: "#768186",
-    white: "#fff",
-  },
+export const colors = {
+  black: "#1A3642",
+  beige: "#FEE0C8",
+  red: "#D0433A",
+  orange: "#FD7D36",
+  orangeOpacity: "#fd7c3662",
+  cyan: "#50ADB5",
+  lightgray: "#afb5b8",
+  greyOpacity: "#76818699",
+  grey: "#768186",
+  white: "#fff",
 };
 
 export const CarouselItem = styled.li`
@@ -49,7 +47,7 @@ export const NoImg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${Common.colors.black};
-  background-color: ${Common.colors.lightgray};
+  color: ${colors.black};
+  background-color: ${colors.lightgray};
   font-size: 0.875rem;
 `;

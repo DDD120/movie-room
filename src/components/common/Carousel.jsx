@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 import Title from "./Title";
 import { isMobile } from "react-device-detect";
 
@@ -23,7 +23,7 @@ const ArrowButton = styled.button`
   font-weight: bold;
   border-radius: 50%;
   background-color: transparent;
-  color: ${Common.colors.black};
+  color: ${colors.black};
   border: none;
   cursor: pointer;
   display: flex;
@@ -32,7 +32,7 @@ const ArrowButton = styled.button`
   left: ${({ left }) => left && "-48px"};
   right: ${({ right }) => right && "-48px"};
   &:hover {
-    color: ${Common.colors.orange};
+    color: ${colors.orange};
   }
 
   @media only screen and (max-width: 768px) {

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { colors } from "styles/common";
 
 const Base = styled.input`
   margin: 4px auto;
@@ -12,7 +12,7 @@ const Base = styled.input`
   box-shadow: none;
   color: #fff;
   font-size: 1.025rem;
-  background-color: ${Common.colors.orange};
+  background-color: ${colors.orange};
   &::placeholder {
     color: #fff;
   }
@@ -20,9 +20,9 @@ const Base = styled.input`
   :-webkit-autofill:hover,
   :-webkit-autofill:focus,
   :-webkit-autofill:active {
-    box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
+    box-shadow: 0 0 0 1000px ${colors.orange} inset;
     transition: background-color 5000s ease-in-out 0s;
-    -webkit-box-shadow: 0 0 0 1000px ${Common.colors.orange} inset;
+    -webkit-box-shadow: 0 0 0 1000px ${colors.orange} inset;
     -webkit-text-fill-color: #fff;
     -webkit-transition: background-color 5000s ease-in-out 0s;
   }
@@ -31,7 +31,7 @@ const Base = styled.input`
     submit &&
     css`
       cursor: pointer;
-      background-color: ${Common.colors.cyan};
+      background-color: ${colors.cyan};
       transition: filter 0.3s;
       &:hover {
         filter: brightness(0.9);
