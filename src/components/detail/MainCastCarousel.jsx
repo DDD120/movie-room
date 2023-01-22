@@ -19,7 +19,11 @@ const MainCastCarousel = ({ name, castList }) => {
       showCount={5}
     >
       {castList?.map((cast, index) => (
-        <CarouselItem showCount={5} activeIndex={activeIndex} key={index}>
+        <CarouselItem
+          showCount={5}
+          activeIndex={activeIndex}
+          key={cast.character + index}
+        >
           <PersonCard
             name={cast.name}
             profile_path={cast.profile_path}

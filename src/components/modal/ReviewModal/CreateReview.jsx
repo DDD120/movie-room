@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { showToast } from "lib/toast";
+import { getYear } from "lib/filter";
 
 const Base = styled.form`
   width: 100%;
@@ -34,7 +35,6 @@ const CreateReview = ({ movie, onClose }) => {
   const [createReview, { data: createReviewRes, isSuccess }] =
     useCreateReviewMutation();
   const { id } = useSelector((state) => state.user.user);
-  const releaseYear = movie.release_date?.slice(0, 4);
 
   const handleWirteReviewSubmit = ({ content, rating }) => {
     createReview({
@@ -56,7 +56,7 @@ const CreateReview = ({ movie, onClose }) => {
     <Modal onClose={onClose}>
       <Base onSubmit={handleSubmit(handleWirteReviewSubmit)}>
         <Title>
-          {movie.title} <span>({releaseYear})</span>
+          {movie.title} <span>({getYear(movie?.release_date)})</span>
         </Title>
         <StarRating
           register={register("rating")}

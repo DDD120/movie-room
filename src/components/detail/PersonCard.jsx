@@ -2,11 +2,11 @@ import styled from "@emotion/styled";
 import NoImg from "components/common/NoImg";
 import { colors } from "styles/common";
 
-const CardContainer = styled.div`
+const Base = styled.div`
   width: 100%;
 `;
 
-const ImgWrapper = styled.div`
+const ImgBox = styled.div`
   position: relative;
   aspect-ratio: 1 / 1.416;
   width: 100%;
@@ -40,8 +40,8 @@ const Character = styled.div`
 
 const PersonCard = ({ name, profile_path, character }) => {
   return (
-    <CardContainer>
-      <ImgWrapper>
+    <Base>
+      <ImgBox>
         {profile_path ? (
           <Img
             src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${profile_path}`}
@@ -50,10 +50,10 @@ const PersonCard = ({ name, profile_path, character }) => {
         ) : (
           <NoImg />
         )}
-      </ImgWrapper>
+      </ImgBox>
       <Name>{name}</Name>
       {character && <Character>{character} 역</Character>}
-    </CardContainer>
+    </Base>
   );
 };
 

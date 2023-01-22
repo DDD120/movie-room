@@ -3,12 +3,12 @@ import { colors } from "styles/common";
 import { AiFillStar } from "react-icons/ai";
 import { useGetMainInfoQuery } from "apis/movie-db-api";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { useDeleteReviewMutation } from "apis/server-api";
 import UpdateReview from "components/modal/ReviewModal/UpdateReview";
-import { useEffect } from "react";
 import { showToast } from "lib/toast";
+import { getYear } from "lib/filter";
 
 const Base = styled.div`
   position: relative;
@@ -69,7 +69,7 @@ const Date = styled.p`
   color: ${colors.grey};
 `;
 
-const ReleaseYear = styled.span`
+const Year = styled.span`
   font-size: 0.8rem;
   font-weight: 400;
 `;
@@ -101,8 +101,6 @@ const MyReviewItem = ({ review, showReview }) => {
   const [deleteReview, { data: deleteReviewRes, isSuccess: isDeleteSuccess }] =
     useDeleteReviewMutation();
 
-  const releaseYear = movie?.release_date.slice(0, 4);
-
   const handleModalClose = () => {
     setIsShowReviewModal(false);
   };
@@ -111,7 +109,7 @@ const MyReviewItem = ({ review, showReview }) => {
     setIsShowReviewModal(true);
   };
 
-  const handleDeleteBtnClick = () => {
+  const handleDeleteClick = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       deleteReview({ id: review._id });
     }
@@ -134,7 +132,7 @@ const MyReviewItem = ({ review, showReview }) => {
       <Head>
         <Link to={`/detail/${review.movieId}`}>
           <Title>
-            {movie?.title} <ReleaseYear>({releaseYear})</ReleaseYear>
+            {movie?.title} <Year>({getYear(movie?.release_date)})</Year>
           </Title>
         </Link>
         <Rating>
@@ -154,7 +152,7 @@ const MyReviewItem = ({ review, showReview }) => {
               onClose={handleModalClose}
             />
           )}
-          <MenuListItemBtn onClick={handleDeleteBtnClick}>삭제</MenuListItemBtn>
+          <MenuListItemBtn onClick={handleDeleteClick}>삭제</MenuListItemBtn>
         </Menu>
       </Bottom>
     </Base>

@@ -48,19 +48,16 @@ const Detail = () => {
           ) : (
             <>
               <ReviewCarousel
-                name={"리뷰"}
+                name="리뷰"
                 movie={movieMainInfo}
                 reviews={movieReviews}
               />
               <MainCastCarousel
-                name={"주요 출연진"}
+                name="주요 출연진"
                 castList={movieCredits.cast}
               />
-              <CrewCarousel name={"감독"} crewList={movieCredits.crew} />
-              <MovieListCarousel
-                name={"비슷한 작품"}
-                movieList={movieSimilar}
-              />
+              <CrewCarousel name="감독" crewList={movieCredits.crew} />
+              <MovieListCarousel name="비슷한 작품" movieList={movieSimilar} />
             </>
           )}
         </CarouselBox>

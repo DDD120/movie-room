@@ -5,10 +5,9 @@ import { useEffect, useState } from "react";
 import ReviewItem from "./ReviewItem";
 
 const ReviewCarousel = ({ name, movie, reviews }) => {
-  const { writtenReview, isWritten } = useCheckWrittenReview(reviews);
   const [reviewList, setReviewList] = useState([]);
-
   const [activeIndex, setActiveIndex] = useState(0);
+  const { writtenReview, isWritten } = useCheckWrittenReview(reviews);
 
   useEffect(() => {
     setActiveIndex(0);

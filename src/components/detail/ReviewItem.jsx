@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
 import { colors } from "styles/common";
 import { AiFillStar } from "react-icons/ai";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { useDeleteReviewMutation } from "apis/server-api";
 import UpdateReview from "components/modal/ReviewModal/UpdateReview";
-import { useEffect } from "react";
 import { showToast } from "lib/toast";
 
 const Base = styled.div`
@@ -112,7 +111,7 @@ const ReviewItem = ({ review, movie, isMyReview }) => {
     setIsShowReviewModal(true);
   };
 
-  const handleDeleteBtnClick = () => {
+  const handleDeleteClick = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       deleteReview({ id: review._id });
     }
@@ -149,9 +148,7 @@ const ReviewItem = ({ review, movie, isMyReview }) => {
                 onClose={handleModalClose}
               />
             )}
-            <MenuListItemBtn onClick={handleDeleteBtnClick}>
-              삭제
-            </MenuListItemBtn>
+            <MenuListItemBtn onClick={handleDeleteClick}>삭제</MenuListItemBtn>
           </Menu>
         )}
       </Bottom>

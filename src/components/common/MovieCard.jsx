@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { colors } from "styles/common";
 import { Link } from "react-router-dom";
 import NoImg from "./NoImg";
+import { getYear } from "lib/filter";
 
 const Base = styled.div`
   cursor: pointer;
@@ -44,8 +45,6 @@ const Year = styled.div`
 `;
 
 const MovieCard = ({ poster_path, title, release_date, id }) => {
-  const releaseYear = release_date?.slice(0, 4);
-
   return (
     <Link to={`/detail/${id}`}>
       <Base>
@@ -60,7 +59,7 @@ const MovieCard = ({ poster_path, title, release_date, id }) => {
           )}
         </ImgBox>
         <Title>{title}</Title>
-        <Year>{releaseYear}</Year>
+        <Year>{getYear(release_date)}</Year>
       </Base>
     </Link>
   );

@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 
 import { useEffect } from "react";
 import { showToast } from "lib/toast";
+import { getYear } from "lib/filter";
 
 const Base = styled.form`
   width: 100%;
@@ -33,7 +34,6 @@ const UpdateReview = ({ review, movie, onClose }) => {
 
   const [updateReview, { data: updateReviewRes, isSuccess }] =
     useUpdateReviewMutation();
-  const releaseYear = movie.release_date?.slice(0, 4);
 
   const handleWirteReviewSubmit = ({ content, rating }) => {
     updateReview({
@@ -54,7 +54,7 @@ const UpdateReview = ({ review, movie, onClose }) => {
     <Modal onClose={onClose}>
       <Base onSubmit={handleSubmit(handleWirteReviewSubmit)}>
         <Title>
-          {movie.title} <span>({releaseYear})</span>
+          {movie.title} <span>({getYear(movie?.release_date)})</span>
         </Title>
         <StarRating
           register={register("rating")}

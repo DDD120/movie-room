@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { colors } from "styles/common";
 import { MdLocalMovies } from "react-icons/md";
 
-const Banner = styled.article`
+const Base = styled.article`
   margin: 40px auto;
   max-width: 1200px;
   width: 100%;
@@ -24,10 +24,10 @@ const Banner = styled.article`
   }
 `;
 
-const TextContainer = styled.div`
+const Box = styled.div`
   width: 60%;
 `;
-const TitleContainer = styled.div`
+const TitleBox = styled.div`
   font-size: 1.2em;
   color: ${colors.black};
   display: flex;
@@ -72,22 +72,22 @@ const List = styled.li`
 
 const HeroBanner = () => {
   return (
-    <Banner>
-      <TextContainer>
-        <TitleContainer>
+    <Base>
+      <Box>
+        <TitleBox>
           <MdLocalMovies />
           <Title>
             <img src="/assets/logo.png" alt="로고" />
           </Title>
-        </TitleContainer>
+        </TitleBox>
         <Phrase>Movie For You!</Phrase>
         <ul>
           <List>신규 및 현재 인기있는 영화 목록을 살펴보세요</List>
           <List>영화를 검색하여 상세 정보를 확인하세요</List>
           <List>즐겁게 본 영화의 리뷰를 작성하여 간직해보세요</List>
         </ul>
-      </TextContainer>
-    </Banner>
+      </Box>
+    </Base>
   );
 };
 

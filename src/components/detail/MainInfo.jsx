@@ -9,6 +9,7 @@ import Button from "components/common/Button";
 import useCheckWrittenReview from "hooks/useCheckWrittenReview";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import NoImg from "components/common/NoImg";
+import { getYear } from "lib/filter";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -21,7 +22,7 @@ const Background = styled.div`
     `url(${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${backdrop_path})`};
 `;
 
-const MainInfoContiner = styled.section`
+const Base = styled.section`
   max-width: 1200px;
   width: 90%;
   margin: 0 auto;
@@ -35,7 +36,7 @@ const MainInfoContiner = styled.section`
     display: block;
   }
 `;
-const ImgWrapper = styled.div`
+const ImgBox = styled.div`
   flex: 2;
   max-width: 360px;
   width: 100%;
@@ -53,7 +54,7 @@ const Img = styled.img`
   aspect-ratio: 1 / 1.416;
   border-radius: 12px;
 `;
-const InfoContainer = styled.div`
+const InfoBox = styled.div`
   flex: 3;
   position: relative;
   padding-bottom: 60px;
@@ -74,6 +75,8 @@ const Info = styled.div`
 const Category = styled.span`
   color: ${colors.grey};
 `;
+const Value = styled.span``;
+
 const Tagline = styled.i`
   font-size: 1.275rem;
   font-weight: 700;
@@ -116,7 +119,6 @@ const PenIcon = styled.span`
 const MainInfo = ({ movie, isLoading, reviews }) => {
   const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.user);
-  const releaseYear = movie?.release_date.slice(0, 4);
   const { isWritten } = useCheckWrittenReview(reviews);
 
   const openWriteReviewModal = () => {
@@ -137,14 +139,12 @@ const MainInfo = ({ movie, isLoading, reviews }) => {
     });
   };
 
-  console.log(isLoading);
-
   return (
     <>
       {!isLoading ? (
         <Background backdrop_path={movie.backdrop_path}>
-          <MainInfoContiner>
-            <ImgWrapper>
+          <Base>
+            <ImgBox>
               {movie.poster_path ? (
                 <Img
                   src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
@@ -153,25 +153,25 @@ const MainInfo = ({ movie, isLoading, reviews }) => {
               ) : (
                 <NoImg />
               )}
-            </ImgWrapper>
-            <InfoContainer>
+            </ImgBox>
+            <InfoBox>
               <Title>
                 {movie.title}
-                {releaseYear && <Year>({releaseYear})</Year>}
+                <Year>({getYear(movie?.release_date)})</Year>
               </Title>
               <Info>
                 <Category>원제</Category>
-                <span>{movie.original_title}</span>
+                <Value>{movie.original_title}</Value>
                 <Category>원어</Category>
-                <span>{movie.original_language?.toUpperCase()}</span>
+                <Value>{movie.original_language?.toUpperCase()}</Value>
                 <Category>발매일</Category>
-                <span>{movie.release_date}</span>
+                <Value>{movie.release_date}</Value>
                 <Category>장르</Category>
-                <span>
-                  {movie.genres?.map((genre) => genre.name).join("/")}
-                </span>
+                <Value>
+                  {movie?.genres.map((genre) => genre.name).join("/")}
+                </Value>
                 <Category>상영시간</Category>
-                <span>{movie.runtime}분</span>
+                <Value>{movie.runtime}분</Value>
               </Info>
               {movie.tagline && <Tagline>"{movie.tagline}"</Tagline>}
               <Overview>{movie.overview}</Overview>
@@ -191,8 +191,8 @@ const MainInfo = ({ movie, isLoading, reviews }) => {
               {showWriteReviewModal && (
                 <CreateReview movie={movie} onClose={handleModalClose} />
               )}
-            </InfoContainer>
-          </MainInfoContiner>
+            </InfoBox>
+          </Base>
         </Background>
       ) : (
         <SkeletonMainInfo />

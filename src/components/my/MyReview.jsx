@@ -6,8 +6,7 @@ import MyReviewItem from "./MyReviewItem";
 import { MasonryGrid } from "@egjs/react-grid";
 import { useCallback, useState } from "react";
 import LoadingAnimation from "components/loading/LoadingAnimation";
-import { useEffect } from "react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { sortArray } from "lib/sort";
 import { colors } from "styles/common";
 
@@ -19,11 +18,11 @@ const Base = styled.div`
   margin-bottom: 100px;
 `;
 
-const TitleWrapper = styled.div`
+const TitleBox = styled.div`
   margin: 40px 0;
 `;
 
-const SortContainer = styled.div`
+const Sort = styled.div`
   select {
     background-color: ${colors.beige};
     padding: 8px 12px;
@@ -33,16 +32,16 @@ const SortContainer = styled.div`
   }
 `;
 
-const ReviewContainer = styled.div`
+const ReviewBox = styled.div`
   margin: 20px 0;
   text-align: center;
   width: 100%;
 `;
 
 const MyReview = () => {
+  const [isGetMovieInfo, setIsGetMovieInfo] = useState(false);
   const [reviews, setReviews] = useState([]);
   const { id } = useParams();
-  const [isGetMovieInfo, setIsGetMovieInfo] = useState(false);
   const { data = [], isLoading } = useGetReviewsQuery(id);
   const gridRef = useRef(null);
 
@@ -66,18 +65,18 @@ const MyReview = () => {
 
   return (
     <Base>
-      <TitleWrapper>
+      <TitleBox>
         <Title>나의 리뷰</Title>
-      </TitleWrapper>
-      <SortContainer>
+      </TitleBox>
+      <Sort>
         <select name="sort" id="sort" onChange={handleSelectChange}>
           <option value="newest">최근작성순</option>
           <option value="oldest">오래된순</option>
           <option value="starDesc">별점높은순</option>
           <option value="starAsc">별점낮은순</option>
         </select>
-      </SortContainer>
-      <ReviewContainer>
+      </Sort>
+      <ReviewBox>
         {isLoading ? (
           <LoadingAnimation />
         ) : (
@@ -96,7 +95,7 @@ const MyReview = () => {
             ))}
           </MasonryGrid>
         )}
-      </ReviewContainer>
+      </ReviewBox>
     </Base>
   );
 };
