@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors, NoImg } from "styles/common";
+import { colors } from "styles/common";
 import SkeletonMainInfo from "components/loading/SkeletonMainInfo";
 import { BsPen } from "react-icons/bs";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Button from "components/common/Button";
 import useCheckWrittenReview from "hooks/useCheckWrittenReview";
 import { AiOutlineShareAlt } from "react-icons/ai";
+import NoImg from "components/common/NoImg";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -150,7 +151,7 @@ const MainInfo = ({ movie, isLoading, reviews }) => {
                   alt={`${movie.title} 포스터`}
                 />
               ) : (
-                <NoImg>NO IMAGE</NoImg>
+                <NoImg />
               )}
             </ImgWrapper>
             <InfoContainer>

@@ -4,7 +4,6 @@ import MainCastCarousel from "components/detail/MainCastCarousel";
 import CrewCarousel from "components/detail/CrewCarousel";
 import MovieListCarousel from "components/common/MovieListCarousel";
 import SkeletonCarousel from "components/loading/SkeletonCarousel";
-import { CarouselContainer } from "styles/common";
 import { useParams } from "react-router-dom";
 import ScrollRestoration from "components/common/ScrollRestoration";
 import {
@@ -14,6 +13,7 @@ import {
 } from "apis/movie-db-api";
 import ReviewCarousel from "components/detail/ReviewCarousel";
 import { useGetReviewsByMovieQuery } from "apis/server-api";
+import CarouselBox from "components/common/CarouselBox";
 
 const Detail = () => {
   const { id } = useParams();
@@ -38,7 +38,7 @@ const Detail = () => {
         />
       }
       <Container>
-        <CarouselContainer>
+        <CarouselBox>
           {isCreditsLoading || isSimilarLoading || isReviewsLoading ? (
             <>
               <SkeletonCarousel />
@@ -63,7 +63,7 @@ const Detail = () => {
               />
             </>
           )}
-        </CarouselContainer>
+        </CarouselBox>
       </Container>
     </>
   );

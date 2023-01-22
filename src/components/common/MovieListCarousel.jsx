@@ -1,7 +1,7 @@
 import Carousel from "components/common/Carousel";
-import { CarouselItem } from "styles/common";
 import MovieCard from "components/common/MovieCard";
 import { useEffect, useState } from "react";
+import CarouselItem from "./CarouselItem";
 
 const MovieListCarousel = ({ name, movieList }) => {
   const [activeIndex, setActiveIndex] = useState(0);

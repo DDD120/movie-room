@@ -34,12 +34,8 @@ const Base = styled.button`
     `}
 `;
 
-const Button = ({ clickEvent, children, ...rest }) => {
-  return (
-    <Base onClick={clickEvent} {...rest}>
-      {children}
-    </Base>
-  );
+const Button = ({ children, ...rest }) => {
+  return <Base {...rest}>{children}</Base>;
 };
 
 export default Button;

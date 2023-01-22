@@ -60,8 +60,6 @@ const MyReview = () => {
     }
   }, [isLoading, isGetMovieInfo]);
 
-  console.log(reviews);
-
   useEffect(() => {
     setReviews([...data].reverse());
   }, [data]);
@@ -69,7 +67,7 @@ const MyReview = () => {
   return (
     <Base>
       <TitleWrapper>
-        <Title name="나의 리뷰" />
+        <Title>나의 리뷰</Title>
       </TitleWrapper>
       <SortContainer>
         <select name="sort" id="sort" onChange={handleSelectChange}>

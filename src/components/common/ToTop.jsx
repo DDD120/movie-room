@@ -4,7 +4,7 @@ import { colors } from "styles/common";
 import { useState, useEffect } from "react";
 import { throttle } from "lodash";
 
-const Container = styled.button`
+const Base = styled.button`
   position: fixed;
   right: 30px;
   bottom: 30px;
@@ -21,8 +21,8 @@ const Container = styled.button`
   cursor: pointer;
   z-index: 9;
   transition: 0.2s;
-  opacity: ${({ btnShow }) => (btnShow ? 1 : 0)};
-  pointer-events: ${({ btnShow }) => (btnShow ? "auto" : "none")};
+  opacity: ${({ isShow }) => (isShow ? 1 : 0)};
+  pointer-events: ${({ isShow }) => (isShow ? "auto" : "none")};
   &:hover {
     color: ${colors.black};
     background-color: ${colors.orange};
@@ -32,25 +32,25 @@ const Container = styled.button`
 const ToTop = () => {
   const [isShow, setIsShow] = useState(false);
 
-  const scrollHandler = () => {
+  const handleScroll = () => {
     window.scrollY > 250 ? setIsShow(true) : setIsShow(false);
   };
 
-  const clickHandler = () => {
+  const handleClick = () => {
     window.scrollTo(0, 0);
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", throttle(scrollHandler, 500));
+    window.addEventListener("scroll", throttle(handleScroll, 500));
     return () => {
-      window.addEventListener("scroll", throttle(scrollHandler, 500));
+      window.addEventListener("scroll", throttle(handleScroll, 500));
     };
   }, []);
 
   return (
-    <Container type="button" onClick={clickHandler} btnShow={isShow}>
+    <Base type="button" onClick={handleClick} isShow={isShow}>
       <RiArrowDropUpLine />
-    </Container>
+    </Base>
   );
 };
 

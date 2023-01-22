@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const ContainerBox = styled.div`
+const Base = styled.div`
   padding: 0 10px;
   max-width: 1200px;
   width: 90%;
@@ -9,7 +9,7 @@ const ContainerBox = styled.div`
 `;
 
 const Container = ({ children }) => {
-  return <ContainerBox>{children}</ContainerBox>;
+  return <Base>{children}</Base>;
 };
 
 export default Container;

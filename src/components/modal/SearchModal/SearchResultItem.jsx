@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { colors, NoImg } from "styles/common";
+import NoImg from "components/common/NoImg";
+import { colors } from "styles/common";
 
 const Base = styled.div`
   padding: 8px;
@@ -41,7 +42,7 @@ const SearchResultItem = ({ movie, isFocus, scrollRef }) => {
             alt={`${movie.title} 포스터`}
           />
         ) : (
-          <NoImg>NO IMAGE</NoImg>
+          <NoImg />
         )}
       </ImgWrapper>
       <Title>{movie.title}</Title>

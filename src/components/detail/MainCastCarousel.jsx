@@ -1,6 +1,6 @@
 import Carousel from "components/common/Carousel";
+import CarouselItem from "components/common/CarouselItem";
 import { useEffect, useState } from "react";
-import { CarouselItem } from "styles/common";
 import PersonCard from "./PersonCard";
 
 const MainCastCarousel = ({ name, castList }) => {

@@ -1,4 +1,3 @@
-import { CarouselContainer } from "styles/common";
 import MovieListCarousel from "components/common/MovieListCarousel";
 import SkeletonCarousel from "components/loading/SkeletonCarousel";
 import {
@@ -7,6 +6,7 @@ import {
   useGetTopRatedQuery,
   useGetUpcomingQuery,
 } from "apis/movie-db-api";
+import CarouselBox from "components/common/CarouselBox";
 
 const MovieList = () => {
   const { data: nowPlaying, isLoading: isNowplayingLoading } =
@@ -18,7 +18,7 @@ const MovieList = () => {
     useGetUpcomingQuery();
 
   return (
-    <CarouselContainer>
+    <CarouselBox>
       {isNowplayingLoading ||
       isPopularLoading ||
       isTopRatedLoading ||
@@ -37,7 +37,7 @@ const MovieList = () => {
           <MovieListCarousel name="개봉 예정작" movieList={upcoming} />
         </>
       )}
-    </CarouselContainer>
+    </CarouselBox>
   );
 };
 

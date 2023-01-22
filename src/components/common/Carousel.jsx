@@ -9,11 +9,11 @@ const Base = styled.div`
   margin: 40px 0;
 `;
 
-const CarouseContainer = styled.div`
+const Box = styled.div`
   position: relative;
 `;
 
-const ArrowButton = styled.button`
+const ArrowBtn = styled.button`
   position: absolute;
   top: 50%;
   transition: 0.2s;
@@ -69,11 +69,11 @@ const Carousel = ({
       : setIsShowRightBtn(false);
   }, [activeIndex, itemCount, showCount]);
 
-  const handlePreBtnClick = () => {
+  const handlePreClick = () => {
     setActiveIndex((activeIndex) => activeIndex - showCount);
   };
 
-  const handleNextBtnClick = () => {
+  const handleNextClick = () => {
     if (activeIndex < itemCount) {
       setActiveIndex((activeIndex) => activeIndex + showCount);
     }
@@ -83,20 +83,20 @@ const Carousel = ({
     <Base>
       {itemCount > 0 && (
         <>
-          <Title name={name} />
-          <CarouseContainer>
+          <Title>{name}</Title>
+          <Box>
             {!isMobile && isShowLeftBtn && (
-              <ArrowButton left onClick={handlePreBtnClick}>
+              <ArrowBtn left onClick={handlePreClick}>
                 <RiArrowDropLeftLine />
-              </ArrowButton>
+              </ArrowBtn>
             )}
             <CarouselList>{children}</CarouselList>
             {!isMobile && isShowRightBtn && (
-              <ArrowButton right onClick={handleNextBtnClick}>
+              <ArrowBtn right onClick={handleNextClick}>
                 <RiArrowDropRightLine />
-              </ArrowButton>
+              </ArrowBtn>
             )}
-          </CarouseContainer>
+          </Box>
         </>
       )}
     </Base>

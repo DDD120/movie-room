@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import dayjs from "dayjs";
 import { colors } from "styles/common";
 
-const Foot = styled.footer`
+const Base = styled.footer`
   width: 100%;
   z-index: 9;
 `;
@@ -24,18 +25,18 @@ const Box = styled.div`
 `;
 
 const Footer = () => {
-  const getYear = new Date().getFullYear();
+  const year = dayjs().year();
 
   return (
-    <Foot>
+    <Base>
       <Copyright>
         <Title>MOVIE ROOM</Title>
-        <span>© {getYear}. DDD120. ALL RIGHTS RESERVED</span>
+        <span>© {year}. DDD120. ALL RIGHTS RESERVED</span>
       </Copyright>
       <Box color={colors.cyan} />
       <Box color={colors.orange} />
       <Box color={colors.red} />
-    </Foot>
+    </Base>
   );
 };
 

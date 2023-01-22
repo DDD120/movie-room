@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 import { colors } from "styles/common";
 import { Link } from "react-router-dom";
-import { NoImg } from "styles/common";
+import NoImg from "./NoImg";
 
-const CardContainer = styled.div`
+const Base = styled.div`
   cursor: pointer;
 `;
 
-const ImgWrapper = styled.div`
+const ImgBox = styled.div`
   position: relative;
   aspect-ratio: 1 / 1.416;
   width: 100%;
@@ -48,20 +48,20 @@ const MovieCard = ({ poster_path, title, release_date, id }) => {
 
   return (
     <Link to={`/detail/${id}`}>
-      <CardContainer>
-        <ImgWrapper>
+      <Base>
+        <ImgBox>
           {poster_path ? (
             <Img
               src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
               alt={`${title} 포스터`}
             />
           ) : (
-            <NoImg>NO IMAGE</NoImg>
+            <NoImg />
           )}
-        </ImgWrapper>
+        </ImgBox>
         <Title>{title}</Title>
         <Year>{releaseYear}</Year>
-      </CardContainer>
+      </Base>
     </Link>
   );
 };

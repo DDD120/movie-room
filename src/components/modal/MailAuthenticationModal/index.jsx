@@ -109,9 +109,9 @@ const MailAuthenticationModal = ({ email, password, onClose }) => {
         </Explanation>
         <AuthorizationNumber timeLimit={timeLimit} inputRef={inputRef} />
         {isRunning ? (
-          <Button clickEvent={handleCheckClick}>확인</Button>
+          <Button onClick={handleCheckClick}>확인</Button>
         ) : (
-          <Button clickEvent={handleResendMailClick}>인증 메일 재전송</Button>
+          <Button onClick={handleResendMailClick}>인증 메일 재전송</Button>
         )}
       </Base>
     </Modal>

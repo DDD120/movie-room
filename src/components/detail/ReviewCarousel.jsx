@@ -1,7 +1,7 @@
 import Carousel from "components/common/Carousel";
+import CarouselItem from "components/common/CarouselItem";
 import useCheckWrittenReview from "hooks/useCheckWrittenReview";
 import { useEffect, useState } from "react";
-import { CarouselItem } from "styles/common";
 import ReviewItem from "./ReviewItem";
 
 const ReviewCarousel = ({ name, movie, reviews }) => {

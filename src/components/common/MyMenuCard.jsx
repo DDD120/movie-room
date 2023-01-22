@@ -80,7 +80,7 @@ const MenuItem = styled.li`
   }
 `;
 
-const MyMenuCard = ({ onMyMenuClose, setShowMyMenu }) => {
+const MyMenuCard = ({ onMyMenuClose, setIsShowMyMenu }) => {
   const [isShowProfileEditModal, setIsShowProfileEditModal] = useState(false);
   const { id, nickname, thumbnail } = useSelector((state) => state.user.user);
   const [logoutTrigger] = useLogoutMutation();
@@ -104,7 +104,7 @@ const MyMenuCard = ({ onMyMenuClose, setShowMyMenu }) => {
     document.body.classList.remove("scroll_hidden");
   }, [onMyMenuClose]);
 
-  useOutsideClick(cardRef, setShowMyMenu, isShowProfileEditModal);
+  useOutsideClick(cardRef, setIsShowMyMenu, isShowProfileEditModal);
 
   return (
     <Base ref={cardRef}>

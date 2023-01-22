@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import NoImg from "components/common/NoImg";
 import { colors } from "styles/common";
-import { NoImg } from "styles/common";
 
 const CardContainer = styled.div`
   width: 100%;
@@ -48,7 +48,7 @@ const PersonCard = ({ name, profile_path, character }) => {
             alt={`${name}`}
           />
         ) : (
-          <NoImg>NO IMAGE</NoImg>
+          <NoImg />
         )}
       </ImgWrapper>
       <Name>{name}</Name>
