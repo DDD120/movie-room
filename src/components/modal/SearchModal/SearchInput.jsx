@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
 import { colors } from "styles/common";
 
-const SearchContainer = styled.div`
+const Base = styled.div`
   flex: 1;
   margin: 0 auto;
   width: 80%;
@@ -29,15 +29,15 @@ const SearchIcon = styled.button`
 
 const SearchInput = ({
   onKeyUp,
-  goToSearch,
+  handleSearchClick,
   onInputChage,
   searchKeyword,
   isAutoSearch,
   autoSearchKeyword,
 }) => {
   return (
-    <SearchContainer>
-      <SearchIcon onClick={goToSearch}>
+    <Base>
+      <SearchIcon onClick={handleSearchClick}>
         <FiSearch />
       </SearchIcon>
       <Input
@@ -49,7 +49,7 @@ const SearchInput = ({
         onChange={onInputChage}
         onKeyUp={onKeyUp}
       />
-    </SearchContainer>
+    </Base>
   );
 };
 

@@ -22,7 +22,6 @@ const CarouselItem = styled.li`
   width: 20%;
   padding: 0 4px;
   flex: 0 0 20%;
-
   overflow: hidden;
   border-radius: 12px;
 `;

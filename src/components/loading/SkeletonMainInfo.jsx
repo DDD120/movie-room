@@ -10,7 +10,7 @@ const Background = styled.div`
   background-position: center center;
 `;
 
-const MainInfoContiner = styled.section`
+const MainInfo = styled.section`
   max-width: 1200px;
   margin: 0 auto;
   height: auto;
@@ -29,7 +29,7 @@ const Img = styled.img`
   border-radius: 12px;
   background-color: ${colors.lightgray};
 `;
-const InfoContainer = styled.div`
+const Info = styled.div`
   flex: 3;
   position: relative;
   padding-bottom: 60px;
@@ -41,12 +41,12 @@ const InfoContainer = styled.div`
 const SkeletonMainInfo = () => {
   return (
     <Background>
-      <MainInfoContiner>
+      <MainInfo>
         <Img />
-        <InfoContainer>
+        <Info>
           <LoadingAnimation />
-        </InfoContainer>
-      </MainInfoContiner>
+        </Info>
+      </MainInfo>
     </Background>
   );
 };

@@ -36,7 +36,6 @@ const MailAuthenticationModal = ({ email, password, onClose }) => {
   const { timeLimit, isRunning, reset } = useTimer();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const inputRef = useRef();
   const [
     emailTrigger,
@@ -98,7 +97,7 @@ const MailAuthenticationModal = ({ email, password, onClose }) => {
   }, [isSignupError, signupError]);
 
   return (
-    <Modal onClose={onClose} backdropTouchClose={false}>
+    <Modal onClose={onClose}>
       <Base>
         <MailIcon>
           <GoMailRead />

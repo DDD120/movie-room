@@ -42,13 +42,15 @@ const CloseIcon = styled.button`
 `;
 
 const Modal = ({ children, onClose, backdropTouchClose = false }) => {
-  const closeModal = (event) => {
-    if (!backdropTouchClose) return;
+  const handleBackdropClick = (event) => {
+    if (!backdropTouchClose) {
+      return;
+    }
     event.target === event.currentTarget && onClose();
   };
 
   return createPortal(
-    <Backdrop onClick={closeModal} backdropTouchClose={backdropTouchClose}>
+    <Backdrop onClick={handleBackdropClick}>
       <Base>
         {children}
         <CloseIcon onClick={onClose}>

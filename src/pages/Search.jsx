@@ -21,7 +21,7 @@ const TotalCount = styled.p`
   padding: 10px;
 `;
 
-const IconWrapper = styled.span`
+const SearchIcon = styled.span`
   font-size: 2rem;
   margin: 8px 8px 0 0;
 `;
@@ -38,7 +38,7 @@ const SearchItem = styled.div`
   flex: 0 0 20%;
 `;
 
-const ObserverContainer = styled.div`
+const ObserverBox = styled.div`
   display: flex;
   justify-content: center;
   height: 100px;
@@ -107,9 +107,9 @@ const Search = () => {
     <Container>
       <ScrollRestoration />
       <Head>
-        <IconWrapper>
+        <SearchIcon>
           <FiSearch />
-        </IconWrapper>
+        </SearchIcon>
         <h1>'{searchKeyword}' 검색 결과</h1>
       </Head>
       <TotalCount>
@@ -129,13 +129,13 @@ const Search = () => {
             </SearchItem>
           ))}
       </SearchList>
-      <ObserverContainer>
+      <ObserverBox>
         {isFetching ? (
           <LoadingAnimation />
         ) : (
           <Observer ref={setTarget}></Observer>
         )}
-      </ObserverContainer>
+      </ObserverBox>
       <ToTop />
     </Container>
   );

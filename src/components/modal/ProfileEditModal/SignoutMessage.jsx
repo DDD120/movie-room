@@ -20,29 +20,25 @@ const Base = styled.div`
   }
 `;
 
-const ButtonContainer = styled.div`
+const ButtonBox = styled.div`
   margin-top: 12px;
   display: flex;
   justify-content: center;
   gap: 8px;
 `;
 
-const SignoutMessage = ({
-  isSignoutLoading,
-  onCancelBtnClick,
-  onDeleteBtnClick,
-}) => {
+const SignoutMessage = ({ isSignoutLoading, onCancelClick, onDeleteClick }) => {
   return (
     <Base>
       <b>계정을 삭제하시겠습니까?</b>
       <p>이전에 작성한 리뷰들이 모두 사라집니다.</p>
-      <ButtonContainer>
+      <ButtonBox>
         <Button
           type="button"
           size="small"
           variant="cancel"
           disabled={isSignoutLoading}
-          onClick={onCancelBtnClick}
+          onClick={onCancelClick}
         >
           취소
         </Button>
@@ -50,11 +46,11 @@ const SignoutMessage = ({
           type="button"
           size="small"
           disabled={isSignoutLoading}
-          onClick={onDeleteBtnClick}
+          onClick={onDeleteClick}
         >
           삭제
         </Button>
-      </ButtonContainer>
+      </ButtonBox>
     </Base>
   );
 };

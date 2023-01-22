@@ -27,7 +27,7 @@ const ellipsis3 = keyframes`
   }
 `;
 
-const Elipsis = styled.div`
+const Base = styled.div`
   display: inline-block;
   position: relative;
   width: 80px;
@@ -61,12 +61,12 @@ const Elipsis = styled.div`
 
 const LoadingAnimation = () => {
   return (
-    <Elipsis>
+    <Base>
       <div></div>
       <div></div>
       <div></div>
       <div></div>
-    </Elipsis>
+    </Base>
   );
 };
 

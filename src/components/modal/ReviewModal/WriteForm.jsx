@@ -20,7 +20,7 @@ const TextArea = styled.textarea`
   }
 `;
 
-const NumberOfCharacters = styled.span`
+const ContentLength = styled.span`
   color: ${colors.grey};
 `;
 
@@ -39,7 +39,7 @@ const WriteForm = ({ value, contentLength, register, ...rest }) => {
         placeholder="리뷰를 작성하세요"
         {...rest}
       />
-      <NumberOfCharacters>{contentLength}/300</NumberOfCharacters>
+      <ContentLength>{contentLength}/300</ContentLength>
     </Base>
   );
 };

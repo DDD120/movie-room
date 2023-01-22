@@ -112,7 +112,7 @@ const SearchModal = ({ onClose }) => {
     <Modal onClose={onClose} backdropTouchClose={true}>
       <Base>
         <SearchInput
-          goToSearch={goToSearch}
+          handleSearchClick={goToSearch}
           onInputChage={handleInputChange}
           onKeyUp={handleKeyUp}
           searchKeyword={searchKeyword}

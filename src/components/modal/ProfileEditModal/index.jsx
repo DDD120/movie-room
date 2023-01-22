@@ -115,9 +115,9 @@ const ProfileEditModal = ({ onClose }) => {
     watch,
     formState: { errors, isSubmitting },
   } = useForm({ mode: "onChange" });
-  const [isThumbnailChage, setIsThumbnailChage] = useState(false);
-  const [newThumbnailUrl, setNewThumbnailUrl] = useState("");
+  const [isChageThumbnail, setIsChageThumbnail] = useState(false);
   const [isShowMessage, setIsShowMessage] = useState(false);
+  const [newThumbnailUrl, setNewThumbnailUrl] = useState("");
   const [updateProfile, { data: updateRes, isSuccess: isUpdateSuccess }] =
     useUpdateProfileMutation();
   const [signout, { data: signoutRes, isSuccess: isSignoutSuccess }] =
@@ -152,7 +152,7 @@ const ProfileEditModal = ({ onClose }) => {
 
   useEffect(() => {
     if (image && image.length > 0) {
-      setIsThumbnailChage(true);
+      setIsChageThumbnail(true);
       const file = image[0];
       setNewThumbnailUrl(URL.createObjectURL(file));
     }
@@ -179,7 +179,7 @@ const ProfileEditModal = ({ onClose }) => {
         <Content>
           <Thumbnail>
             <img
-              src={isThumbnailChage ? newThumbnailUrl : thumbnail}
+              src={isChageThumbnail ? newThumbnailUrl : thumbnail}
               alt="프로필 사진"
             />
             <input
@@ -220,8 +220,8 @@ const ProfileEditModal = ({ onClose }) => {
             {isShowMessage && (
               <SignoutMessage
                 isSignoutLoading={isSubmitting}
-                onCancelBtnClick={handleCancelClick}
-                onDeleteBtnClick={handleDeleteClick}
+                onCancelClick={handleCancelClick}
+                onDeleteClick={handleDeleteClick}
               />
             )}
           </Info>

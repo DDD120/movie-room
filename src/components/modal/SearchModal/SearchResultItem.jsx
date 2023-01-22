@@ -9,13 +9,14 @@ const Base = styled.div`
   gap: 12px;
   transition: 0.2s;
   border-radius: 12px;
+  background-color: ${({ isFocus }) => isFocus && colors.orangeOpacity};
+
   &:hover {
     background-color: ${colors.orangeOpacity};
   }
-  background-color: ${({ isFocus }) => isFocus && colors.orangeOpacity};
 `;
 
-const ImgWrapper = styled.div`
+const ImgBox = styled.div`
   position: relative;
   aspect-ratio: 1 / 1.416;
   width: 100%;
@@ -35,7 +36,7 @@ const Title = styled.p`
 const SearchResultItem = ({ movie, isFocus, scrollRef }) => {
   return (
     <Base ref={isFocus ? scrollRef : undefined} isFocus={isFocus}>
-      <ImgWrapper>
+      <ImgBox>
         {movie.poster_path ? (
           <Poster
             src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
@@ -44,7 +45,7 @@ const SearchResultItem = ({ movie, isFocus, scrollRef }) => {
         ) : (
           <NoImg />
         )}
-      </ImgWrapper>
+      </ImgBox>
       <Title>{movie.title}</Title>
     </Base>
   );
