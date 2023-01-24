@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useGetReviewsQuery } from "apis/server-api";
+import { useGetReviewsByUserQuery } from "apis/server-api";
 import Title from "components/common/Title";
 import { useParams } from "react-router-dom";
 import MyReviewItem from "./MyReviewItem";
@@ -42,7 +42,7 @@ const MyReview = () => {
   const [isGetMovieInfo, setIsGetMovieInfo] = useState(false);
   const [reviews, setReviews] = useState([]);
   const { id } = useParams();
-  const { data = [], isLoading } = useGetReviewsQuery(id);
+  const { data = [], isLoading } = useGetReviewsByUserQuery(id);
   const gridRef = useRef(null);
 
   const handleSelectChange = (e) => {

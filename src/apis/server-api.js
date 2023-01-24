@@ -10,7 +10,7 @@ export const serverApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
-        url: "user/signin",
+        url: "user/login",
         method: "POST",
         body,
       }),
@@ -57,8 +57,8 @@ export const serverApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
-    getReviews: builder.query({
-      query: (id) => ({ url: `review/${id}` }),
+    getReviewsByUser: builder.query({
+      query: (id) => ({ url: `review/user/${id}` }),
       transformResponse: (response) => response.review,
       providesTags: ["Review"],
     }),
@@ -94,7 +94,7 @@ export const {
   useCheckTokenQuery,
   useUpdateProfileMutation,
   useSignoutMutation,
-  useGetReviewsQuery,
+  useGetReviewsByUserQuery,
   useGetReviewsByMovieQuery,
   useCreateReviewMutation,
   useDeleteReviewMutation,
