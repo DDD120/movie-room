@@ -55,7 +55,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
 
 const PW_REGEX = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,10}$/;
 
-const ERROR_MSG = {
+export const ERROR_MSG = {
   required: "필수정보입니다.",
   invalidEmail: "이메일 형식이 아닙니다.",
   invalidPw: "6~10자 영문, 숫자 조합으로 입력하세요.",

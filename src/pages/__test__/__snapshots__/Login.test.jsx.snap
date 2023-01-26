@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Page renders correctly 1`] = `
+<div>
+  <div
+    class="css-1ussbir"
+  >
+    <div
+      class="css-jxj5pd"
+    >
+      <div
+        class="css-o5wame"
+      >
+        <img
+          alt="MOVIE ROOM 로고"
+          src="/assets/logo.png"
+        />
+      </div>
+      <h1
+        class="css-wk5jya"
+      >
+        로그인
+      </h1>
+      <form
+        class="css-13stbb8"
+      >
+        <input
+          class="css-1a6crj1"
+          name="email"
+          placeholder="이메일"
+          title="이메일"
+          type="email"
+        />
+        <input
+          class="css-1a6crj1"
+          name="password"
+          placeholder="비밀번호"
+          title="비밀번호"
+          type="password"
+        />
+        <input
+          class="css-ol4lpg"
+          title="로그인"
+          type="submit"
+          value="로그인"
+        />
+      </form>
+      <a
+        href="/signup"
+      >
+        <span
+          class="css-hfj296"
+        >
+          회원가입
+        </span>
+      </a>
+      <a
+        class="css-11r631h"
+        color="#fff"
+        href=""
+      >
+        <img
+          alt="네이버 심볼"
+          src="/assets/naver-symbol.png"
+        />
+        <div>
+          네이버 로그인
+        </div>
+      </a>
+      <a
+        class="css-1p3p2nj"
+        color="#000D9"
+        href=""
+      >
+        <img
+          alt="카카오 심볼"
+          src="/assets/kakao-symbol.png"
+        />
+        <div>
+          카카오 로그인
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+`;
