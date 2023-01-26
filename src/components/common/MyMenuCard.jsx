@@ -5,7 +5,7 @@ import useOutsideClick from "hooks/useOutsideClick";
 import { useCallback } from "react";
 import { useRef, useState } from "react";
 import { MdSettings } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "store/user";
 import { colors } from "styles/common";
@@ -82,7 +82,10 @@ const MenuItem = styled.li`
 
 const MyMenuCard = ({ onMyMenuClose, setIsShowMyMenu }) => {
   const [isShowProfileEditModal, setIsShowProfileEditModal] = useState(false);
-  const { id, nickname, thumbnail } = useSelector((state) => state.user.user);
+  const { id, nickname, thumbnail } = useSelector(
+    (state) => state.user.user,
+    shallowEqual
+  );
   const [logoutTrigger] = useLogoutMutation();
   const dispatch = useDispatch();
   const cardRef = useRef(null);

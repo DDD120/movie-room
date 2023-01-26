@@ -72,7 +72,7 @@ const Signup = () => {
     trigger,
     formState: { errors, isSubmitting },
   } = useForm({ mode: "onChange" });
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {

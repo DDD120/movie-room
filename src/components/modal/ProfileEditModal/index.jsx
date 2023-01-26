@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { colors } from "styles/common";
 import Modal from "../Modal";
 import { IoMdReverseCamera } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { FiEdit3 } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -123,7 +123,8 @@ const ProfileEditModal = ({ onClose }) => {
   const [signout, { data: signoutRes, isSuccess: isSignoutSuccess }] =
     useSignoutMutation();
   const { id, nickname, email, thumbnail } = useSelector(
-    (state) => state.user.user
+    (state) => state.user.user,
+    shallowEqual
   );
 
   const dispatch = useDispatch();

@@ -118,7 +118,7 @@ const PenIcon = styled.span`
 
 const MainInfo = ({ movie, isLoading, reviews }) => {
   const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const { isWritten } = useCheckWrittenReview(reviews);
 
   const openWriteReviewModal = () => {

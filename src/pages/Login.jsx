@@ -4,7 +4,7 @@ import { colors } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "apis/server-api";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { login as storeLogin } from "store/user";
 import { useForm } from "react-hook-form";
 import { showToast } from "lib/toast";
@@ -76,8 +76,14 @@ const Login = () => {
   const [login, { data: loginRes = {}, isSuccess, isError, error }] =
     useLoginMutation();
 
-  const { isLoggedIn } = useSelector((state) => state.user);
-  const { id } = useSelector((state) => state.user.user);
+  const { isLoggedIn, id } = useSelector(
+    (state) => ({
+      isLoggedIn: state.user.isLoggedIn,
+      id: state.user.user.id,
+    }),
+    shallowEqual
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

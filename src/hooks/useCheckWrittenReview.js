@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const useCheckWrittenReview = (reviewList) => {
   const [writtenReview, setWrittenReview] = useState(null);
-  const { isLoggedIn } = useSelector((state) => state.user);
-  const { id } = useSelector((state) => state.user.user);
+  const { isLoggedIn, id } = useSelector(
+    (state) => ({
+      isLoggedIn: state.user.isLoggedIn,
+      id: state.user.user.id,
+    }),
+    shallowEqual
+  );
 
   useEffect(() => {
     if (!isLoggedIn || !reviewList) {

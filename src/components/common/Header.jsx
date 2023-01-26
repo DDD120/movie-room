@@ -54,7 +54,7 @@ const NavItem = styled.div`
 const Header = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [isShowMyMenu, setIsShowMyMenu] = useState(false);
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const navigate = useNavigate();
 
   const handleSearchClick = () => {
