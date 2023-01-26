@@ -5,7 +5,6 @@ import CrewCarousel from "components/detail/CrewCarousel";
 import MovieListCarousel from "components/common/MovieListCarousel";
 import SkeletonCarousel from "components/loading/SkeletonCarousel";
 import { useParams } from "react-router-dom";
-import ScrollRestoration from "components/common/ScrollRestoration";
 import {
   useGetMainInfoQuery,
   useGetCreditsQuery,
@@ -14,6 +13,7 @@ import {
 import ReviewCarousel from "components/detail/ReviewCarousel";
 import { useGetReviewsByMovieQuery } from "apis/server-api";
 import CarouselBox from "components/common/CarouselBox";
+import useScrollRestoration from "hooks/useScrollRestoration";
 
 const Detail = () => {
   const { id } = useParams();
@@ -27,9 +27,10 @@ const Detail = () => {
   const { data: movieReviews, isLoading: isReviewsLoading } =
     useGetReviewsByMovieQuery({ id, limit: 9 });
 
+  useScrollRestoration();
+
   return (
     <>
-      <ScrollRestoration />
       {
         <MainInfo
           movie={movieMainInfo}

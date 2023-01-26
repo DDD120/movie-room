@@ -7,9 +7,9 @@ import { FiSearch } from "react-icons/fi";
 import LoadingAnimation from "components/loading/LoadingAnimation";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 import ToTop from "components/common/ToTop";
-import ScrollRestoration from "components/common/ScrollRestoration";
 import { useLazyGetSearchQuery } from "apis/movie-db-api";
 import { arrayDeduplication } from "lib/filter";
+import useScrollRestoration from "hooks/useScrollRestoration";
 
 const Head = styled.div`
   display: flex;
@@ -86,6 +86,8 @@ const Search = () => {
     setSearchResults([]);
   }, [searchKeyword]);
 
+  useScrollRestoration();
+
   const onIntersect = useCallback(
     (entry, observer) => {
       if (entry[0].isIntersecting) {
@@ -105,7 +107,6 @@ const Search = () => {
 
   return (
     <Container>
-      <ScrollRestoration />
       <Head>
         <SearchIcon>
           <FiSearch />
