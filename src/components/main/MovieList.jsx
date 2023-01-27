@@ -1,28 +1,15 @@
 import MovieListCarousel from "components/common/MovieListCarousel";
 import SkeletonCarousel from "components/loading/SkeletonCarousel";
-import {
-  useGetNowPlayingQuery,
-  useGetPopularQuery,
-  useGetTopRatedQuery,
-  useGetUpcomingQuery,
-} from "apis/movie-db-api";
+import { useGetMainPageMoviesQuery } from "apis/movie-db-api";
 import CarouselBox from "components/common/CarouselBox";
 
 const MovieList = () => {
-  const { data: nowPlaying, isLoading: isNowplayingLoading } =
-    useGetNowPlayingQuery();
-  const { data: popular, isLoading: isPopularLoading } = useGetPopularQuery();
-  const { data: topRated, isLoading: isTopRatedLoading } =
-    useGetTopRatedQuery();
-  const { data: upcoming, isLoading: isUpcomingLoading } =
-    useGetUpcomingQuery();
+  const { data: { nowPlaying, popular, topRated, upcoming } = {}, isLoading } =
+    useGetMainPageMoviesQuery();
 
   return (
     <CarouselBox>
-      {isNowplayingLoading ||
-      isPopularLoading ||
-      isTopRatedLoading ||
-      isUpcomingLoading ? (
+      {isLoading ? (
         <>
           <SkeletonCarousel />
           <SkeletonCarousel />

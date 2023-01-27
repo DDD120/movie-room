@@ -116,7 +116,7 @@ const PenIcon = styled.span`
   transform: translateY(2px);
 `;
 
-const MainInfo = ({ movie, isLoading, reviews }) => {
+const MainInfo = ({ movie, reviews }) => {
   const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const { isWritten } = useCheckWrittenReview(reviews);
@@ -141,62 +141,58 @@ const MainInfo = ({ movie, isLoading, reviews }) => {
 
   return (
     <>
-      {!isLoading ? (
-        <Background backdrop_path={movie.backdrop_path}>
-          <Base>
-            <ImgBox>
-              {movie.poster_path ? (
-                <Img
-                  src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
-                  alt={`${movie.title} 포스터`}
-                />
-              ) : (
-                <NoImg />
+      <Background backdrop_path={movie.backdrop_path}>
+        <Base>
+          <ImgBox>
+            {movie.poster_path ? (
+              <Img
+                src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
+                alt={`${movie.title} 포스터`}
+              />
+            ) : (
+              <NoImg />
+            )}
+          </ImgBox>
+          <InfoBox>
+            <Title>
+              {movie.title}
+              <Year>({getYear(movie?.release_date)})</Year>
+            </Title>
+            <Info>
+              <Category>원제</Category>
+              <Value>{movie.original_title}</Value>
+              <Category>원어</Category>
+              <Value>{movie.original_language?.toUpperCase()}</Value>
+              <Category>발매일</Category>
+              <Value>{movie.release_date}</Value>
+              <Category>장르</Category>
+              <Value>
+                {movie?.genres.map((genre) => genre.name).join("/")}
+              </Value>
+              <Category>상영시간</Category>
+              <Value>{movie.runtime}분</Value>
+            </Info>
+            {movie.tagline && <Tagline>"{movie.tagline}"</Tagline>}
+            <Overview>{movie.overview}</Overview>
+            <BottomBox>
+              {isLoggedIn && !isWritten && (
+                <Button onClick={openWriteReviewModal}>
+                  <PenIcon>
+                    <BsPen />
+                  </PenIcon>
+                  리뷰 작성
+                </Button>
               )}
-            </ImgBox>
-            <InfoBox>
-              <Title>
-                {movie.title}
-                <Year>({getYear(movie?.release_date)})</Year>
-              </Title>
-              <Info>
-                <Category>원제</Category>
-                <Value>{movie.original_title}</Value>
-                <Category>원어</Category>
-                <Value>{movie.original_language?.toUpperCase()}</Value>
-                <Category>발매일</Category>
-                <Value>{movie.release_date}</Value>
-                <Category>장르</Category>
-                <Value>
-                  {movie?.genres.map((genre) => genre.name).join("/")}
-                </Value>
-                <Category>상영시간</Category>
-                <Value>{movie.runtime}분</Value>
-              </Info>
-              {movie.tagline && <Tagline>"{movie.tagline}"</Tagline>}
-              <Overview>{movie.overview}</Overview>
-              <BottomBox>
-                {isLoggedIn && !isWritten && (
-                  <Button onClick={openWriteReviewModal}>
-                    <PenIcon>
-                      <BsPen />
-                    </PenIcon>
-                    리뷰 작성
-                  </Button>
-                )}
-                <SharIcon onClick={handleShareClick}>
-                  <AiOutlineShareAlt />
-                </SharIcon>
-              </BottomBox>
-              {showWriteReviewModal && (
-                <CreateReview movie={movie} onClose={handleModalClose} />
-              )}
-            </InfoBox>
-          </Base>
-        </Background>
-      ) : (
-        <SkeletonMainInfo />
-      )}
+              <SharIcon onClick={handleShareClick}>
+                <AiOutlineShareAlt />
+              </SharIcon>
+            </BottomBox>
+            {showWriteReviewModal && (
+              <CreateReview movie={movie} onClose={handleModalClose} />
+            )}
+          </InfoBox>
+        </Base>
+      </Background>
     </>
   );
 };
