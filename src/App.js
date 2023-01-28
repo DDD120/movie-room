@@ -8,12 +8,19 @@ import Search from "pages/Search";
 import My from "pages/My";
 import Footer from "components/common/Footer";
 import { useCheckToken } from "hooks/useCheckToken";
+import Meta from "components/common/Meta";
 
 function App() {
   useCheckToken();
 
   return (
     <BrowserRouter>
+      <Meta
+        title="MOVIE ROOM"
+        description="영화의 상세정보 보기 및 리뷰를 작성해보세요"
+        keywords="영화, 최근 개봉작, 인기 상영작, 최고 평점, 개봉 예정작"
+        imgsrc="/assets/default-og.png"
+      />
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />

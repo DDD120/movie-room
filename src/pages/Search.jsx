@@ -10,6 +10,7 @@ import ToTop from "components/common/ToTop";
 import { useLazyGetSearchQuery } from "apis/movie-db-api";
 import { arrayDeduplication } from "lib/filter";
 import useScrollRestoration from "hooks/useScrollRestoration";
+import Meta from "components/common/Meta";
 
 const Head = styled.div`
   display: flex;
@@ -107,6 +108,12 @@ const Search = () => {
 
   return (
     <Container>
+      <Meta
+        title={`${searchKeyword} 검색결과 - MOVIE ROOM`}
+        description={`총 ${searchData.total_results}의 작품이 검색되었습니다.`}
+        keywords={`${searchKeyword}, 영화`}
+        imgsrc="/assets/default-og.png"
+      />
       <Head>
         <SearchIcon>
           <FiSearch />

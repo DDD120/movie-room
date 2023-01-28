@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM, { hydrateRoot } from "react-dom/client";
 import "styles/index.css";
 import { Provider } from "react-redux";
 import App from "./App";
@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { colors } from "styles/common";
 import styled from "@emotion/styled";
 import "react-toastify/dist/ReactToastify.css";
+import { HelmetProvider } from "react-helmet-async";
 
 const StyledContainer = styled(ToastContainer)`
   .Toastify__toast {
@@ -20,10 +21,27 @@ const StyledContainer = styled(ToastContainer)`
   }
 `;
 
+const rootElement = document.getElementById("root");
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <Provider store={store}>
-    <App />
-    <StyledContainer position="top-right" />
-  </Provider>
-);
+
+if (rootElement.hasChildNodes()) {
+  hydrateRoot(
+    rootElement,
+    <HelmetProvider>
+      <Provider store={store}>
+        <App />
+        <StyledContainer position="top-right" />
+      </Provider>
+    </HelmetProvider>
+  );
+} else {
+  root.render(
+    <HelmetProvider>
+      <Provider store={store}>
+        <App />
+        <StyledContainer position="top-right" />
+      </Provider>
+    </HelmetProvider>
+  );
+}
