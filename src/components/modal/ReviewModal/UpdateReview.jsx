@@ -7,7 +7,6 @@ import WriteForm from "./WriteForm";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { showToast } from "lib/toast";
-import { getYear } from "lib/filter";
 
 const Base = styled.form`
   width: 100%;
@@ -18,7 +17,7 @@ const Title = styled.h1`
   font-size: 1.8rem;
 `;
 
-const UpdateReview = ({ review, movie, onClose }) => {
+const UpdateReview = ({ review, onClose }) => {
   const {
     register,
     handleSubmit,
@@ -52,9 +51,7 @@ const UpdateReview = ({ review, movie, onClose }) => {
   return (
     <Modal onClose={onClose}>
       <Base onSubmit={handleSubmit(handleWirteReviewSubmit)}>
-        <Title>
-          {movie.title} <span>({getYear(movie?.release_date)})</span>
-        </Title>
+        <Title>{review.title}</Title>
         <StarRating
           register={register("rating")}
           currentRating={watch("rating")}

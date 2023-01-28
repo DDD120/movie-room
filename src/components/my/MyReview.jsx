@@ -4,9 +4,8 @@ import Title from "components/common/Title";
 import { useParams } from "react-router-dom";
 import MyReviewItem from "./MyReviewItem";
 import { MasonryGrid } from "@egjs/react-grid";
-import { useCallback, useState } from "react";
 import LoadingAnimation from "components/loading/LoadingAnimation";
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { sortArray } from "lib/sort";
 import { colors } from "styles/common";
 
@@ -39,7 +38,6 @@ const ReviewBox = styled.div`
 `;
 
 const MyReview = () => {
-  const [isGetMovieInfo, setIsGetMovieInfo] = useState(false);
   const [reviews, setReviews] = useState([]);
   const { id } = useParams();
   const { data = [], isLoading } = useGetReviewsByUserQuery(id);
@@ -48,16 +46,6 @@ const MyReview = () => {
   const handleSelectChange = (e) => {
     setReviews((reviews) => [...sortArray(reviews, e.target.value)]);
   };
-
-  const showReview = useCallback(() => {
-    setIsGetMovieInfo(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isLoading && isGetMovieInfo) {
-      gridRef.current.renderItems({ useResize: true });
-    }
-  }, [isLoading, isGetMovieInfo]);
 
   useEffect(() => {
     setReviews([...data].reverse());
@@ -87,11 +75,7 @@ const MyReview = () => {
             ref={gridRef}
           >
             {reviews?.map((review) => (
-              <MyReviewItem
-                key={review.movieId}
-                review={review}
-                showReview={showReview}
-              />
+              <MyReviewItem key={review.movieId} review={review} />
             ))}
           </MasonryGrid>
         )}

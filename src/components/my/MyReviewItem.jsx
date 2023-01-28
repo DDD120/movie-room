@@ -1,14 +1,12 @@
 import styled from "@emotion/styled";
 import { colors } from "styles/common";
 import { AiFillStar } from "react-icons/ai";
-import { useGetMainInfoQuery } from "apis/movie-db-api";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { useDeleteReviewMutation } from "apis/server-api";
 import UpdateReview from "components/modal/ReviewModal/UpdateReview";
 import { showToast } from "lib/toast";
-import { getYear } from "lib/filter";
 
 const Base = styled.div`
   position: relative;
@@ -69,11 +67,6 @@ const Date = styled.p`
   color: ${colors.grey};
 `;
 
-const Year = styled.span`
-  font-size: 0.8rem;
-  font-weight: 400;
-`;
-
 const Menu = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -93,11 +86,9 @@ const MenuListItemBtn = styled.button`
   }
 `;
 
-const MyReviewItem = ({ review, showReview }) => {
+const MyReviewItem = ({ review }) => {
   const [isShowReviewModal, setIsShowReviewModal] = useState(false);
-  const { data: movie, isSuccess: isGetSuccess } = useGetMainInfoQuery(
-    review.movieId
-  );
+
   const [deleteReview, { data: deleteReviewRes, isSuccess: isDeleteSuccess }] =
     useDeleteReviewMutation();
 
@@ -116,24 +107,16 @@ const MyReviewItem = ({ review, showReview }) => {
   };
 
   useEffect(() => {
-    if (isGetSuccess) {
-      showReview();
-    }
-  }, [isGetSuccess, showReview, movie]);
-
-  useEffect(() => {
     if (isDeleteSuccess) {
       showToast(deleteReviewRes.message);
     }
-  }, [isDeleteSuccess, deleteReviewRes, showReview]);
+  }, [isDeleteSuccess, deleteReviewRes]);
 
   return (
     <Base>
       <Head>
         <Link to={`/detail/${review.movieId}`}>
-          <Title>
-            {movie?.title} <Year>({getYear(movie?.release_date)})</Year>
-          </Title>
+          <Title>{review.title}</Title>
         </Link>
         <Rating>
           <AiFillStar />
@@ -146,11 +129,7 @@ const MyReviewItem = ({ review, showReview }) => {
         <Menu>
           <MenuListItemBtn onClick={handleUpdateClick}>수정</MenuListItemBtn>
           {isShowReviewModal && (
-            <UpdateReview
-              review={review}
-              movie={movie}
-              onClose={handleModalClose}
-            />
+            <UpdateReview review={review} onClose={handleModalClose} />
           )}
           <MenuListItemBtn onClick={handleDeleteClick}>삭제</MenuListItemBtn>
         </Menu>
