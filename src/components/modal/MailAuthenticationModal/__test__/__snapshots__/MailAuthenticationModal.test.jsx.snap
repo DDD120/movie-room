@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MailAuthentication Modal renders correctly 1`] = `
+<div>
+  <div
+    class="css-glk9o1"
+  >
+    <div
+      class="css-bt0smj"
+    >
+      <main
+        class="css-ozqi8c"
+      >
+        <div
+          class="css-810ok4"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 14 16"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 5H4V4h2v1zm3 1H4v1h5V6zm5-.48V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V5.52c0-.33.16-.63.42-.81L2 3.58V3c0-.55.45-1 1-1h1.2L7 0l2.8 2H11c.55 0 1 .45 1 1v.58l1.58 1.13c.27.19.42.48.42.81zM3 7.5L7 10l4-2.5V3H3v4.5zm-2 6l4.5-3-4.5-3v6zm11 .5l-5-3-5 3h10zm1-6.5l-4.5 3 4.5 3v-6z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <h1
+          class="css-xvhs7d"
+        >
+          이메일 인증
+        </h1>
+        <p
+          class="css-1qxvz04"
+        >
+          이메일 인증을 위한 코드가 
+          <b>
+            email1234@mock.com
+          </b>
+          으로 전송되었습니다.
+        </p>
+        <div
+          class="css-1w6xk43"
+        >
+          <input
+            class="css-1orb6qj"
+            max="6"
+            min="1"
+            placeholder="인증코드"
+            title="인증코드"
+            type="text"
+          />
+          <span
+            class="css-jzs5wp"
+          >
+            03:00
+          </span>
+        </div>
+        <button
+          class="css-19gbx2v"
+        >
+          확인
+        </button>
+      </main>
+      <button
+        class="css-1sa6jya"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 0h24v24H0V0z"
+            fill="none"
+          />
+          <path
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+`;
