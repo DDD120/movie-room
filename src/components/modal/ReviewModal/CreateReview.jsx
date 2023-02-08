@@ -27,7 +27,7 @@ const CreateReview = ({ movie, onClose }) => {
   } = useForm({
     defaultValues: {
       content: "",
-      rating: 0,
+      rating: 0.5,
     },
   });
 
