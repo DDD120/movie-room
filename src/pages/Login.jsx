@@ -44,29 +44,6 @@ const Signin = styled.span`
   margin-bottom: 10px;
 `;
 
-const Social = styled.a`
-  position: relative;
-  margin: 4px 0;
-  max-width: 600px;
-  height: 50px;
-  width: 100%;
-  border-radius: 12px;
-  border: none;
-  box-shadow: none;
-  color: ${({ color }) => color};
-  background-color: ${({ bgColor }) => bgColor};
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    max-width: 50px;
-  }
-`;
-
 const Login = () => {
   const {
     register,
@@ -143,14 +120,6 @@ const Login = () => {
         <Link to="/signup">
           <Signin>회원가입</Signin>
         </Link>
-        <Social color={"#fff"} bgColor={"#03C75A"} href="">
-          <img src="/assets/naver-symbol.png" alt="네이버 심볼" />
-          <div>네이버 로그인</div>
-        </Social>
-        <Social color={"#000D9"} bgColor={"#FEE500"} href="">
-          <img src="/assets/kakao-symbol.png" alt="카카오 심볼" />
-          <div>카카오 로그인</div>
-        </Social>
       </Base>
     </Container>
   );
