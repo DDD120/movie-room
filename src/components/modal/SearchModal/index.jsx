@@ -49,7 +49,9 @@ const SearchModal = ({ onClose }) => {
   };
 
   const goToSearch = () => {
-    if (isNull()) return;
+    if (isNull()) {
+      return;
+    }
     navigate(
       `/search?query=${isAutoSearch ? autoSearchKeyword : searchKeyword}`
     );
@@ -102,11 +104,11 @@ const SearchModal = ({ onClose }) => {
   };
 
   useEffect(() => {
-    if (isAutoSearch) {
+    if (isAutoSearch || isNull()) {
       return;
     }
     trigger({ query: searchKeyword });
-  }, [trigger, searchKeyword, isAutoSearch]);
+  }, [trigger, searchKeyword, isAutoSearch, isNull]);
 
   return (
     <Modal onClose={onClose} backdropTouchClose={true}>
