@@ -7,7 +7,7 @@ import { MasonryGrid } from "@egjs/react-grid";
 import LoadingAnimation from "components/loading/LoadingAnimation";
 import { useState, useRef, useEffect } from "react";
 import { sortArray } from "lib/sort";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 
 const Base = styled.div`
   display: flex;

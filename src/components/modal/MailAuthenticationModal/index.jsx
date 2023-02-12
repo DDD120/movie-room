@@ -1,6 +1,6 @@
 import { GoMailRead } from "react-icons/go";
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import { useRef, useEffect } from "react";
 import Button from "components/common/Button";
 import Modal from "../Modal";

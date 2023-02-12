@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 
 const Base = styled.div`
   text-align: right;

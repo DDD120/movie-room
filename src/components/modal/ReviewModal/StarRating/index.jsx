@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import StarInput from "./StarInput";
 
 const Base = styled.section`

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 
 const Base = styled.footer`
   width: 100%;

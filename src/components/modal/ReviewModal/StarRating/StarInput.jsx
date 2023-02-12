@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import { FaStar, FaStarHalf } from "react-icons/fa";
 
 const Input = styled.input`

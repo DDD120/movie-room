@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { createPortal } from "react-dom";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import { MdOutlineClose } from "react-icons/md";
 
 const Backdrop = styled.div`

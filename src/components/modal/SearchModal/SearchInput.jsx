@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 
 const Base = styled.div`
   flex: 1;

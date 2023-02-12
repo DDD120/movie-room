@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import Title from "./Title";
 import { isMobile } from "react-device-detect";
 

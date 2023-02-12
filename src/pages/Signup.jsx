@@ -5,7 +5,7 @@ import MailAuthenticationModal from "components/modal/MailAuthenticationModal";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import { showToast } from "lib/toast";
 import AuthInput from "components/common/AuthInput";
 import { useSelector } from "react-redux";

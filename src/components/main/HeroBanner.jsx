@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import { MdLocalMovies } from "react-icons/md";
 
 const Base = styled.article`

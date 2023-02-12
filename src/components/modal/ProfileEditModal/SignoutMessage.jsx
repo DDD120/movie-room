@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "components/common/Button";
 import React from "react";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 
 const Base = styled.div`
   border-radius: 12px;

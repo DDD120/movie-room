@@ -8,7 +8,7 @@ import { MdSettings } from "react-icons/md";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "store/user";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 
 const Base = styled.div`
   width: 300px;

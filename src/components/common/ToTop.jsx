@@ -1,6 +1,6 @@
 import { RiArrowDropUpLine } from "react-icons/ri";
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import { useState, useEffect } from "react";
 import { throttle } from "lodash";
 

@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 import store from "store";
 import { ToastContainer } from "react-toastify";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import styled from "@emotion/styled";
 import "react-toastify/dist/ReactToastify.css";
 import { HelmetProvider } from "react-helmet-async";

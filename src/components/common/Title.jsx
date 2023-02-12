@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 
 const Base = styled.span`
   padding: 4px 14px 6px;

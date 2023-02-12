@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import { AiFillStar } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";

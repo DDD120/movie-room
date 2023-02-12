@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import { BsPen } from "react-icons/bs";
 import { useState } from "react";
 import CreateReview from "components/modal/ReviewModal/CreateReview";

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import Modal from "../Modal";
 import { IoMdReverseCamera } from "react-icons/io";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { colors } from "styles/common";
+import { colors } from "styles/colors";
 import SearchResultItem from "./SearchResultItem";
 
 const Base = styled.div`
