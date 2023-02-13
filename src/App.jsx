@@ -1,14 +1,17 @@
 import Header from "components/common/Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from "pages/Main";
-import Login from "pages/Login";
-import Signup from "pages/Signup";
-import Detail from "pages/Detail";
-import Search from "pages/Search";
-import My from "pages/My";
 import Footer from "components/common/Footer";
 import { useCheckToken } from "hooks/useCheckToken";
 import Meta from "components/common/Meta";
+import { Suspense, lazy } from "react";
+import Loading from "components/loading/Loading";
+
+const Main = lazy(() => import("pages/Main"));
+const Login = lazy(() => import("pages/Login"));
+const Signup = lazy(() => import("pages/Signup"));
+const Detail = lazy(() => import("pages/Detail"));
+const Search = lazy(() => import("pages/Search"));
+const My = lazy(() => import("pages/My"));
 
 function App() {
   useCheckToken();
@@ -22,15 +25,17 @@ function App() {
         imgsrc="/assets/default-og.png"
       />
       <Header />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/my/:id" element={<My />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/*" element={<Main />} />
-      </Routes>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/my/:id" element={<My />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<Main />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </BrowserRouter>
   );
