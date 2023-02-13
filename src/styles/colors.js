@@ -6,7 +6,7 @@ export const colors = {
   orangeOpacity: "#fd7c3662",
   cyan: "#50ADB5",
   lightgray: "#afb5b8",
-  greyOpacity: "#76818699",
-  grey: "#768186",
+  greyOpacity: "#484a4c66",
+  grey: "#484a4c",
   white: "#fff",
 };
