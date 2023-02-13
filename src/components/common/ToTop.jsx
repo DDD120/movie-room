@@ -48,7 +48,12 @@ const ToTop = () => {
   }, []);
 
   return (
-    <Base type="button" onClick={handleClick} isShow={isShow}>
+    <Base
+      type="button"
+      onClick={handleClick}
+      isShow={isShow}
+      aria-label="Top 버튼"
+    >
       <RiArrowDropUpLine />
     </Base>
   );
