@@ -8,7 +8,7 @@ import { MdSettings } from "react-icons/md";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "store/user";
-import { colors, fontSize } from "styles/common";
+import { breakpoint, colors, fontSize } from "styles/common";
 
 const Base = styled.div`
   width: 300px;
@@ -19,6 +19,11 @@ const Base = styled.div`
   top: 60px;
   background-color: ${colors.beige};
   box-shadow: 0px 0px 10px ${colors.greyOpacity};
+
+  @media only screen and (max-width: ${breakpoint.md}) {
+    width: 240px;
+    right: 30px;
+  }
 `;
 
 const Profile = styled.div`

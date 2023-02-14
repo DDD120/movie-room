@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
-import { colors, fontSize } from "styles/common";
+import { breakpoint, colors, fontSize } from "styles/common";
 import Title from "./Title";
 import { isMobile } from "react-device-detect";
 
@@ -35,7 +35,7 @@ const ArrowBtn = styled.button`
     color: ${colors.orange};
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: ${breakpoint.md}) {
     display: none;
   }
 `;

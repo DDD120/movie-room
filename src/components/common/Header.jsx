@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
-import { colors } from "styles/common";
+import { breakpoint, colors } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
 import SearchModal from "../modal/SearchModal";
@@ -20,7 +20,7 @@ const Base = styled.header`
   padding: 20px 60px;
   z-index: 9;
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: ${breakpoint.md}) {
     padding: 20px 30px;
   }
 `;

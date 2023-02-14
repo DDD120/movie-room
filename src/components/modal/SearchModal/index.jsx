@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useLazyGetSearchQuery } from "apis/movie-db-api";
 import SearchInput from "./SearchInput";
 import SearchResultList from "./SearchResultList";
+import { breakpoint } from "styles/common";
 
 const Base = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const Base = styled.div`
   width: 100%;
   height: 500px;
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: ${breakpoint.md}) {
     height: 100%;
   }
 `;

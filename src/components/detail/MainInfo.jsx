@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors, fontSize } from "styles/common";
+import { breakpoint, colors, fontSize } from "styles/common";
 import { BsPen } from "react-icons/bs";
 import { useState } from "react";
 import CreateReview from "components/modal/ReviewModal/CreateReview";
@@ -31,7 +31,7 @@ const Base = styled.section`
   gap: 28px;
   color: ${colors.white};
   padding: 40px 0;
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: ${breakpoint.md}) {
     display: block;
   }
 `;
@@ -43,7 +43,7 @@ const ImgBox = styled.div`
   overflow: hidden;
   border-radius: 12px;
   position: relative;
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: ${breakpoint.md}) {
     margin-bottom: 28px;
   }
 `;

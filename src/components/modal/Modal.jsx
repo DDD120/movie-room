@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { createPortal } from "react-dom";
-import { colors, fontSize } from "styles/common";
+import { breakpoint, colors, fontSize } from "styles/common";
 import { MdOutlineClose } from "react-icons/md";
 
 const Backdrop = styled.div`
@@ -28,7 +28,7 @@ const Base = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: ${breakpoint.md}) {
     height: 100%;
   }
 `;
