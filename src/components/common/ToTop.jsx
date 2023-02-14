@@ -1,8 +1,6 @@
 import { RiArrowDropUpLine } from "react-icons/ri";
 import styled from "@emotion/styled";
 import { colors, fontSize } from "styles/common";
-import { useState, useEffect } from "react";
-import { throttle } from "lodash";
 
 const Base = styled.button`
   position: fixed;
@@ -29,23 +27,10 @@ const Base = styled.button`
   }
 `;
 
-const ToTop = () => {
-  const [isShow, setIsShow] = useState(false);
-
-  const handleScroll = () => {
-    window.scrollY > 250 ? setIsShow(true) : setIsShow(false);
-  };
-
+const ToTop = ({ isShow }) => {
   const handleClick = () => {
     window.scrollTo(0, 0);
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", throttle(handleScroll, 500));
-    return () => {
-      window.addEventListener("scroll", throttle(handleScroll, 500));
-    };
-  }, []);
 
   return (
     <Base

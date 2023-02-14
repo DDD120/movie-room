@@ -80,9 +80,9 @@ const List = styled.li`
   }
 `;
 
-const HeroBanner = () => {
+const HeroBanner = ({ target }) => {
   return (
-    <Base>
+    <Base ref={target}>
       <Box>
         <TitleBox>
           <MdLocalMovies />

@@ -56,6 +56,7 @@ const Search = () => {
   const searchKeyword = new URLSearchParams(location.search).get("query");
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isShowToTop, setIsShowToTop] = useState(false);
 
   const [
     trigger,
@@ -90,7 +91,7 @@ const Search = () => {
 
   useScrollRestoration();
 
-  const onIntersect = useCallback(
+  const handleInfiniteIntersect = useCallback(
     (entry, observer) => {
       if (entry[0].isIntersecting) {
         if (
@@ -100,12 +101,22 @@ const Search = () => {
           setCurrentPage((page) => page + 1);
         }
         observer.unobserve(entry[0].target);
+      } else {
       }
     },
     [searchData.total_pages, currentPage, searchData.page]
   );
 
-  const { setTarget } = useIntersectionObserver({ onIntersect });
+  const handleToTopIntersect = useCallback((entry) => {
+    entry[0].isIntersecting ? setIsShowToTop(false) : setIsShowToTop(true);
+  }, []);
+
+  const { setTarget: setInfiniteTarget } = useIntersectionObserver({
+    onIntersect: handleInfiniteIntersect,
+  });
+  const { setTarget: setToTopTarget } = useIntersectionObserver({
+    onIntersect: handleToTopIntersect,
+  });
 
   return (
     <Container>
@@ -115,7 +126,7 @@ const Search = () => {
         keywords={`${searchKeyword}, 영화`}
         imgsrc="/assets/default-og.png"
       />
-      <Head>
+      <Head ref={setToTopTarget}>
         <SearchIcon>
           <FiSearch />
         </SearchIcon>
@@ -142,10 +153,10 @@ const Search = () => {
         {isFetching ? (
           <LoadingAnimation />
         ) : (
-          <Observer ref={setTarget}></Observer>
+          <Observer ref={setInfiniteTarget}></Observer>
         )}
       </ObserverBox>
-      <ToTop />
+      <ToTop isShow={isShowToTop} />
     </Container>
   );
 };
