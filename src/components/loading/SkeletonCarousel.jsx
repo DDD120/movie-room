@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors } from "styles/common";
 
 const Base = styled.div`
   margin: 40px 0;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import { FaStar, FaStarHalf } from "react-icons/fa";
 
 const Input = styled.input`
@@ -9,7 +9,7 @@ const Input = styled.input`
 
 const Label = styled.label`
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: ${fontSize.lg};
   color: ${colors.lightgray};
 
   ${({ isHalf }) =>

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import StarInput from "./StarInput";
 
 const Base = styled.section`
@@ -9,12 +9,12 @@ const Base = styled.section`
 `;
 
 const Name = styled.span`
-  font-size: 1.4rem;
+  font-size: ${fontSize.lg};
   line-height: 100%;
 `;
 
 const RatingValue = styled.span`
-  font-size: 1.2rem;
+  font-size: ${fontSize.md};
   line-height: 100%;
 `;
 

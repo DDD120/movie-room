@@ -1,6 +1,6 @@
 import { GoMailRead } from "react-icons/go";
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import { useRef, useEffect } from "react";
 import Button from "components/common/Button";
 import Modal from "../Modal";
@@ -17,7 +17,7 @@ const Base = styled.main`
 `;
 
 const Head = styled.h1`
-  font-size: 2rem;
+  font-size: ${fontSize.xl};
   margin-bottom: 10px;
 `;
 
@@ -29,7 +29,7 @@ const Explanation = styled.p`
 
 const MailIcon = styled.div`
   color: ${colors.black};
-  font-size: 3rem;
+  font-size: ${fontSize.xl};
 `;
 
 const MailAuthenticationModal = ({ email, password, onClose }) => {

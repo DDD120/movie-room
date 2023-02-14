@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 
 const Base = styled.div`
   flex: 1;
@@ -18,11 +18,11 @@ const Input = styled.input`
   border: none;
   background-color: ${colors.beige};
   outline: none;
-  font-size: 1.5rem;
+  font-size: ${fontSize.md};
 `;
 
 const SearchIcon = styled.button`
-  font-size: 2rem;
+  font-size: ${fontSize.xl};
   cursor: pointer;
   color: ${colors.black};
 `;

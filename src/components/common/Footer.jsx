@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 
 const Base = styled.footer`
   width: 100%;
@@ -9,7 +9,7 @@ const Base = styled.footer`
 
 const Copyright = styled.div`
   text-align: center;
-  font-size: 0.75rem;
+  font-size: ${fontSize.xs};
   line-height: 18px;
 `;
 

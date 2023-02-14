@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 
 const Base = styled.div`
   position: relative;
@@ -15,7 +15,7 @@ const Input = styled.input`
   color: ${colors.black};
   background-color: ${colors.beige};
   outline: none;
-  font-size: 1.725rem;
+  font-size: ${fontSize.lg};
 `;
 
 const TimeLimit = styled.span`

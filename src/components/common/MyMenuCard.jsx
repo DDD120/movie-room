@@ -8,7 +8,7 @@ import { MdSettings } from "react-icons/md";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "store/user";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 
 const Base = styled.div`
   width: 300px;
@@ -56,7 +56,7 @@ const ProfileEdit = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
-  font-size: 0.9rem;
+  font-size: ${fontSize.sm};
   cursor: pointer;
 `;
 

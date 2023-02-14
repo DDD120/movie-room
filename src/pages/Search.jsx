@@ -11,6 +11,7 @@ import { useLazyGetSearchQuery } from "apis/movie-db-api";
 import { arrayDeduplication } from "lib/filter";
 import useScrollRestoration from "hooks/useScrollRestoration";
 import Meta from "components/common/Meta";
+import { fontSize } from "styles/common";
 
 const Head = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ const TotalCount = styled.p`
 `;
 
 const SearchIcon = styled.span`
-  font-size: 2rem;
+  font-size: ${fontSize.xl};
   margin: 8px 8px 0 0;
 `;
 

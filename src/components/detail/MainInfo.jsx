@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import { BsPen } from "react-icons/bs";
 import { useState } from "react";
 import CreateReview from "components/modal/ReviewModal/CreateReview";
@@ -59,10 +59,10 @@ const InfoBox = styled.div`
   padding-bottom: 60px;
 `;
 const Title = styled.h1`
-  font-size: 2.275rem;
+  font-size: ${fontSize.xl};
 `;
 const Year = styled.span`
-  font-size: 1.225rem;
+  font-size: ${fontSize.md};
   margin: 0 4px;
   color: ${colors.grey};
 `;
@@ -77,7 +77,7 @@ const Category = styled.span`
 const Value = styled.span``;
 
 const Tagline = styled.i`
-  font-size: 1.275rem;
+  font-size: ${fontSize.md};
   font-weight: 700;
 `;
 const Overview = styled.p`
@@ -102,7 +102,7 @@ const SharIcon = styled.button`
   justify-content: center;
   align-items: center;
   color: ${colors.black};
-  font-size: 1.2rem;
+  font-size: ${fontSize.md};
   transition: filter 0.3s;
   &:hover {
     filter: brightness(0.9);

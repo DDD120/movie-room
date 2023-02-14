@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import { Link } from "react-router-dom";
 import NoImg from "./NoImg";
 import { getYear } from "lib/filter";
@@ -40,7 +40,7 @@ const Title = styled.div`
 `;
 
 const Year = styled.div`
-  font-size: 0.875rem;
+  font-size: ${fontSize.sm};
   color: ${colors.grey};
 `;
 

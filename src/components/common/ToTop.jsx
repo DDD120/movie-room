@@ -1,6 +1,6 @@
 import { RiArrowDropUpLine } from "react-icons/ri";
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import { useState, useEffect } from "react";
 import { throttle } from "lodash";
 
@@ -12,7 +12,7 @@ const Base = styled.button`
   height: 36px;
   border-radius: 50%;
   color: ${colors.orange};
-  font-size: 2rem;
+  font-size: ${fontSize.xl};
   border: none;
   background-color: ${colors.black};
   display: flex;

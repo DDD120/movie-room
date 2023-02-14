@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { breakpoint, colors, fontSize } from "styles/common";
 import { MdLocalMovies } from "react-icons/md";
 
 const Base = styled.article`
@@ -8,27 +8,26 @@ const Base = styled.article`
   width: 100%;
   aspect-ratio: 9/3;
   border-radius: 20px;
-  background-color: aliceblue;
   background: url("/assets/hero-banner.png") no-repeat right;
   background-size: contain;
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: ${fontSize.base};
 
-  @media only screen and (max-width: 835px) {
-    font-size: 12px;
-  }
-
-  @media only screen and (max-width: 560px) {
-    font-size: 7px;
+  @media only screen and (max-width: ${breakpoint.sm}) {
+    background: none;
   }
 `;
 
 const Box = styled.div`
   width: 60%;
+
+  @media only screen and (max-width: ${breakpoint.sm}) {
+    width: 100%;
+  }
 `;
 const TitleBox = styled.div`
-  font-size: 1.2em;
+  font-size: ${fontSize.md};
   color: ${colors.black};
   display: flex;
   align-items: center;
@@ -36,15 +35,17 @@ const TitleBox = styled.div`
 const Title = styled.span`
   width: 150px;
 
-  @media only screen and (max-width: 835px) {
-    width: 70px;
-  }
-  & > img {
+  img {
     width: 100%;
+  }
+
+  @media only screen and (max-width: ${breakpoint.md}) {
+    width: 120px;
+    transform: translateY(-2px);
   }
 `;
 const Phrase = styled.p`
-  font-size: 4em;
+  font-size: ${fontSize["2xl"]};
   font-family: "Roboto", sans-serif;
   font-weight: 900;
   color: ${colors.black};
@@ -52,20 +53,29 @@ const Phrase = styled.p`
   position: relative;
   left: -1px;
   margin-bottom: 4px;
+
+  @media only screen and (max-width: ${breakpoint.md}) {
+    font-size: ${fontSize.xl};
+  }
 `;
 const List = styled.li`
   position: relative;
   margin-left: 10px;
+  @media only screen and (max-width: ${breakpoint.md}) {
+    font-size: ${fontSize.sm};
+  }
+
   &::before {
     content: "";
     position: absolute;
-    top: 2px;
+    top: 4px;
     left: -8px;
     width: 4px;
-    height: 20px;
+    height: 16px;
     background-color: ${colors.orange};
-    @media only screen and (max-width: 835px) {
+    @media only screen and (max-width: ${breakpoint.md}) {
       height: 10px;
+      top: 8px;
     }
   }
 `;

@@ -1,6 +1,6 @@
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors } from "styles/common";
 
 const ellipsis1 = keyframes`
   0% {

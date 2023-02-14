@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
-import { colors } from "styles/colors";
+import { colors } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
 import SearchModal from "../modal/SearchModal";

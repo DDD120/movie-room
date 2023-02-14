@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { showToast } from "lib/toast";
+import { fontSize } from "styles/common";
 
 const Base = styled.form`
   width: 100%;
@@ -15,7 +16,7 @@ const Base = styled.form`
 `;
 
 const Title = styled.h1`
-  font-size: 1.8rem;
+  font-size: ${fontSize.lg};
 `;
 
 const CreateReview = ({ movie, onClose }) => {

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 
 const Base = styled.input`
   margin: 4px auto;
@@ -11,7 +11,7 @@ const Base = styled.input`
   border: none;
   box-shadow: none;
   color: #fff;
-  font-size: 1.025rem;
+  font-size: ${fontSize.base};
   background-color: ${colors.orange};
   &::placeholder {
     color: #fff;

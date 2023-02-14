@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { createPortal } from "react-dom";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import { MdOutlineClose } from "react-icons/md";
 
 const Backdrop = styled.div`
@@ -34,9 +34,9 @@ const Base = styled.div`
 `;
 const CloseIcon = styled.button`
   position: absolute;
-  top: 12px;
+  top: 8px;
   right: 12px;
-  font-size: 2rem;
+  font-size: ${fontSize.xl};
   cursor: pointer;
   color: ${colors.orangeOpacity};
 `;

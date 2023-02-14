@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import Button from "components/common/Button";
 import React from "react";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 
 const Base = styled.div`
+  max-width: 360px;
+  width: 100%;
   border-radius: 12px;
   padding: 20px 24px;
   z-index: 1;
@@ -16,7 +18,7 @@ const Base = styled.div`
   box-shadow: 0px 0px 10px ${colors.greyOpacity};
 
   p {
-    font-size: 0.9rem;
+    font-size: ${fontSize.base};
   }
 `;
 

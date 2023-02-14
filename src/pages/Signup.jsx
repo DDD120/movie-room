@@ -5,7 +5,7 @@ import MailAuthenticationModal from "components/modal/MailAuthenticationModal";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import { showToast } from "lib/toast";
 import AuthInput from "components/common/AuthInput";
 import { useSelector } from "react-redux";
@@ -27,7 +27,7 @@ const Logo = styled.div`
 
 const Head = styled.h1`
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: ${fontSize.lg};
   color: ${colors.black};
   margin: 10px 0;
 `;

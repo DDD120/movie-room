@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import { AiFillStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -26,7 +26,7 @@ const Head = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 1.3rem;
+  font-size: ${fontSize.md};
   font-weight: 900;
 `;
 
@@ -34,7 +34,7 @@ const Rating = styled.span`
   display: flex;
   gap: 4px;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: ${fontSize.md};
 
   svg {
     transform: translateY(2px);
@@ -63,7 +63,7 @@ const Bottom = styled.div`
 `;
 
 const Date = styled.p`
-  font-size: 0.9rem;
+  font-size: ${fontSize.base};
   color: ${colors.grey};
 `;
 

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import { AiFillStar } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
@@ -34,7 +34,7 @@ const User = styled.div`
     border-radius: 50%;
   }
   p {
-    font-size: 1.2rem;
+    font-size: ${fontSize.md};
     white-space: pre-line;
     word-break: break-all;
   }
@@ -44,7 +44,7 @@ const Rating = styled.span`
   display: flex;
   gap: 4px;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: ${fontSize.md};
   margin: 8px;
 
   svg {
@@ -75,7 +75,7 @@ const Bottom = styled.div`
 `;
 
 const Date = styled.p`
-  font-size: 0.9rem;
+  font-size: ${fontSize.sm};
   color: ${colors.grey};
 `;
 

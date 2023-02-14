@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 
 const Base = styled.div`
   position: absolute;
@@ -17,7 +17,7 @@ const Base = styled.div`
   align-items: center;
   color: ${colors.black};
   background-color: ${colors.lightgray};
-  font-size: 0.875rem;
+  font-size: ${fontSize.sm};
 `;
 
 const NoImg = () => {

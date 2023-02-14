@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 
 const Base = styled.div`
   text-align: right;
@@ -13,7 +13,7 @@ const TextArea = styled.textarea`
   border-radius: 12px;
   padding: 20px;
   margin: 10px 0;
-  font-size: 1.2rem;
+  font-size: ${fontSize.md};
 
   &:focus {
     outline: 2px solid ${colors.orange};

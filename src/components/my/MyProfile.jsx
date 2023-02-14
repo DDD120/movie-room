@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { shallowEqual, useSelector } from "react-redux";
+import { fontSize } from "styles/common";
 
 const Base = styled.section`
   display: flex;
@@ -27,7 +28,7 @@ const Thumbnail = styled.div`
 
 const Nickname = styled.p`
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: ${fontSize.lg};
   margin: 10px 0;
 `;
 

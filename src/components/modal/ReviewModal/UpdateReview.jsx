@@ -7,6 +7,7 @@ import WriteForm from "./WriteForm";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { showToast } from "lib/toast";
+import { fontSize } from "styles/common";
 
 const Base = styled.form`
   width: 100%;
@@ -14,7 +15,7 @@ const Base = styled.form`
 `;
 
 const Title = styled.h1`
-  font-size: 1.8rem;
+  font-size: ${fontSize.lg};
 `;
 
 const UpdateReview = ({ review, onClose }) => {

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import Modal from "../Modal";
 import { IoMdReverseCamera } from "react-icons/io";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -56,7 +56,7 @@ const Thumbnail = styled.div`
     width: 100%;
     height: 100%;
     color: ${colors.white};
-    font-size: 2.2rem;
+    font-size: ${fontSize.xl};
     cursor: pointer;
   }
 `;
@@ -64,7 +64,7 @@ const Thumbnail = styled.div`
 const Info = styled.div`
   flex-grow: 1;
   text-align: left;
-  font-size: 1.2rem;
+  font-size: ${fontSize.md};
 `;
 
 const InfoItem = styled.div`
@@ -87,7 +87,7 @@ const Input = styled.input`
   padding: 10px;
   padding-right: 40px;
   background-color: ${colors.beige};
-  font-size: 1.2rem;
+  font-size: ${fontSize.md};
 `;
 
 const EditIcon = styled.div`
@@ -101,7 +101,7 @@ const EditIcon = styled.div`
 const ErrorMsg = styled.p`
   height: 20px;
   color: #da0000;
-  font-size: 0.9rem;
+  font-size: ${fontSize.base};
 `;
 
 const DeleteAccountBtn = styled.button`

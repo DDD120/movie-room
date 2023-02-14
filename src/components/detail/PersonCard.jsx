@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import NoImg from "components/common/NoImg";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 
 const Base = styled.div`
   width: 100%;
@@ -34,7 +34,7 @@ const Name = styled.div`
 `;
 
 const Character = styled.div`
-  font-size: 0.875rem;
+  font-size: ${fontSize.sm};
   color: ${colors.grey};
 `;
 

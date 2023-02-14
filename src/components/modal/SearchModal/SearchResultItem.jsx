@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import NoImg from "components/common/NoImg";
-import { colors } from "styles/colors";
+import { colors } from "styles/common";
 
 const Base = styled.div`
   padding: 8px;

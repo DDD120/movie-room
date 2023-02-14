@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
-import { colors } from "styles/colors";
+import { colors, fontSize } from "styles/common";
 import Title from "./Title";
 import { isMobile } from "react-device-detect";
 
@@ -19,7 +19,7 @@ const ArrowBtn = styled.button`
   transition: 0.2s;
   transform: translateY(-50%);
   z-index: 1;
-  font-size: 48px;
+  font-size: ${fontSize.xl};
   font-weight: bold;
   border-radius: 50%;
   background-color: transparent;
