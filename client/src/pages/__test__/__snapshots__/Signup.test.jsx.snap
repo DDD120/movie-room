@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`signup page renders correctly 1`] = `
+<div>
+  <div
+    class="css-1ussbir"
+  >
+    <div
+      class="css-jxj5pd"
+    >
+      <div
+        class="css-o5wame"
+      >
+        <img
+          alt="로고"
+          src="/assets/logo.png"
+        />
+      </div>
+      <h1
+        class="css-wk5jya"
+      >
+        회원가입
+      </h1>
+      <form
+        class="css-7odvop"
+      >
+        <input
+          class="css-1a6crj1"
+          name="email"
+          placeholder="이메일"
+          title="이메일"
+          type="email"
+        />
+        <input
+          class="css-1a6crj1"
+          name="pw"
+          placeholder="비밀번호"
+          title="비밀번호"
+          type="password"
+        />
+        <input
+          class="css-1a6crj1"
+          name="confirmPw"
+          placeholder="비밀번호 확인"
+          title="비밀번호 확인"
+          type="password"
+        />
+        <input
+          class="css-ol4lpg"
+          title="회원가입"
+          type="submit"
+          value="회원가입"
+        />
+      </form>
+      <a
+        href="/login"
+      >
+        <span
+          class="css-hfj296"
+        >
+          로그인 하러가기
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;
