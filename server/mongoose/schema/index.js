@@ -1,7 +1,9 @@
-const User = require("./user");
-const Review = require("./review");
+import User from "./user";
+import Review from "./review";
 
-module.exports = {
+const schema = {
   User,
   Review,
 };
+
+export default schema;

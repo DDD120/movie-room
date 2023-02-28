@@ -1,6 +1,8 @@
-const mongoose = require("mongoose");
-const schema = require("./schema");
-require("dotenv").config();
+import mongoose from "mongoose";
+import schema from "./schema";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const db = mongoose.connection;
 const model = (() => {
@@ -22,4 +24,4 @@ const model = (() => {
   return model;
 })();
 
-module.exports = model;
+export default model;

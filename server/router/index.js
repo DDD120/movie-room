@@ -1,7 +1,4 @@
-const userRouter = require("./user");
-const reviewRouter = require("./review");
+import userRouter from "./user";
+import reviewRouter from "./review";
 
-module.exports = {
-  userRouter,
-  reviewRouter,
-};
+export { userRouter, reviewRouter };

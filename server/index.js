@@ -1,9 +1,10 @@
 import cookieParser from "cookie-parser";
-const express = require("express");
-const cors = require("cors");
-const { userRouter, reviewRouter } = require("./router");
+import express from "express";
+import cors from "cors";
+import { userRouter, reviewRouter } from "./router";
+import path from "path";
+
 const app = express();
-const path = require("path");
 const PORT = 4000;
 
 app.use(cookieParser());
@@ -11,12 +12,11 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/static", express.static(path.join(__dirname, "public")));
+app.use("/image", express.static("./uploads"));
 
-// router 추가
 app.use("/user", userRouter);
 app.use("/review", reviewRouter);
 
-// 상태 확인
 app.get("/", (req, res) => {
   res.send("Server is running");
 });

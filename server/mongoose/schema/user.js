@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const crypto = require("crypto");
+import mongoose from "mongoose";
+import crypto from "crypto";
 
 const User = new mongoose.Schema({
   nickname: { type: String, required: true },
@@ -42,4 +42,4 @@ User.method("authenticate", function (plainPassword) {
   return inputPassword === this.hashedPassword;
 });
 
-module.exports = User;
+export default User;
