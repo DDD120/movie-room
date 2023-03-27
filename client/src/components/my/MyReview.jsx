@@ -8,6 +8,7 @@ import LoadingAnimation from "components/loading/LoadingAnimation";
 import { useState, useRef, useEffect } from "react";
 import { sortArray } from "lib/sort";
 import { colors } from "styles/common";
+import { motion } from "framer-motion";
 
 const Base = styled.div`
   display: flex;
@@ -68,16 +69,18 @@ const MyReview = () => {
         {isLoading ? (
           <LoadingAnimation />
         ) : (
-          <MasonryGrid
-            gap={8}
-            defaultDirection={"end"}
-            align={"center"}
-            ref={gridRef}
-          >
-            {reviews?.map((review) => (
-              <MyReviewItem key={review.movieId} review={review} />
-            ))}
-          </MasonryGrid>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <MasonryGrid
+              gap={8}
+              defaultDirection={"end"}
+              align={"center"}
+              ref={gridRef}
+            >
+              {reviews?.map((review) => (
+                <MyReviewItem key={review.movieId} review={review} />
+              ))}
+            </MasonryGrid>
+          </motion.div>
         )}
       </ReviewBox>
     </Base>

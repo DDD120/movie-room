@@ -9,6 +9,7 @@ import useCheckWrittenReview from "hooks/useCheckWrittenReview";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import NoImg from "components/common/NoImg";
 import { getYear } from "lib/filter";
+import { AnimatePresence } from "framer-motion";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -186,9 +187,11 @@ const MainInfo = ({ movie, reviews }) => {
                 <AiOutlineShareAlt />
               </SharIcon>
             </BottomBox>
-            {showWriteReviewModal && (
-              <CreateReview movie={movie} onClose={handleModalClose} />
-            )}
+            <AnimatePresence>
+              {showWriteReviewModal && (
+                <CreateReview movie={movie} onClose={handleModalClose} />
+              )}
+            </AnimatePresence>
           </InfoBox>
         </Base>
       </Background>

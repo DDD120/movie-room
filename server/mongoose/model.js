@@ -8,7 +8,7 @@ const db = mongoose.connection;
 const model = (() => {
   db.on("error", console.error);
   db.on("open", () => {
-    console.log("Connection mogodb");
+    console.log("Connection mogodb!");
   });
 
   mongoose.connect(process.env.MONGODB_URL, {

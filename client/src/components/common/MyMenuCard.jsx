@@ -9,8 +9,9 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "store/user";
 import { breakpoint, colors, fontSize } from "styles/common";
+import { motion, AnimatePresence } from "framer-motion";
 
-const Base = styled.div`
+const Base = styled(motion.div)`
   width: 300px;
   right: 60px;
   padding: 20px;
@@ -97,7 +98,6 @@ const MyMenuCard = ({ onMyMenuClose, setIsShowMyMenu }) => {
 
   const handleProfileEditClick = () => {
     setIsShowProfileEditModal(true);
-    document.body.classList.add("scroll_hidden");
   };
 
   const handleLogoutClick = () => {
@@ -109,13 +109,17 @@ const MyMenuCard = ({ onMyMenuClose, setIsShowMyMenu }) => {
   const handleModalClose = useCallback(() => {
     onMyMenuClose();
     setIsShowProfileEditModal(false);
-    document.body.classList.remove("scroll_hidden");
   }, [onMyMenuClose]);
 
   useOutsideClick(cardRef, setIsShowMyMenu, isShowProfileEditModal);
 
   return (
-    <Base ref={cardRef}>
+    <Base
+      ref={cardRef}
+      initial={{ opacity: 0, scale: 0.5, originX: 1, originY: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0 }}
+    >
       <Profile>
         <Thumbnail>
           <img src={thumbnail} alt="프로필 사진" />
@@ -126,9 +130,11 @@ const MyMenuCard = ({ onMyMenuClose, setIsShowMyMenu }) => {
             <MdSettings />
             회원정보 수정
           </ProfileEdit>
-          {isShowProfileEditModal && (
-            <ProfileEditModal onClose={handleModalClose} />
-          )}
+          <AnimatePresence>
+            {isShowProfileEditModal && (
+              <ProfileEditModal onClose={handleModalClose} />
+            )}
+          </AnimatePresence>
         </Info>
       </Profile>
       <MenuList>

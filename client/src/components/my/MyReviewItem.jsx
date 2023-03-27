@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { useDeleteReviewMutation } from "apis/server-api";
 import UpdateReview from "components/modal/ReviewModal/UpdateReview";
 import { showToast } from "lib/toast";
+import { AnimatePresence } from "framer-motion";
 
 const Base = styled.div`
   position: relative;
@@ -128,9 +129,11 @@ const MyReviewItem = ({ review }) => {
         <Date>{dayjs(review.updatedAt).format("YY.MM.DD")}</Date>
         <Menu>
           <MenuListItemBtn onClick={handleUpdateClick}>수정</MenuListItemBtn>
-          {isShowReviewModal && (
-            <UpdateReview review={review} onClose={handleModalClose} />
-          )}
+          <AnimatePresence>
+            {isShowReviewModal && (
+              <UpdateReview review={review} onClose={handleModalClose} />
+            )}
+          </AnimatePresence>
           <MenuListItemBtn onClick={handleDeleteClick}>삭제</MenuListItemBtn>
         </Menu>
       </Bottom>

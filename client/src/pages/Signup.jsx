@@ -9,6 +9,7 @@ import { colors, fontSize } from "styles/common";
 import { showToast } from "lib/toast";
 import AuthInput from "components/common/AuthInput";
 import { useSelector } from "react-redux";
+import { AnimatePresence } from "framer-motion";
 
 const Base = styled.div`
   display: flex;
@@ -161,13 +162,15 @@ const Signup = () => {
         <Link to="/login">
           <ToLogin>로그인 하러가기</ToLogin>
         </Link>
-        {isShowModal && (
-          <MailAuthenticationModal
-            email={getValues("email")}
-            password={getValues("pw")}
-            onClose={handleModalClose}
-          />
-        )}
+        <AnimatePresence>
+          {isShowModal && (
+            <MailAuthenticationModal
+              email={getValues("email")}
+              password={getValues("pw")}
+              onClose={handleModalClose}
+            />
+          )}
+        </AnimatePresence>
       </Base>
     </Container>
   );

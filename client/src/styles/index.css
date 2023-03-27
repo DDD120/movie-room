@@ -26,10 +26,6 @@ body {
   overflow: unset;
 }
 
-body.scroll_hidden {
-  overflow: hidden;
-}
-
 ul,
 li {
   list-style: none;

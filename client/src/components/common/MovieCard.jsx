@@ -3,6 +3,7 @@ import { colors, fontSize } from "styles/common";
 import { Link } from "react-router-dom";
 import NoImg from "./NoImg";
 import { getYear } from "lib/filter";
+import { motion } from "framer-motion";
 
 const Base = styled.div`
   cursor: pointer;
@@ -15,11 +16,6 @@ const ImgBox = styled.div`
   overflow: hidden;
   margin-bottom: 6px;
   border-radius: 12px;
-
-  &:hover {
-    transition: 0.3s;
-    transform: translateY(-4px);
-  }
 `;
 
 const Img = styled.img`
@@ -46,22 +42,28 @@ const Year = styled.div`
 
 const MovieCard = ({ poster_path, title, release_date, id }) => {
   return (
-    <Link to={`/detail/${id}`}>
-      <Base>
-        <ImgBox>
-          {poster_path ? (
-            <Img
-              src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
-              alt={`${title} 포스터`}
-            />
-          ) : (
-            <NoImg />
-          )}
-        </ImgBox>
-        <Title>{title}</Title>
-        <Year>{getYear(release_date)}</Year>
-      </Base>
-    </Link>
+    <motion.div
+      whileHover={{ y: -5 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      <Link to={`/detail/${id}`}>
+        <Base>
+          <ImgBox>
+            {poster_path ? (
+              <Img
+                src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
+                alt={`${title} 포스터`}
+              />
+            ) : (
+              <NoImg />
+            )}
+          </ImgBox>
+          <Title>{title}</Title>
+          <Year>{getYear(release_date)}</Year>
+        </Base>
+      </Link>
+    </motion.div>
   );
 };
 

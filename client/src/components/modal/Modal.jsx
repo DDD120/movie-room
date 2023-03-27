@@ -2,8 +2,9 @@ import styled from "@emotion/styled";
 import { createPortal } from "react-dom";
 import { breakpoint, colors, fontSize } from "styles/common";
 import { MdOutlineClose } from "react-icons/md";
+import { motion } from "framer-motion";
 
-const Backdrop = styled.div`
+const Backdrop = styled(motion.div)`
   height: 100%;
   width: 100%;
   position: fixed;
@@ -14,11 +15,10 @@ const Backdrop = styled.div`
   background-color: ${colors.greyOpacity};
 `;
 
-const Base = styled.div`
+const Base = styled(motion.div)`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   max-width: 800px;
   width: 100%;
   padding: 4px;
@@ -50,8 +50,18 @@ const Modal = ({ children, onClose, backdropTouchClose = false }) => {
   };
 
   return createPortal(
-    <Backdrop onClick={handleBackdropClick}>
-      <Base>
+    <Backdrop
+      key="backdrop"
+      onClick={handleBackdropClick}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Base
+        initial={{ opacity: 0, y: "-40%", x: "-50%" }}
+        animate={{ opacity: 1, y: "-50%", x: "-50%" }}
+        exit={{ opacity: 0, y: "-40%", x: "-50%" }}
+      >
         {children}
         <CloseIcon onClick={onClose}>
           <MdOutlineClose />

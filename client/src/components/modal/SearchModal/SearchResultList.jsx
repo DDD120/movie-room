@@ -3,8 +3,9 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { colors } from "styles/common";
 import SearchResultItem from "./SearchResultItem";
+import { motion,  useAnimationControls } from "framer-motion";
 
-const Base = styled.div`
+const Base = styled(motion.ul)`
   width: 80%;
   margin: 10px auto;
   padding-right: 8px;
@@ -20,6 +21,21 @@ const Base = styled.div`
   }
 `;
 
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0 },
+};
+
 const SearchResultList = ({
   focusRef,
   isLoading,
@@ -28,21 +44,29 @@ const SearchResultList = ({
   focusIndex,
 }) => {
   const scrollRef = useRef(null);
+  const controls = useAnimationControls();
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [focusIndex]);
 
+  useEffect(() => {
+    controls.start("show");
+  }, [autoSearchList.results, controls]);
+
   return (
-    <Base ref={focusRef}>
+    <Base ref={focusRef} variants={list} initial="hidden" animate={controls}>
       {!isLoading &&
         autoSearchList.results?.map((movie, listIndex) => (
-          <Link to={`/detail/${movie.id}`} onClick={onClose} key={movie.id}>
-            <SearchResultItem
-              movie={movie}
-              isFocus={listIndex === focusIndex}
-              scrollRef={scrollRef}
-            />
-          </Link>
+          <motion.li key={movie.id} variants={item}>
+            <Link to={`/detail/${movie.id}`} onClick={onClose}>
+              <SearchResultItem
+                movie={movie}
+                isFocus={listIndex === focusIndex}
+                scrollRef={scrollRef}
+              />
+            </Link>
+          </motion.li>
         ))}
     </Base>
   );

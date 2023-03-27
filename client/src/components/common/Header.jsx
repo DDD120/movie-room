@@ -7,6 +7,7 @@ import { useState, useCallback } from "react";
 import SearchModal from "../modal/SearchModal";
 import { useSelector } from "react-redux";
 import MyMenuCard from "./MyMenuCard";
+import { AnimatePresence } from "framer-motion";
 
 const Base = styled.header`
   width: 100%;
@@ -59,12 +60,10 @@ const Header = () => {
 
   const handleSearchClick = () => {
     setIsShowModal(true);
-    document.body.classList.add("scroll_hidden");
   };
 
   const handleSearchClose = () => {
     setIsShowModal(false);
-    document.body.classList.remove("scroll_hidden");
   };
 
   const handlePersonClick = () => {
@@ -90,16 +89,20 @@ const Header = () => {
         <NavItem color={colors.orange} onClick={handleSearchClick}>
           <FiSearch />
         </NavItem>
-        {isShowModal && <SearchModal onClose={handleSearchClose} />}
+        <AnimatePresence>
+          {isShowModal && <SearchModal onClose={handleSearchClose} />}
+        </AnimatePresence>
         <NavItem color={colors.cyan} onClick={handlePersonClick}>
           <BsFillPersonFill />
         </NavItem>
-        {isShowMyMenu && (
-          <MyMenuCard
-            setIsShowMyMenu={setIsShowMyMenu}
-            onMyMenuClose={handleMyMenuClose}
-          />
-        )}
+        <AnimatePresence>
+          {isShowMyMenu && (
+            <MyMenuCard
+              setIsShowMyMenu={setIsShowMyMenu}
+              onMyMenuClose={handleMyMenuClose}
+            />
+          )}
+        </AnimatePresence>
       </Nav>
     </Base>
   );
