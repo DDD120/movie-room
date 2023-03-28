@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import NoImg from "components/common/NoImg";
 import { colors } from "styles/common";
+import reactStringReplace from "react-string-replace";
 
 const Base = styled.div`
   padding: 8px;
@@ -33,7 +34,11 @@ const Title = styled.p`
   text-align: left;
 `;
 
-const SearchResultItem = ({ movie, isFocus, scrollRef }) => {
+const Keyword = styled.span`
+  color: red;
+`;
+
+const SearchResultItem = ({ movie, isFocus, scrollRef, searchKeyword }) => {
   return (
     <Base ref={isFocus ? scrollRef : undefined} isFocus={isFocus}>
       <ImgBox>
@@ -46,7 +51,11 @@ const SearchResultItem = ({ movie, isFocus, scrollRef }) => {
           <NoImg />
         )}
       </ImgBox>
-      <Title>{movie.title}</Title>
+      <Title>
+        {reactStringReplace(movie.title, searchKeyword, (keyword) => (
+          <Keyword>{keyword}</Keyword>
+        ))}
+      </Title>
     </Base>
   );
 };

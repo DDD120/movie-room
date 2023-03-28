@@ -99,9 +99,7 @@ const SearchModal = ({ onClose }) => {
   };
 
   const handleKeyUp = (e) => {
-    for (const key in KeyEvent) {
-      key === e.key && KeyEvent[e.key]();
-    }
+    KeyEvent[e.key] && KeyEvent[e.key]();
   };
 
   useEffect(() => {
@@ -125,6 +123,7 @@ const SearchModal = ({ onClose }) => {
         <SearchResultList
           isLoading={isLoading}
           onClose={onClose}
+          searchKeyword={searchKeyword}
           autoSearchList={autoSearchList}
           focusRef={focusRef}
           focusIndex={focusIndex}

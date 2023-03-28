@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { colors } from "styles/common";
 import SearchResultItem from "./SearchResultItem";
-import { motion,  useAnimationControls } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 
 const Base = styled(motion.ul)`
   width: 80%;
@@ -40,6 +40,7 @@ const SearchResultList = ({
   focusRef,
   isLoading,
   onClose,
+  searchKeyword,
   autoSearchList,
   focusIndex,
 }) => {
@@ -64,6 +65,7 @@ const SearchResultList = ({
                 movie={movie}
                 isFocus={listIndex === focusIndex}
                 scrollRef={scrollRef}
+                searchKeyword={searchKeyword}
               />
             </Link>
           </motion.li>
