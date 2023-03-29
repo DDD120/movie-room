@@ -3,8 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { colors, fontSize } from "styles/common";
 
 const Base = styled.div`
-  flex: 1;
-  margin: 0 auto;
+  margin: 20px auto 0;
   width: 80%;
   display: flex;
   justify-content: center;
@@ -48,6 +47,7 @@ const SearchInput = ({
         value={isAutoSearch ? autoSearchKeyword : searchKeyword}
         onChange={onInputChage}
         onKeyUp={onKeyUp}
+        autoFocus
       />
     </Base>
   );

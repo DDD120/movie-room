@@ -52,8 +52,8 @@ const SearchResultItem = ({ movie, isFocus, scrollRef, searchKeyword }) => {
         )}
       </ImgBox>
       <Title>
-        {reactStringReplace(movie.title, searchKeyword, (keyword) => (
-          <Keyword>{keyword}</Keyword>
+        {reactStringReplace(movie.title, searchKeyword, (keyword, i) => (
+          <Keyword key={i}>{keyword}</Keyword>
         ))}
       </Title>
     </Base>

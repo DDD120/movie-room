@@ -10,3 +10,8 @@ export const arrayDeduplication = (list) => {
 export const getYear = (date) => {
   return dayjs(date).year();
 };
+
+export const isNull = (string) => {
+  const blank_pattern = /^\s+|\s+$/g;
+  return string.replace(blank_pattern, "") === "";
+};

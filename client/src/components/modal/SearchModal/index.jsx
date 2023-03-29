@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 import Modal from "../Modal";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLazyGetSearchQuery } from "apis/movie-db-api";
 import SearchInput from "./SearchInput";
 import SearchResultList from "./SearchResultList";
 import { breakpoint } from "styles/common";
+import { isNull } from "lib/filter";
+import SearchHistory from "./SearchHistory";
 
 const Base = styled.div`
   display: flex;
@@ -29,11 +31,6 @@ const SearchModal = ({ onClose }) => {
   const [trigger, { data: autoSearchList = [], isLoading }] =
     useLazyGetSearchQuery(searchKeyword);
 
-  const isNull = useCallback(() => {
-    const blank_pattern = /^\s+|\s+$/g;
-    return searchKeyword.replace(blank_pattern, "") === "";
-  }, [searchKeyword]);
-
   const handleInputChange = (e) => {
     const enteredValue =
       e.nativeEvent.inputType === "deleteContentBackward"
@@ -49,13 +46,25 @@ const SearchModal = ({ onClose }) => {
     setSearchKeyword(e.target.value);
   };
 
+  const setSearchHistory = (keyword) => {
+    const serachHistory =
+      new Set(JSON.parse(localStorage.getItem("search-history"))) ??
+      new Set([]);
+    if (serachHistory.size === 5) {
+      const first = [...serachHistory][0];
+      serachHistory.delete(first);
+    }
+    serachHistory.add(keyword);
+    localStorage.setItem("search-history", JSON.stringify([...serachHistory]));
+  };
+
   const goToSearch = () => {
-    if (isNull()) {
+    const keyword = isAutoSearch ? autoSearchKeyword : searchKeyword;
+    if (isNull(keyword)) {
       return;
     }
-    navigate(
-      `/search?query=${isAutoSearch ? autoSearchKeyword : searchKeyword}`
-    );
+    setSearchHistory(keyword);
+    navigate(`/search?query=${keyword}`);
     onClose();
   };
 
@@ -103,11 +112,11 @@ const SearchModal = ({ onClose }) => {
   };
 
   useEffect(() => {
-    if (isAutoSearch || isNull()) {
+    if (isAutoSearch) {
       return;
     }
     trigger({ query: searchKeyword });
-  }, [trigger, searchKeyword, isAutoSearch, isNull]);
+  }, [trigger, searchKeyword, isAutoSearch]);
 
   return (
     <Modal onClose={onClose} backdropTouchClose={true}>
@@ -120,14 +129,18 @@ const SearchModal = ({ onClose }) => {
           isAutoSearch={isAutoSearch}
           autoSearchKeyword={autoSearchKeyword}
         />
-        <SearchResultList
-          isLoading={isLoading}
-          onClose={onClose}
-          searchKeyword={searchKeyword}
-          autoSearchList={autoSearchList}
-          focusRef={focusRef}
-          focusIndex={focusIndex}
-        />
+        {isNull(searchKeyword) ? (
+          <SearchHistory onClose={onClose} />
+        ) : (
+          <SearchResultList
+            isLoading={isLoading}
+            onClose={onClose}
+            searchKeyword={searchKeyword}
+            autoSearchList={autoSearchList}
+            focusRef={focusRef}
+            focusIndex={focusIndex}
+          />
+        )}
       </Base>
     </Modal>
   );
