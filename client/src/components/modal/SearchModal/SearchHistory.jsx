@@ -54,16 +54,20 @@ const SearchHistory = ({ onClose }) => {
     <Base>
       <Head>최근 검색어</Head>
       <HistoryList>
-        {[...history]?.map((keyword) => (
-          <HistoryItem key={keyword}>
-            <Link to={`/search?query=${keyword}`} onClick={onClose}>
-              {keyword}
-            </Link>
-            <CloseIcon onClick={() => deleteHistoryItem(keyword)}>
-              <MdOutlineClose />
-            </CloseIcon>
-          </HistoryItem>
-        ))}
+        {history.size > 0 ? (
+          [...history]?.map((keyword) => (
+            <HistoryItem key={keyword}>
+              <Link to={`/search?query=${keyword}`} onClick={onClose}>
+                {keyword}
+              </Link>
+              <CloseIcon onClick={() => deleteHistoryItem(keyword)}>
+                <MdOutlineClose />
+              </CloseIcon>
+            </HistoryItem>
+          ))
+        ) : (
+          <p>최근 검색어가 없습니다.</p>
+        )}
       </HistoryList>
     </Base>
   );
