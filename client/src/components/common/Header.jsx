@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { breakpoint, colors } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import SearchModal from "../modal/SearchModal";
 import { useSelector } from "react-redux";
 import MyMenuCard from "./MyMenuCard";
@@ -53,25 +53,17 @@ const NavItem = styled.div`
 `;
 
 const Header = () => {
-  const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowSearchModal, setIsShowSearchModal] = useState(false);
   const [isShowMyMenu, setIsShowMyMenu] = useState(false);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const navigate = useNavigate();
-
-  const handleSearchClick = () => {
-    setIsShowModal(true);
-  };
-
-  const handleSearchClose = () => {
-    setIsShowModal(false);
-  };
 
   const handlePersonClick = () => {
     if (!isLoggedIn) {
       navigate("/login");
       return;
     }
-    setIsShowMyMenu((state) => !state);
+    setIsShowMyMenu(true);
   };
 
   const handleMyMenuClose = useCallback(() => {
@@ -86,20 +78,28 @@ const Header = () => {
         </Logo>
       </Link>
       <Nav>
-        <NavItem color={colors.orange} onClick={handleSearchClick}>
+        <NavItem
+          color={colors.orange}
+          onClick={() => setIsShowSearchModal(true)}
+          title="검색"
+        >
           <FiSearch />
         </NavItem>
-        <AnimatePresence>
-          {isShowModal && <SearchModal onClose={handleSearchClose} />}
-        </AnimatePresence>
-        <NavItem color={colors.cyan} onClick={handlePersonClick}>
+        <NavItem
+          color={colors.cyan}
+          onClick={handlePersonClick}
+          title={isLoggedIn ? "마이 페이지" : "로그인"}
+        >
           <BsFillPersonFill />
         </NavItem>
         <AnimatePresence>
+          {isShowSearchModal && (
+            <SearchModal onClose={() => setIsShowSearchModal(false)} />
+          )}
           {isShowMyMenu && (
             <MyMenuCard
               setIsShowMyMenu={setIsShowMyMenu}
-              onMyMenuClose={handleMyMenuClose}
+              onClose={handleMyMenuClose}
             />
           )}
         </AnimatePresence>

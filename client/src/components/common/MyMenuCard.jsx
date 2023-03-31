@@ -86,7 +86,7 @@ const MenuItem = styled.li`
   }
 `;
 
-const MyMenuCard = ({ onMyMenuClose, setIsShowMyMenu }) => {
+const MyMenuCard = ({ onClose, setIsShowMyMenu }) => {
   const [isShowProfileEditModal, setIsShowProfileEditModal] = useState(false);
   const { id, nickname, thumbnail } = useSelector(
     (state) => state.user.user,
@@ -103,15 +103,19 @@ const MyMenuCard = ({ onMyMenuClose, setIsShowMyMenu }) => {
   const handleLogoutClick = () => {
     logoutTrigger();
     dispatch(logout());
-    onMyMenuClose();
+    onClose();
   };
 
   const handleModalClose = useCallback(() => {
-    onMyMenuClose();
+    onClose();
     setIsShowProfileEditModal(false);
-  }, [onMyMenuClose]);
+  }, [onClose]);
 
-  useOutsideClick(cardRef, setIsShowMyMenu, isShowProfileEditModal);
+  useOutsideClick({
+    ref: cardRef,
+    setState: setIsShowMyMenu,
+    exceptionState: [isShowProfileEditModal],
+  });
 
   return (
     <Base
@@ -138,7 +142,7 @@ const MyMenuCard = ({ onMyMenuClose, setIsShowMyMenu }) => {
         </Info>
       </Profile>
       <MenuList>
-        <Link to={`/my/${id}`} onClick={onMyMenuClose}>
+        <Link to={`/my/${id}`} onClick={onClose}>
           <MenuItem>My</MenuItem>
         </Link>
         <MenuItem>
