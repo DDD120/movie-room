@@ -19,6 +19,11 @@ const Base = styled.div`
   border: 2px solid ${colors.greyOpacity};
   background-color: ${colors.beige};
   text-align: left;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: 0px 0px 4px ${colors.greyOpacity};
+  }
 `;
 
 const Head = styled.div`
@@ -93,14 +98,6 @@ const MyReviewItem = ({ review }) => {
   const [deleteReview, { data: deleteReviewRes, isSuccess: isDeleteSuccess }] =
     useDeleteReviewMutation();
 
-  const handleModalClose = () => {
-    setIsShowReviewModal(false);
-  };
-
-  const handleUpdateClick = () => {
-    setIsShowReviewModal(true);
-  };
-
   const handleDeleteClick = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       deleteReview({ id: review._id });
@@ -128,10 +125,15 @@ const MyReviewItem = ({ review }) => {
       <Bottom>
         <Date>{dayjs(review.updatedAt).format("YY.MM.DD")}</Date>
         <Menu>
-          <MenuListItemBtn onClick={handleUpdateClick}>수정</MenuListItemBtn>
+          <MenuListItemBtn onClick={() => setIsShowReviewModal(true)}>
+            수정
+          </MenuListItemBtn>
           <AnimatePresence>
             {isShowReviewModal && (
-              <UpdateReview review={review} onClose={handleModalClose} />
+              <UpdateReview
+                review={review}
+                onClose={() => setIsShowReviewModal(false)}
+              />
             )}
           </AnimatePresence>
           <MenuListItemBtn onClick={handleDeleteClick}>삭제</MenuListItemBtn>
