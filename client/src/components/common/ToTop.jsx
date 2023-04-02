@@ -28,14 +28,10 @@ const Base = styled.button`
 `;
 
 const ToTop = ({ isShow }) => {
-  const handleClick = () => {
-    window.scrollTo(0, 0);
-  };
-
   return (
     <Base
       type="button"
-      onClick={handleClick}
+      onClick={() => window.scrollTo(0, 0)}
       isShow={isShow}
       aria-label="Top 버튼"
     >

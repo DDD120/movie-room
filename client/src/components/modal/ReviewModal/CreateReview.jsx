@@ -34,7 +34,7 @@ const CreateReview = ({ movie, onClose }) => {
 
   const [createReview, { data: createReviewRes, isSuccess }] =
     useCreateReviewMutation();
-  const id = useSelector((state) => state.user.user.id);
+  const { id } = useSelector((state) => state.user.user);
 
   const handleWirteReviewSubmit = ({ content, rating }) => {
     createReview({

@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { breakpoint, colors } from "styles/common";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import SearchModal from "../modal/SearchModal";
 import { useSelector } from "react-redux";
 import MyMenuCard from "./MyMenuCard";
@@ -55,7 +55,7 @@ const NavItem = styled.div`
 const Header = () => {
   const [isShowSearchModal, setIsShowSearchModal] = useState(false);
   const [isShowMyMenu, setIsShowMyMenu] = useState(false);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const { isLoggedIn } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const handlePersonClick = () => {

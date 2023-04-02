@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { shallowEqual, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { fontSize } from "styles/common";
 
 const Base = styled.section`
@@ -33,10 +33,7 @@ const Nickname = styled.p`
 `;
 
 const MyProfile = () => {
-  const { thumbnail, nickname } = useSelector(
-    (state) => state.user.user,
-    shallowEqual
-  );
+  const { thumbnail, nickname } = useSelector((state) => state.user.user);
 
   return (
     <Base>

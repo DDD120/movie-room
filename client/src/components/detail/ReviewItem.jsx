@@ -103,14 +103,6 @@ const ReviewItem = ({ review, movie, isMyReview }) => {
   const [deleteReview, { data: deleteReviewRes, isSuccess: isDeleteSuccess }] =
     useDeleteReviewMutation();
 
-  const handleModalClose = () => {
-    setIsShowReviewModal(false);
-  };
-
-  const handleUpdateClick = () => {
-    setIsShowReviewModal(true);
-  };
-
   const handleDeleteClick = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       deleteReview({ id: review._id });
@@ -140,12 +132,14 @@ const ReviewItem = ({ review, movie, isMyReview }) => {
         <Date>{dayjs(review.updatedAt).format("YY.MM.DD")}</Date>
         {isMyReview && (
           <Menu>
-            <MenuListItemBtn onClick={handleUpdateClick}>수정</MenuListItemBtn>
+            <MenuListItemBtn onClick={() => setIsShowReviewModal(true)}>
+              수정
+            </MenuListItemBtn>
             {isShowReviewModal && (
               <UpdateReview
                 review={review}
                 movie={movie}
-                onClose={handleModalClose}
+                onClose={() => setIsShowReviewModal(false)}
               />
             )}
             <MenuListItemBtn onClick={handleDeleteClick}>삭제</MenuListItemBtn>

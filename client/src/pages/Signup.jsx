@@ -73,15 +73,11 @@ const Signup = () => {
     trigger,
     formState: { errors, isSubmitting },
   } = useForm({ mode: "onChange" });
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const { isLoggedIn } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     emailTrigger({ email: data.email });
-  };
-
-  const handleModalClose = () => {
-    setIsShowModal(false);
   };
 
   useEffect(() => {
@@ -167,7 +163,7 @@ const Signup = () => {
             <MailAuthenticationModal
               email={getValues("email")}
               password={getValues("pw")}
-              onClose={handleModalClose}
+              onClose={() => setIsShowModal(false)}
             />
           )}
         </AnimatePresence>
