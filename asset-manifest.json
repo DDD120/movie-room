@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/movie-room/static/css/main.d0c87264.css",
+    "main.js": "/movie-room/static/js/main.d336f639.js",
+    "static/js/225.7fa592e0.chunk.js": "/movie-room/static/js/225.7fa592e0.chunk.js",
+    "static/js/38.f11741cd.chunk.js": "/movie-room/static/js/38.f11741cd.chunk.js",
+    "static/js/528.94a224a4.chunk.js": "/movie-room/static/js/528.94a224a4.chunk.js",
+    "static/js/498.6c425c45.chunk.js": "/movie-room/static/js/498.6c425c45.chunk.js",
+    "static/js/565.ad38d655.chunk.js": "/movie-room/static/js/565.ad38d655.chunk.js",
+    "static/js/56.fb825df2.chunk.js": "/movie-room/static/js/56.fb825df2.chunk.js",
+    "static/js/425.32754886.chunk.js": "/movie-room/static/js/425.32754886.chunk.js",
+    "static/js/716.879003d4.chunk.js": "/movie-room/static/js/716.879003d4.chunk.js",
+    "static/js/173.709492c8.chunk.js": "/movie-room/static/js/173.709492c8.chunk.js",
+    "static/js/205.4bae5ca5.chunk.js": "/movie-room/static/js/205.4bae5ca5.chunk.js",
+    "static/js/763.2d3671ad.chunk.js": "/movie-room/static/js/763.2d3671ad.chunk.js",
+    "static/media/hero-banner.png": "/movie-room/static/media/hero-banner.89becf75ad80911d6dc8.png",
+    "static/media/default-thumbnail.png": "/movie-room/static/media/default-thumbnail.28278b28fc51a7f95091.png",
+    "index.html": "/movie-room/index.html",
+    "main.d0c87264.css.map": "/movie-room/static/css/main.d0c87264.css.map",
+    "main.d336f639.js.map": "/movie-room/static/js/main.d336f639.js.map",
+    "225.7fa592e0.chunk.js.map": "/movie-room/static/js/225.7fa592e0.chunk.js.map",
+    "38.f11741cd.chunk.js.map": "/movie-room/static/js/38.f11741cd.chunk.js.map",
+    "528.94a224a4.chunk.js.map": "/movie-room/static/js/528.94a224a4.chunk.js.map",
+    "498.6c425c45.chunk.js.map": "/movie-room/static/js/498.6c425c45.chunk.js.map",
+    "565.ad38d655.chunk.js.map": "/movie-room/static/js/565.ad38d655.chunk.js.map",
+    "56.fb825df2.chunk.js.map": "/movie-room/static/js/56.fb825df2.chunk.js.map",
+    "425.32754886.chunk.js.map": "/movie-room/static/js/425.32754886.chunk.js.map",
+    "716.879003d4.chunk.js.map": "/movie-room/static/js/716.879003d4.chunk.js.map",
+    "173.709492c8.chunk.js.map": "/movie-room/static/js/173.709492c8.chunk.js.map",
+    "205.4bae5ca5.chunk.js.map": "/movie-room/static/js/205.4bae5ca5.chunk.js.map",
+    "763.2d3671ad.chunk.js.map": "/movie-room/static/js/763.2d3671ad.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d0c87264.css",
+    "static/js/main.d336f639.js"
+  ]
+}
