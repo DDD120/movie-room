@@ -5,7 +5,7 @@ const User = new mongoose.Schema({
   nickname: { type: String, required: true },
   thumbnail: {
     type: String,
-    default: "/assets/default-thumbnail.png",
+    default: "",
   },
   social: {
     platformUserId: { type: String },

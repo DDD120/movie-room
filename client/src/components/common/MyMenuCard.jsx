@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { logout } from "store/user";
 import { breakpoint, colors, fontSize } from "styles/common";
 import { motion, AnimatePresence } from "framer-motion";
+import DefaultThumnailImg from "assets/default-thumbnail.png";
 
 const Base = styled(motion.div)`
   width: 300px;
@@ -107,7 +108,7 @@ const MyMenuCard = ({ onClose, setIsShowMyMenu }) => {
   useOutsideClick({
     ref: cardRef,
     setState: setIsShowMyMenu,
-    exceptionState: [isShowProfileEditModal],
+    exceptionState: isShowProfileEditModal,
   });
 
   return (
@@ -119,7 +120,10 @@ const MyMenuCard = ({ onClose, setIsShowMyMenu }) => {
     >
       <Profile>
         <Thumbnail>
-          <img src={thumbnail} alt="프로필 사진" />
+          <img
+            src={thumbnail === "" ? DefaultThumnailImg : thumbnail}
+            alt="프로필 사진"
+          />
         </Thumbnail>
         <Info>
           <Nickname>{nickname}</Nickname>

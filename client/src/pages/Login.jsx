@@ -9,6 +9,7 @@ import { login as storeLogin } from "store/user";
 import { useForm } from "react-hook-form";
 import { showToast } from "lib/toast";
 import AuthInput from "components/common/AuthInput";
+import LogoImg from "assets/logo.png";
 
 const Base = styled.div`
   display: flex;
@@ -72,13 +73,13 @@ const Login = () => {
     if (isSuccess) {
       navigate("/");
       dispatch(storeLogin({ user: loginRes.user }));
-      showToast(loginRes.message);
+      showToast(loginRes?.message);
     }
   }, [navigate, loginRes, isSuccess, dispatch]);
 
   useEffect(() => {
     if (isError) {
-      showToast(error.data.message);
+      showToast(error.data?.message);
     }
   }, [isError, error]);
 
@@ -92,7 +93,7 @@ const Login = () => {
     <Container>
       <Base>
         <Logo>
-          <img src="/assets/logo.png" alt="MOVIE ROOM 로고" />
+          <img src={LogoImg} alt="MOVIE ROOM 로고" />
         </Logo>
         <Head>로그인</Head>
         <Form onSubmit={handleSubmit(handleLoginSubmit)}>

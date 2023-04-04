@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 import { fontSize } from "styles/common";
+import DefaultThumnailImg from "assets/default-thumbnail.png";
 
 const Base = styled.section`
   display: flex;
@@ -38,7 +39,10 @@ const MyProfile = () => {
   return (
     <Base>
       <Thumbnail>
-        <img src={thumbnail} alt="프로필 사진" />
+        <img
+          src={thumbnail === "" ? DefaultThumnailImg : thumbnail}
+          alt="프로필 사진"
+        />
       </Thumbnail>
       <Nickname>{nickname}</Nickname>
     </Base>

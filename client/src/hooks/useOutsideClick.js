@@ -3,9 +3,9 @@ import { useEffect } from "react";
 const useOutsideClick = ({ ref, setState, exceptionState }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
-      exceptionState.forEach((state) => {
-        if (state) return;
-      });
+      if (exceptionState) {
+        return;
+      }
       if (ref.current && !ref.current.contains(event.target)) {
         setState(false);
       }

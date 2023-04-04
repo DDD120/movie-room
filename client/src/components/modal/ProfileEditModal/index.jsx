@@ -149,7 +149,7 @@ const ProfileEditModal = ({ onClose }) => {
   useEffect(() => {
     if (isUpdateSuccess) {
       onClose();
-      showToast(updateRes.message);
+      showToast(updateRes?.message);
     }
   }, [isUpdateSuccess, updateRes, onClose]);
 
@@ -157,7 +157,7 @@ const ProfileEditModal = ({ onClose }) => {
     if (isSignoutSuccess) {
       dispatch(logout());
       onClose();
-      showToast(signoutRes.message);
+      showToast(signoutRes?.message);
     }
   }, [isSignoutSuccess, signoutRes, dispatch, onClose]);
 

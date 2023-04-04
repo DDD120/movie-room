@@ -13,7 +13,7 @@ const MovieListCarousel = ({ name, movieList }) => {
   return (
     <Carousel
       name={name}
-      itemCount={movieList.length}
+      itemCount={movieList?.length}
       activeIndex={activeIndex}
       setActiveIndex={setActiveIndex}
       showCount={5}

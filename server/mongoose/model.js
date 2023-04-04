@@ -3,6 +3,7 @@ import schema from "./schema";
 import dotenv from "dotenv";
 
 dotenv.config();
+mongoose.set("strictQuery", true);
 
 const db = mongoose.connection;
 const model = (() => {

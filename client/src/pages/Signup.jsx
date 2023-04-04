@@ -10,6 +10,7 @@ import { showToast } from "lib/toast";
 import AuthInput from "components/common/AuthInput";
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
+import LogoImg from "assets/logo.png";
 
 const Base = styled.div`
   display: flex;
@@ -88,7 +89,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (isError) {
-      showToast(error.data.message);
+      showToast(error.data?.message);
     }
   }, [isError, error]);
 
@@ -102,7 +103,7 @@ const Signup = () => {
     <Container>
       <Base>
         <Logo>
-          <img src="/assets/logo.png" alt="로고" />
+          <img src={LogoImg} alt="MOVIE ROOM 로고" />
         </Logo>
         <Head>회원가입</Head>
         <Form onSubmit={handleSubmit(onSubmit)}>

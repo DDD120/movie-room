@@ -49,7 +49,7 @@ const CreateReview = ({ movie, onClose }) => {
   useEffect(() => {
     if (isSuccess) {
       onClose();
-      showToast(createReviewRes.message);
+      showToast(createReviewRes?.message);
     }
   }, [isSuccess, createReviewRes, onClose]);
 

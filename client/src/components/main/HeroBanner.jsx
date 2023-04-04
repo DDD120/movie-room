@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { breakpoint, colors, fontSize } from "styles/common";
 import { MdLocalMovies } from "react-icons/md";
+import LogoImg from "assets/logo.png";
+import HeroBannerImg from "assets/hero-banner.png";
 
 const Base = styled.article`
   margin: 40px auto;
@@ -8,7 +10,7 @@ const Base = styled.article`
   width: 100%;
   aspect-ratio: 9/3;
   border-radius: 20px;
-  background: url("/assets/hero-banner.png") no-repeat right;
+  background: url(${HeroBannerImg}) no-repeat right;
   background-size: contain;
   display: flex;
   align-items: center;
@@ -87,7 +89,7 @@ const HeroBanner = ({ target }) => {
         <TitleBox>
           <MdLocalMovies />
           <Title>
-            <img src="/assets/logo.png" alt="로고" />
+            <img src={LogoImg} alt="MOVIE ROOM 로고" />
           </Title>
         </TitleBox>
         <Phrase>Movie For You!</Phrase>

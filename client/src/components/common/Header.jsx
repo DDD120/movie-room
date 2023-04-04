@@ -8,6 +8,7 @@ import SearchModal from "../modal/SearchModal";
 import { useSelector } from "react-redux";
 import MyMenuCard from "./MyMenuCard";
 import { AnimatePresence } from "framer-motion";
+import LogoImg from "assets/logo.png";
 
 const Base = styled.header`
   width: 100%;
@@ -26,7 +27,7 @@ const Base = styled.header`
   }
 `;
 
-const Logo = styled.div`
+const Title = styled.div`
   cursor: pointer;
   width: 140px;
 
@@ -73,9 +74,9 @@ const Header = () => {
   return (
     <Base>
       <Link to="/">
-        <Logo>
-          <img src="/assets/logo.png" alt="로고" />
-        </Logo>
+        <Title>
+          <img src={LogoImg} alt="MOVIE ROOM 로고" />
+        </Title>
       </Link>
       <Nav>
         <NavItem

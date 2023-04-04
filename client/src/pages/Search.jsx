@@ -12,6 +12,7 @@ import { arrayDeduplication } from "lib/filter";
 import useScrollRestoration from "hooks/useScrollRestoration";
 import Meta from "components/common/Meta";
 import { fontSize } from "styles/common";
+import OgImg from "assets/defailt-og.png";
 
 const Head = styled.div`
   display: flex;
@@ -124,7 +125,7 @@ const Search = () => {
         title={`${searchKeyword} 검색결과 - MOVIE ROOM`}
         description={`총 ${searchData.total_results}의 작품이 검색되었습니다.`}
         keywords={`${searchKeyword}, 영화`}
-        imgsrc="/assets/default-og.png"
+        imgsrc={OgImg}
       />
       <Head ref={setToTopTarget}>
         <SearchIcon>

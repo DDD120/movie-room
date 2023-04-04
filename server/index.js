@@ -18,7 +18,7 @@ app.use("/user", userRouter);
 app.use("/review", reviewRouter);
 
 app.get("/", (req, res) => {
-  res.send("Server is running");
+  res.send("Server is running!");
 });
 
 app.listen(PORT, "localhost", () => {

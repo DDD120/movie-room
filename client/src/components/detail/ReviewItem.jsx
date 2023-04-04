@@ -111,7 +111,7 @@ const ReviewItem = ({ review, movie, isMyReview }) => {
 
   useEffect(() => {
     if (isDeleteSuccess) {
-      showToast(deleteReviewRes.message);
+      showToast(deleteReviewRes?.message);
     }
   }, [isDeleteSuccess, deleteReviewRes]);
 

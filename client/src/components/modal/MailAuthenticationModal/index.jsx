@@ -71,19 +71,19 @@ const MailAuthenticationModal = ({ email, password, onClose }) => {
 
   useEffect(() => {
     if (isEmailSuccess) {
-      showToast(emailRes.message);
+      showToast(emailRes?.message);
     }
   }, [emailRes, isEmailSuccess]);
 
   useEffect(() => {
     if (isEmailError) {
-      showToast(emailError.data.message);
+      showToast(emailError.data?.message);
     }
   }, [isEmailError, emailError]);
 
   useEffect(() => {
     if (isSignupSuccess) {
-      showToast(signupRes.message);
+      showToast(signupRes?.message);
       onClose();
       navigate("/");
       dispatch(login({ user: signupRes.user }));
@@ -92,7 +92,7 @@ const MailAuthenticationModal = ({ email, password, onClose }) => {
 
   useEffect(() => {
     if (isSignupError) {
-      showToast(signupError.data.message);
+      showToast(signupError.data?.message);
     }
   }, [isSignupError, signupError]);
 

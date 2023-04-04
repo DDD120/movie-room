@@ -45,7 +45,7 @@ const UpdateReview = ({ review, onClose }) => {
   useEffect(() => {
     if (isSuccess) {
       onClose();
-      showToast(updateReviewRes.message);
+      showToast(updateReviewRes?.message);
     }
   }, [isSuccess, updateReviewRes, onClose]);
 
