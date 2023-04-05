@@ -121,16 +121,6 @@ const MainInfo = ({ movie, reviews }) => {
   const { isLoggedIn } = useSelector((state) => state.user);
   const { isWritten } = useCheckWrittenReview(reviews);
 
-  const openWriteReviewModal = () => {
-    setShowWriteReviewModal(true);
-    document.body.classList.add("scroll_hidden");
-  };
-
-  const handleModalClose = () => {
-    setShowWriteReviewModal(false);
-    document.body.classList.remove("scroll_hidden");
-  };
-
   const handleShareClick = () => {
     window.navigator.share({
       title: "MOVIE ROOM",
@@ -176,7 +166,7 @@ const MainInfo = ({ movie, reviews }) => {
             <Overview>{movie.overview}</Overview>
             <BottomBox>
               {isLoggedIn && !isWritten && (
-                <Button onClick={openWriteReviewModal}>
+                <Button onClick={() => setShowWriteReviewModal(true)}>
                   <PenIcon>
                     <BsPen />
                   </PenIcon>
@@ -189,7 +179,10 @@ const MainInfo = ({ movie, reviews }) => {
             </BottomBox>
             <AnimatePresence>
               {showWriteReviewModal && (
-                <CreateReview movie={movie} onClose={handleModalClose} />
+                <CreateReview
+                  movie={movie}
+                  onClose={() => setShowWriteReviewModal(false)}
+                />
               )}
             </AnimatePresence>
           </InfoBox>
