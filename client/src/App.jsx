@@ -5,7 +5,6 @@ import { useCheckToken } from "hooks/useCheckToken";
 import Meta from "components/common/Meta";
 import { Suspense, lazy } from "react";
 import Loading from "components/loading/Loading";
-import OgImg from "assets/defailt-og.png";
 
 const Main = lazy(() => import("pages/Main"));
 const Login = lazy(() => import("pages/Login"));
@@ -23,7 +22,6 @@ function App() {
         title="MOVIE ROOM"
         description="영화의 상세정보 보기 및 리뷰를 작성해보세요"
         keywords="영화, 최근 개봉작, 인기 상영작, 최고 평점, 개봉 예정작"
-        imgsrc={OgImg}
       />
       <Header />
       <Suspense fallback={<Loading />}>

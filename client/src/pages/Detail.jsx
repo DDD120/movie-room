@@ -11,7 +11,6 @@ import CarouselBox from "components/common/CarouselBox";
 import useScrollRestoration from "hooks/useScrollRestoration";
 import LoadingDetail from "components/loading/LoadingDetail";
 import Meta from "components/common/Meta";
-import OgImg from "assets/defailt-og.png";
 
 const Detail = () => {
   const { id } = useParams();
@@ -34,11 +33,6 @@ const Detail = () => {
             title={`${movieMainInfo.title} - MOVIE ROOM`}
             description={`${movieMainInfo.title}의 상세정보를 확인해보세요`}
             keywords={`${movieMainInfo.title}, 영화`}
-            imgsrc={
-              movieMainInfo.backdrop_path
-                ? `url(${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movieMainInfo.backdrop_path})`
-                : OgImg
-            }
           />
           <MainInfo movie={movieMainInfo} reviews={movieReviews} />
           <Container>
