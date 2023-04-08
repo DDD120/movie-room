@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { breakpoint, colors } from "styles/common";
 
 const Base = styled.div`
   margin: 40px 0;
@@ -24,6 +24,11 @@ const CarouselItem = styled.li`
   flex: 0 0 20%;
   overflow: hidden;
   border-radius: 12px;
+
+  @media only screen and (max-width: ${breakpoint.md}) {
+    width: 33.3%;
+    flex: 0 0 33.3%;
+  }
 `;
 
 const Img = styled.div`
@@ -50,12 +55,16 @@ function SkeletonCarousel() {
         <CarouselItem>
           <Img />
         </CarouselItem>
-        <CarouselItem>
-          <Img />
-        </CarouselItem>
-        <CarouselItem>
-          <Img />
-        </CarouselItem>
+        {window.innerWidth > 864 && (
+          <>
+            <CarouselItem>
+              <Img />
+            </CarouselItem>
+            <CarouselItem>
+              <Img />
+            </CarouselItem>
+          </>
+        )}
       </CarouselList>
     </Base>
   );

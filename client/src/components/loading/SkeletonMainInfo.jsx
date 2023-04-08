@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/common";
+import { breakpoint, colors } from "styles/common";
 import LoadingAnimation from "components/loading/LoadingAnimation";
 
 const Background = styled.div`
@@ -12,12 +12,16 @@ const Background = styled.div`
 
 const MainInfo = styled.section`
   max-width: 1200px;
+  width: 90%;
   margin: 0 auto;
   height: auto;
   display: flex;
   justify-content: center;
   gap: 28px;
   padding: 40px 0;
+  @media only screen and (max-width: ${breakpoint.md}) {
+    display: block;
+  }
 `;
 
 const Img = styled.img`
@@ -28,6 +32,9 @@ const Img = styled.img`
   aspect-ratio: 1 / 1.416;
   border-radius: 12px;
   background-color: ${colors.lightgray};
+  @media only screen and (max-width: ${breakpoint.md}) {
+    margin-bottom: 28px;
+  }
 `;
 const Info = styled.div`
   flex: 3;
