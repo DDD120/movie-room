@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/movie-room/static/css/main.d0c87264.css",
-    "main.js": "/movie-room/static/js/main.872cf3a0.js",
-    "static/js/225.7e154555.chunk.js": "/movie-room/static/js/225.7e154555.chunk.js",
+    "main.js": "/movie-room/static/js/main.9ee967e2.js",
+    "static/js/225.c3e12e1e.chunk.js": "/movie-room/static/js/225.c3e12e1e.chunk.js",
     "static/js/38.f11741cd.chunk.js": "/movie-room/static/js/38.f11741cd.chunk.js",
     "static/js/528.94a224a4.chunk.js": "/movie-room/static/js/528.94a224a4.chunk.js",
-    "static/js/498.a9121b90.chunk.js": "/movie-room/static/js/498.a9121b90.chunk.js",
+    "static/js/498.f9e2c359.chunk.js": "/movie-room/static/js/498.f9e2c359.chunk.js",
     "static/js/565.0aab6314.chunk.js": "/movie-room/static/js/565.0aab6314.chunk.js",
     "static/js/56.fb825df2.chunk.js": "/movie-room/static/js/56.fb825df2.chunk.js",
     "static/js/425.32754886.chunk.js": "/movie-room/static/js/425.32754886.chunk.js",
@@ -17,11 +17,11 @@
     "static/media/default-thumbnail.png": "/movie-room/static/media/default-thumbnail.28278b28fc51a7f95091.png",
     "index.html": "/movie-room/index.html",
     "main.d0c87264.css.map": "/movie-room/static/css/main.d0c87264.css.map",
-    "main.872cf3a0.js.map": "/movie-room/static/js/main.872cf3a0.js.map",
-    "225.7e154555.chunk.js.map": "/movie-room/static/js/225.7e154555.chunk.js.map",
+    "main.9ee967e2.js.map": "/movie-room/static/js/main.9ee967e2.js.map",
+    "225.c3e12e1e.chunk.js.map": "/movie-room/static/js/225.c3e12e1e.chunk.js.map",
     "38.f11741cd.chunk.js.map": "/movie-room/static/js/38.f11741cd.chunk.js.map",
     "528.94a224a4.chunk.js.map": "/movie-room/static/js/528.94a224a4.chunk.js.map",
-    "498.a9121b90.chunk.js.map": "/movie-room/static/js/498.a9121b90.chunk.js.map",
+    "498.f9e2c359.chunk.js.map": "/movie-room/static/js/498.f9e2c359.chunk.js.map",
     "565.0aab6314.chunk.js.map": "/movie-room/static/js/565.0aab6314.chunk.js.map",
     "56.fb825df2.chunk.js.map": "/movie-room/static/js/56.fb825df2.chunk.js.map",
     "425.32754886.chunk.js.map": "/movie-room/static/js/425.32754886.chunk.js.map",
@@ -32,6 +32,6 @@
   },
   "entrypoints": [
     "static/css/main.d0c87264.css",
-    "static/js/main.872cf3a0.js"
+    "static/js/main.9ee967e2.js"
   ]
 }
