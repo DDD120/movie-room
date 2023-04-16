@@ -1,5 +1,5 @@
-import User from "./user";
-import Review from "./review";
+import User from "./user.js";
+import Review from "./review.js";
 
 const schema = {
   User,

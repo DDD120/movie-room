@@ -1,4 +1,4 @@
-import model from "../mongoose/model";
+import model from "../mongoose/model.js";
 const { Review } = model;
 
 const reviewService = {

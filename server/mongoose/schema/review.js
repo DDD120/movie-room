@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const Schema = mongoose.Schema;
 
@@ -13,7 +12,5 @@ const Review = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-Review.plugin(AutoIncrement, { inc_field: "key" });
 
 export default Review;

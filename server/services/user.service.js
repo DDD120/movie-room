@@ -1,7 +1,7 @@
-import { mailSender } from "../lib/mail";
-import { me } from "../lib/me";
-import { generateToken, setTokenCookie, validateToken } from "../lib/token";
-import model from "../mongoose/model";
+import { mailSender } from "../lib/mail.js";
+import { me } from "../lib/me.js";
+import { generateToken, setTokenCookie, validateToken } from "../lib/token.js";
+import model from "../mongoose/model.js";
 
 const { User } = model;
 

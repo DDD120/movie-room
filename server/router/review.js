@@ -1,5 +1,5 @@
 import express from "express";
-import reviewService from "../services/review.service";
+import reviewService from "../services/review.service.js";
 const router = express.Router();
 
 router.post("/", reviewService.createReview);

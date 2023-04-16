@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const serverApi = createApi({
   reducerPath: "serverApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/",
+    baseUrl: process.env.REACT_APP_SEVER_API_HOST,
     credentials: "include",
   }),
   tagTypes: ["User", "Review"],

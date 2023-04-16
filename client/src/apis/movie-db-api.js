@@ -5,7 +5,7 @@ const DEFAULT_PARAMS = `api_key=${process.env.REACT_APP_THE_MOVIE_DB_API_KEY}&la
 export const moviedbApi = createApi({
   reducerPath: "moviedbApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.REACT_APP_THE_MOVIE_DB_API_HOST}`,
+    baseUrl: process.env.REACT_APP_THE_MOVIE_DB_API_HOST,
   }),
   endpoints: (builder) => ({
     getMainPageMovies: builder.query({

@@ -16,6 +16,7 @@ jobs:
           echo "REACT_APP_THE_MOVIE_DB_API_HOST=$REACT_APP_THE_MOVIE_DB_API_HOST" >> .env
           echo "REACT_APP_THE_MOVIE_DB_API_KEY=$REACT_APP_THE_MOVIE_DB_API_KEY" >> .env
           echo "REACT_APP_THE_MOVIE_DB_IMG_BASE_URL=$REACT_APP_THE_MOVIE_DB_IMG_BASE_URL" >> .env
+          echo "REACT_APP_SEVER_API_HOST=$REACT_APP_SEVER_API_HOSTL" >> .env
       - name: Build Client
         run: |
           cd client
@@ -25,6 +26,7 @@ jobs:
           REACT_APP_THE_MOVIE_DB_API_HOST: ${{ secrets.REACT_APP_THE_MOVIE_DB_API_HOST }}
           REACT_APP_THE_MOVIE_DB_API_KEY: ${{ secrets.REACT_APP_THE_MOVIE_DB_API_KEY }}
           REACT_APP_THE_MOVIE_DB_IMG_BASE_URL: ${{ secrets.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL }}
+          REACT_APP_SEVER_API_HOST: ${{ secrets.REACT_APP_SEVER_API_HOST }}
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:

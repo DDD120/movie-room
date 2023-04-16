@@ -1,6 +1,6 @@
 import express from "express";
-import { upload } from "../lib/multer";
-import userService from "../services/user.service";
+import { upload } from "../lib/multer.js";
+import userService from "../services/user.service.js";
 const router = express.Router();
 
 router.post("/login", userService.login);

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import schema from "./schema";
+import schema from "./schema/index.js";
 import dotenv from "dotenv";
 
 dotenv.config();
