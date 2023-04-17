@@ -27,8 +27,17 @@ jobs:
           REACT_APP_THE_MOVIE_DB_API_KEY: ${{ secrets.REACT_APP_THE_MOVIE_DB_API_KEY }}
           REACT_APP_THE_MOVIE_DB_IMG_BASE_URL: ${{ secrets.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL }}
           REACT_APP_SEVER_API_HOST: ${{ secrets.REACT_APP_SEVER_API_HOST }}
-      - name: Deploy to GitHub Pages
+      - name: Client Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: client/build
+      - name: Auth to GCP
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: ${{ secrets.GCE_SA_KEY }}
+      - name: Sever Deploy to App Engine
+        uses: google-github-actions/deploy-appengine@v1
+        with:
+          working_directory: server
+          project_id: ${{ secrets.GCP_PROJECT }}

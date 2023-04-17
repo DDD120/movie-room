@@ -9,9 +9,7 @@ const __dirname = path.resolve();
 const PORT = 8080;
 
 app.use(cookieParser());
-app.use(
-  cors({ origin: "https://ddd120.github.io/movie-room/", credentials: true })
-);
+app.use(cors({ origin: "https://ddd120.github.io", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/static", express.static(path.join(__dirname, "public")));
