@@ -1,0 +1,6 @@
+runtime: nodejs16
+env_variables:
+  MONGODB_URL: ${{ secrets.MONGODB_URL }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  NODEMAILER_USER: ${{ secrets.NODEMAILER_USER }}
+  NODEMAILER_PASS: ${{ secrets.NODEMAILER_PASS }}
