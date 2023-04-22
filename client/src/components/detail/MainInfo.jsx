@@ -74,7 +74,7 @@ const Info = styled.div`
   margin: 20px 0;
 `;
 const Category = styled.span`
-  color: ${colors.grey};
+  color: ${colors.lightgray};
 `;
 const Value = styled.span``;
 
