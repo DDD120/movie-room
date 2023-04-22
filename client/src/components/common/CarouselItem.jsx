@@ -6,6 +6,8 @@ const Base = styled(motion.li)`
   width: ${({ showcount }) => showcount && `calc(100%/${showcount})`};
   padding: 0 4px;
   flex: 0 0 ${({ showcount }) => showcount && `calc(100%/${showcount})`};
+  transform: ${({ activeIndex }) =>
+    activeIndex && `translateX(-${activeIndex * 100}%)`};
   scroll-snap-align: start;
   img {
     width: 100%;
@@ -19,14 +21,7 @@ const Base = styled(motion.li)`
 
 const CarouselItem = ({ children, activeIndex, showCount }) => {
   return (
-    <Base
-      showcount={showCount}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transform: `translateX(-${activeIndex * 100}%)` }}
-      transition={{
-        ease: "easeInOut",
-      }}
-    >
+    <Base showcount={showCount} activeIndex={activeIndex}>
       {children}
     </Base>
   );

@@ -10,6 +10,7 @@ import { AiOutlineShareAlt } from "react-icons/ai";
 import NoImg from "components/common/NoImg";
 import { getYear } from "lib/filter";
 import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -48,7 +49,7 @@ const ImgBox = styled.div`
     margin-bottom: 28px;
   }
 `;
-const Img = styled.img`
+const Img = styled(motion.img)`
   width: 100%;
   object-fit: cover;
   aspect-ratio: 1 / 1.416;
@@ -138,6 +139,11 @@ const MainInfo = ({ movie, reviews }) => {
               <Img
                 src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${movie.poster_path}`}
                 alt={`${movie.title} 포스터`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  ease: "easeInOut",
+                }}
               />
             ) : (
               <NoImg />

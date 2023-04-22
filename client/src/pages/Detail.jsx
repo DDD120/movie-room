@@ -16,9 +16,9 @@ const Detail = () => {
   const { id } = useParams();
   const {
     data: { movieMainInfo, movieCredits, movieSimilar } = {},
-    isLoading: isMovieInfoLoading,
+    isFetching: isMovieInfoLoading,
   } = useGetDetailPageMovieQuery(id);
-  const { data: movieReviews, isLoading: isReviewsLoading } =
+  const { data: movieReviews, isFetching: isReviewsLoading } =
     useGetReviewsByMovieQuery({ id, limit: 9 });
 
   useScrollRestoration();

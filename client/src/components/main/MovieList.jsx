@@ -4,12 +4,12 @@ import { useGetMainPageMoviesQuery } from "apis/movie-db-api";
 import CarouselBox from "components/common/CarouselBox";
 
 const MovieList = () => {
-  const { data: { nowPlaying, popular, topRated, upcoming } = {}, isLoading } =
+  const { data: { nowPlaying, popular, topRated, upcoming } = {}, isFetching } =
     useGetMainPageMoviesQuery();
 
   return (
     <CarouselBox>
-      {isLoading ? (
+      {isFetching ? (
         <>
           <SkeletonCarousel />
           <SkeletonCarousel />

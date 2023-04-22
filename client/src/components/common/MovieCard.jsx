@@ -18,7 +18,7 @@ const ImgBox = styled.div`
   border-radius: 12px;
 `;
 
-const Img = styled.img`
+const Img = styled(motion.img)`
   position: absolute;
   top: 0;
   left: 0;
@@ -42,11 +42,7 @@ const Year = styled.div`
 
 const MovieCard = ({ poster_path, title, release_date, id }) => {
   return (
-    <motion.div
-      whileHover={{ y: -5 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
+    <motion.div whileHover={{ y: -5 }}>
       <Link to={`/detail/${id}`}>
         <Base>
           <ImgBox>
@@ -54,6 +50,11 @@ const MovieCard = ({ poster_path, title, release_date, id }) => {
               <Img
                 src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${poster_path}`}
                 alt={`${title} 포스터`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  ease: "easeInOut",
+                }}
               />
             ) : (
               <NoImg />

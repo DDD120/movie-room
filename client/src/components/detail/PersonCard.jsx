@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import NoImg from "components/common/NoImg";
 import { colors, fontSize } from "styles/common";
+import { motion } from "framer-motion";
 
 const Base = styled.div`
   width: 100%;
@@ -16,7 +17,7 @@ const ImgBox = styled.div`
   background-color: ${colors.lightgray};
 `;
 
-const Img = styled.img`
+const Img = styled(motion.img)`
   position: absolute;
   top: 0;
   left: 0;
@@ -46,6 +47,11 @@ const PersonCard = ({ name, profile_path, character }) => {
           <Img
             src={`${process.env.REACT_APP_THE_MOVIE_DB_IMG_BASE_URL}${profile_path}`}
             alt={`${name}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              ease: "easeInOut",
+            }}
           />
         ) : (
           <NoImg />
