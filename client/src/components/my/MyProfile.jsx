@@ -40,7 +40,7 @@ const MyProfile = () => {
     <Base>
       <Thumbnail>
         <img
-          src={thumbnail === "" ? DefaultThumnailImg : thumbnail}
+          src={thumbnail}
           alt="프로필 사진"
         />
       </Thumbnail>

@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { useDeleteReviewMutation } from "apis/server-api";
 import UpdateReview from "components/modal/ReviewModal/UpdateReview";
 import { showToast } from "lib/toast";
+import DefaultThumnailImg from "assets/default-thumbnail.png";
 
 const Base = styled.div`
   position: relative;
@@ -119,7 +120,12 @@ const ReviewItem = ({ review, movie, isMyReview }) => {
     <Base>
       <Head>
         <User>
-          <img src={review.user.thumbnail} alt="프로필 사진" />
+          <img
+            src={
+              review.user.thumbnail ? review.user.thumbnail : DefaultThumnailImg
+            }
+            alt="프로필 사진"
+          />
           <p>{review.user.nickname}</p>
         </User>
         <Rating>

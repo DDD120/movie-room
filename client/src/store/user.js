@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import DefaultThumnailImg from "assets/default-thumbnail.png";
 
 const initialState = {
   user: {
@@ -15,7 +16,13 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.user = action.payload.user;
+      const { id, email, nickname, thumbnail } = action.payload.user;
+      state.user = {
+        id,
+        email,
+        nickname,
+        thumbnail: thumbnail ? thumbnail : DefaultThumnailImg,
+      };
       state.isLoggedIn = true;
     },
     logout: (state) => {
