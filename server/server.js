@@ -8,8 +8,13 @@ const app = express();
 const __dirname = path.resolve();
 const PORT = 8080;
 
+const origin =
+  process.env.NODE_ENV.trim() === "dev"
+    ? "http://localhost:3000"
+    : "https://ddd120.github.io";
+
 app.use(cookieParser());
-app.use(cors({ origin: "https://ddd120.github.io", credentials: true }));
+app.use(cors({ origin, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/static", express.static(path.join(__dirname, "public")));
@@ -23,5 +28,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`App listening`);
+  console.log("Server is running!");
 });
