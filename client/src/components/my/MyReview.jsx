@@ -57,32 +57,38 @@ const MyReview = () => {
       <TitleBox>
         <Title>나의 리뷰</Title>
       </TitleBox>
-      <Sort>
-        <select name="sort" id="sort" onChange={handleSelectChange}>
-          <option value="newest">최근작성순</option>
-          <option value="oldest">오래된순</option>
-          <option value="starDesc">별점높은순</option>
-          <option value="starAsc">별점낮은순</option>
-        </select>
-      </Sort>
-      <ReviewBox>
-        {isLoading ? (
-          <LoadingAnimation />
-        ) : (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <MasonryGrid
-              gap={8}
-              defaultDirection={"end"}
-              align={"center"}
-              ref={gridRef}
-            >
-              {reviews?.map((review) => (
-                <MyReviewItem key={review.movieId} review={review} />
-              ))}
-            </MasonryGrid>
-          </motion.div>
-        )}
-      </ReviewBox>
+      {reviews.length > 0 ? (
+        <>
+          <Sort>
+            <select name="sort" id="sort" onChange={handleSelectChange}>
+              <option value="newest">최근작성순</option>
+              <option value="oldest">오래된순</option>
+              <option value="starDesc">별점높은순</option>
+              <option value="starAsc">별점낮은순</option>
+            </select>
+          </Sort>
+          <ReviewBox>
+            {isLoading ? (
+              <LoadingAnimation />
+            ) : (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <MasonryGrid
+                  gap={8}
+                  defaultDirection={"end"}
+                  align={"center"}
+                  ref={gridRef}
+                >
+                  {reviews?.map((review) => (
+                    <MyReviewItem key={review.movieId} review={review} />
+                  ))}
+                </MasonryGrid>
+              </motion.div>
+            )}
+          </ReviewBox>
+        </>
+      ) : (
+        <p>현재 작성한 리뷰가 없습니다.</p>
+      )}
     </Base>
   );
 };
