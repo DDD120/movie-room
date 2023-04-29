@@ -1,4 +1,9 @@
 runtime: nodejs16
+handlers:
+  - url: /.*
+    http_headers:
+      Access-Control-Allow-Origin: https://ddd120.github.io
+      Access-Control-Allow-Methods: "GET, POST, PUT, DELETE, OPTIONS"
 env_variables:
   MONGODB_URL: ${{ secrets.MONGODB_URL }}
   JWT_SECRET: ${{ secrets.JWT_SECRET }}
