@@ -7,10 +7,6 @@ const User = new mongoose.Schema({
     type: String,
     default: "",
   },
-  social: {
-    platformUserId: { type: String },
-    platform: { type: String },
-  },
   email: { type: String, required: true, unique: true },
   hashedPassword: { type: String },
   salt: { type: String },
@@ -31,7 +27,7 @@ User.method("makeSalt", function () {
 // 해시된 비밀번호 생성 함수
 User.method("encryptoPassword", function (plainPassword) {
   return crypto
-    .createHmac("sha1", this.salt)
+    .createHmac("sha256", this.salt)
     .update(plainPassword)
     .digest("hex");
 });

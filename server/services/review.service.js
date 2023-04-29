@@ -1,3 +1,4 @@
+import { isValidObjectId } from "mongoose";
 import model from "../mongoose/model.js";
 const { Review } = model;
 
@@ -6,10 +7,14 @@ const reviewService = {
     const { userId, movieId, title, content, rating } = req.body;
 
     try {
-      const written = await Review.findOne({ user: userId, movieId: movieId });
+      const written = await Review.findOne()
+        .where("user")
+        .equals(userId)
+        .where("movieId")
+        .equals(movieId);
 
       if (written) {
-        return res.status(401).send({
+        return res.status(409).send({
           message: "이미 리뷰를 작성하였습니다.",
         });
       }
@@ -22,11 +27,7 @@ const reviewService = {
         content,
       }).save();
 
-      if (!review) {
-        throw new Error("리뷰 등록에 실패하였습니다.");
-      }
-
-      res.status(200).send({
+      res.status(201).send({
         message: "리뷰가 등록되었습니다.",
         review,
       });
@@ -37,12 +38,19 @@ const reviewService = {
   getReviewsByUser: async (req, res) => {
     const { id } = req.params;
 
-    try {
-      const review = await Review.find({ user: id });
+    if (!id) {
+      return res.status(400).send({
+        message: "id가 없습니다.",
+      });
+    }
+    if (!isValidObjectId(id)) {
+      return res.status(422).send({
+        message: "id의 형식이 올바르지 않습니다.",
+      });
+    }
 
-      if (!review) {
-        throw new Error("리뷰 가져오기에 실패하였습니다.");
-      }
+    try {
+      const review = await Review.find().where("user").equals(id);
 
       res.status(200).send({
         review,
@@ -56,17 +64,17 @@ const reviewService = {
     const { limit } = req.query;
 
     if (!id) {
-      throw new Error("id가 없어요");
+      return res.status(400).send({
+        message: "id가 없습니다.",
+      });
     }
 
     try {
-      const review = await Review.find({ movieId: id })
+      const review = await Review.find()
+        .where("movieId")
+        .equals(id)
         .populate("user")
         .limit(limit);
-
-      if (!review) {
-        throw new Error("리뷰 가져오기에 실패하였습니다.");
-      }
 
       res.status(200).send({
         review,
@@ -94,10 +102,6 @@ const reviewService = {
         }
       );
 
-      if (!review) {
-        throw new Error("리뷰 수정에 실패하였습니다.");
-      }
-
       res.status(200).send({
         message: "리뷰가 수정되었습니다.",
         review,
@@ -110,13 +114,7 @@ const reviewService = {
     const { id } = req.params;
 
     try {
-      const review = await Review.deleteOne({
-        _id: id,
-      });
-
-      if (!review) {
-        throw new Error("리뷰 삭제에 실패하였습니다.");
-      }
+      await Review.deleteOne().where("_id").equals(id);
 
       res.status(200).send({
         message: "리뷰가 삭제되었습니다.",

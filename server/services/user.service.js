@@ -5,19 +5,24 @@ import model from "../mongoose/model.js";
 
 const { User } = model;
 
-let certificationNumber;
+let certificationNumber = null;
 
 const userService = {
   checkToken: async (req, res) => {
     const token = req.cookies.token;
+
     if (!token) {
       return;
     }
+
     try {
       const validatedToken = await validateToken(token);
-      const recentUser = await User.findOne({ id: validatedToken.id });
-      const user = me(recentUser);
-      res.send(user);
+      const user = await User.findOne()
+        .where("_id")
+        .equals(validatedToken.id)
+        .select("_id nickname thumbnail email");
+
+      res.status(200).send(me(user));
     } catch (e) {
       throw new Error("토큰 검증에 실패하였습니다.");
     }
@@ -26,7 +31,8 @@ const userService = {
     const { email, password } = req.body;
 
     try {
-      const loginUser = await User.findOne({ email });
+      const loginUser = await User.findOne().where("email").equals(email);
+
       if (!loginUser) {
         return res.status(401).send({
           message: "이메일 혹은 비밀번호가 일치하지 않습니다.",
@@ -41,7 +47,6 @@ const userService = {
       }
 
       const user = me(loginUser);
-
       const token = await generateToken(user);
       setTokenCookie(res, token);
 
@@ -57,7 +62,10 @@ const userService = {
     const { email } = req.body;
 
     try {
-      const existingUser = await User.findOne({ email });
+      const existingUser = await User.findOne()
+        .where("email")
+        .equals(email)
+        .select("email");
 
       if (existingUser) {
         return res.status(409).send({
@@ -93,10 +101,6 @@ const userService = {
           password,
           nickname: email,
         }).save();
-
-        if (!newUser) {
-          throw new Error("유저 생성에 실패하였습니다.");
-        }
 
         const user = me(newUser);
         const token = await generateToken(user);
@@ -134,11 +138,7 @@ const userService = {
           {
             new: true,
           }
-        );
-
-        if (!updateUser) {
-          throw new Error("프로필 업데이트에 실패하였습니다.");
-        }
+        ).select("_id nickname thumbnail email");
 
         const user = me(updateUser);
         res.status(200).send(user);
@@ -157,9 +157,6 @@ const userService = {
           }
         );
 
-        if (!updateUser) {
-          throw new Error("프로필 수정에 실패하였습니다.");
-        }
         const user = me(updateUser);
         res.status(200).send({
           message: "프로필이 수정되었습니다.",
@@ -171,21 +168,16 @@ const userService = {
     }
   },
   logout: (req, res) => {
-    res.clearCookie("token").end();
+    res.status(200).clearCookie("token").end();
   },
   signout: async (req, res) => {
     const { id } = req.body;
 
-    if (!id) {
-      throw new Error("유저 id가 없습니다.");
-    }
-
     try {
-      await User.deleteOne({
-        _id: id,
-      });
-      await Review.deleteMany({ userId: id });
-      return res.clearCookie("token").send({
+      await User.deleteOne().where("_id").equals(id);
+      await Review.deleteMany().where("_id").equals(id);
+
+      return res.status(200).clearCookie("token").send({
         message: "계정이 삭제되었습니다.",
       });
     } catch (e) {
