@@ -35,12 +35,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v1
       - name: Setting .env
-        uses: golang-enthusiast/app-yaml-env-compiler@v1.0
+        uses: gaspb/app-yaml-env-compiler@master
         env:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           NODEMAILER_USER: ${{ secrets.NODEMAILER_USER }}
           NODEMAILER_PASS: ${{ secrets.NODEMAILER_PASS }}
+        with:
+          appyamlpath: './server/app.yaml'
       - name: Auth to GCP
         uses: "google-github-actions/auth@v1"
         with:
