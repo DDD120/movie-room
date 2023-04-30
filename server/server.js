@@ -10,7 +10,7 @@ const PORT = 8080;
 
 app.use(
   cors({
-    origin: "https://ddd120.github.io",
+    origin: ["https://ddd120.github.io", "http://localhost:3000"],
     credentials: true,
   })
 );
