@@ -5,6 +5,7 @@
 ## 프로젝트 소개
 
 The Movie Database API를 연동하여 만든 영화 웹 서비스
+[Blog 글](https://ddd120.tistory.com/51)
 
 - 영화 카드형 목록 보기
 - 영화 검색 기능
@@ -15,15 +16,15 @@ The Movie Database API를 연동하여 만든 영화 웹 서비스
 
 ### Front-end
 
-React, Emotion, Redux-Toolkit, RTK Query
+React, Emotion, Redux Toolkit, RTK Query
 
 ### Back-end
 
 Node.js, Express, MongoDB, Mongoose
 
-### Environment
+### Deploy
 
-VS-Code, Git, GitHub
+GitHub Pages, Github Actions, Google App Engine
 
 ## 구현 기능
 
