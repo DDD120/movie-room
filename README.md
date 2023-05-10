@@ -4,13 +4,14 @@
 
 ## 프로젝트 소개
 
-The Movie Database API를 연동하여 만든 영화 웹 서비스
-[Blog 글](https://ddd120.tistory.com/51)
+영화 웹 서비스
 
 - 영화 카드형 목록 보기
 - 영화 검색 기능
 - 영화별 상세 정보
 - 영화별 리뷰 작성
+
+[Blog 글](https://ddd120.tistory.com/51)
 
 ## 기술 스택
 
