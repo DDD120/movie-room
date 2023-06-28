@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { login } from "store/user";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "lib/toast";
+import useAuthRedirect from "hooks/useAuthRedirect";
 
 const Base = styled.main`
   padding: 40px 12px;
@@ -35,8 +36,9 @@ const MailIcon = styled.div`
 const MailAuthenticationModal = ({ email, password, onClose }) => {
   const { timeLimit, isRunning, reset } = useTimer();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const inputRef = useRef();
+  useAuthRedirect();
+
   const [
     emailTrigger,
     {
@@ -70,31 +72,25 @@ const MailAuthenticationModal = ({ email, password, onClose }) => {
   };
 
   useEffect(() => {
-    if (isEmailSuccess) {
-      showToast(emailRes?.message);
-    }
-  }, [emailRes, isEmailSuccess]);
-
-  useEffect(() => {
-    if (isEmailError) {
-      showToast(emailError.data?.message);
-    }
-  }, [isEmailError, emailError]);
+    if (isEmailSuccess) showToast(emailRes?.message);
+    if (isEmailError) showToast(emailError.data?.message);
+    if (isSignupError) showToast(signupError.data?.message);
+  }, [
+    emailRes,
+    isEmailSuccess,
+    isEmailError,
+    emailError,
+    isSignupError,
+    signupError,
+  ]);
 
   useEffect(() => {
     if (isSignupSuccess) {
       showToast(signupRes?.message);
       onClose();
-      navigate("/");
       dispatch(login({ user: signupRes.user }));
     }
-  }, [isSignupSuccess, signupRes, onClose, navigate, dispatch]);
-
-  useEffect(() => {
-    if (isSignupError) {
-      showToast(signupError.data?.message);
-    }
-  }, [isSignupError, signupError]);
+  }, [isSignupSuccess, signupRes, onClose, dispatch]);
 
   return (
     <Modal onClose={onClose}>

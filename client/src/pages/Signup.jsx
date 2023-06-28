@@ -4,11 +4,10 @@ import Container from "components/common/Container";
 import MailAuthenticationModal from "components/modal/MailAuthenticationModal";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { colors, fontSize } from "styles/common";
 import { showToast } from "lib/toast";
 import AuthInput from "components/common/AuthInput";
-import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import LogoImg from "assets/logo.png";
 
@@ -74,30 +73,19 @@ const Signup = () => {
     trigger,
     formState: { errors, isSubmitting },
   } = useForm({ mode: "onChange" });
-  const { isLoggedIn } = useSelector((state) => state.user);
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const next = searchParams.get("next") ?? "/";
+
+  const toLoginPath = `/login${next === "/" ? "" : `?next=${next}`}`;
 
   const onSubmit = async (data) => {
     emailTrigger({ email: data.email });
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      setIsShowModal(true);
-    }
-  }, [isSuccess]);
-
-  useEffect(() => {
-    if (isError) {
-      showToast(error.data?.message);
-    }
-  }, [isError, error]);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
-    }
-  }, [isLoggedIn, navigate]);
+    if (isSuccess) setIsShowModal(true);
+    if (isError) showToast(error.data?.message);
+  }, [isSuccess, isError, error]);
 
   return (
     <Container>
@@ -156,7 +144,7 @@ const Signup = () => {
             disabled={isSubmitting}
           />
         </Form>
-        <Link to="/login">
+        <Link to={toLoginPath}>
           <ToLogin>로그인 하러가기</ToLogin>
         </Link>
         <AnimatePresence>

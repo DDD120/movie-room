@@ -1,15 +1,16 @@
 import styled from "@emotion/styled";
 import Container from "components/common/Container";
 import { colors, fontSize } from "styles/common";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useLoginMutation } from "apis/server-api";
 import { useEffect } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login as storeLogin } from "store/user";
 import { useForm } from "react-hook-form";
 import { showToast } from "lib/toast";
 import AuthInput from "components/common/AuthInput";
 import LogoImg from "assets/logo.png";
+import useAuthRedirect from "hooks/useAuthRedirect";
 
 const Base = styled.div`
   display: flex;
@@ -54,16 +55,12 @@ const Login = () => {
   const [login, { data: loginRes = {}, isSuccess, isError, error }] =
     useLoginMutation();
 
-  const { isLoggedIn, id } = useSelector(
-    (state) => ({
-      isLoggedIn: state.user.isLoggedIn,
-      id: state.user.user.id,
-    }),
-    shallowEqual
-  );
-
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const next = searchParams.get("next") ?? "/";
+  useAuthRedirect();
+
+  const toSignupPath = `/signup${next === "/" ? "" : `?next=${next}`}`;
 
   const handleLoginSubmit = ({ email, password }) => {
     login({ email, password });
@@ -71,23 +68,11 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/");
       dispatch(storeLogin({ user: loginRes.user }));
       showToast(loginRes?.message);
     }
-  }, [navigate, loginRes, isSuccess, dispatch]);
-
-  useEffect(() => {
-    if (isError) {
-      showToast(error.data?.message);
-    }
-  }, [isError, error]);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate(`/my/${id}`);
-    }
-  }, [isLoggedIn, navigate, id]);
+    if (isError) showToast(error.data?.message);
+  }, [loginRes, isSuccess, dispatch, isError, error]);
 
   return (
     <Container>
@@ -118,7 +103,7 @@ const Login = () => {
             disabled={isSubmitting}
           />
         </Form>
-        <Link to="/signup">
+        <Link to={toSignupPath}>
           <Signin>회원가입</Signin>
         </Link>
       </Base>

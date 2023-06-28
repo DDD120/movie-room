@@ -11,6 +11,7 @@ import NoImg from "components/common/NoImg";
 import { getYear } from "lib/filter";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Background = styled.div`
   background-blend-mode: darken;
@@ -121,6 +122,8 @@ const MainInfo = ({ movie, reviews }) => {
   const [showWriteReviewModal, setShowWriteReviewModal] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.user);
   const { isWritten } = useCheckWrittenReview(reviews);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleShareClick = () => {
     window.navigator.share({
@@ -128,6 +131,11 @@ const MainInfo = ({ movie, reviews }) => {
       text: `${movie.title} 상세정보`,
       url: window.location.href,
     });
+  };
+
+  const handleWriteReviewClick = () => {
+    if (!isLoggedIn) return navigate(`/login?next=${pathname}`);
+    setShowWriteReviewModal(true);
   };
 
   return (
@@ -171,8 +179,8 @@ const MainInfo = ({ movie, reviews }) => {
             {movie.tagline && <Tagline>"{movie.tagline}"</Tagline>}
             <Overview>{movie.overview}</Overview>
             <BottomBox>
-              {isLoggedIn && !isWritten && (
-                <Button onClick={() => setShowWriteReviewModal(true)}>
+              {!isWritten && (
+                <Button onClick={handleWriteReviewClick}>
                   <PenIcon>
                     <BsPen />
                   </PenIcon>

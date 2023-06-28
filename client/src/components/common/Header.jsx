@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { breakpoint, colors } from "styles/common";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
 import SearchModal from "../modal/SearchModal";
 import { useSelector } from "react-redux";
@@ -58,12 +58,14 @@ const Header = () => {
   const [isShowMyMenu, setIsShowMyMenu] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const { pathname, search } = useLocation();
+
+  const toLoginPath = `/login${
+    pathname === "/" ? "" : `?next=${pathname}${search}`
+  }`;
 
   const handlePersonClick = () => {
-    if (!isLoggedIn) {
-      navigate("/login");
-      return;
-    }
+    if (!isLoggedIn) return navigate(toLoginPath);
     setIsShowMyMenu(true);
   };
 

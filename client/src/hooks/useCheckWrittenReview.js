@@ -12,20 +12,10 @@ const useCheckWrittenReview = (reviewList) => {
   );
 
   useEffect(() => {
-    if (!isLoggedIn || !reviewList) {
-      return;
-    }
-
-    if (reviewList.length === 0) {
-      return setWrittenReview(null);
-    }
-    const writtenReview = reviewList.filter((review) => {
-      return review.user._id === id;
-    });
-
-    if (writtenReview) {
-      setWrittenReview(writtenReview);
-    }
+    if (!isLoggedIn || !reviewList) return;
+    if (reviewList.length === 0) return setWrittenReview(null);
+    const writtenReview = reviewList.filter((review) => review.user._id === id);
+    if (writtenReview) setWrittenReview(writtenReview);
   }, [reviewList, isLoggedIn, id]);
 
   return {
