@@ -1,23 +1,23 @@
-import Header from "components/common/Header";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from "components/common/Footer";
-import { useCheckToken } from "hooks/useCheckToken";
-import Meta from "components/common/Meta";
-import { Suspense, lazy } from "react";
-import Loading from "components/loading/Loading";
+import Header from "components/common/Header"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Footer from "components/common/Footer"
+import { useCheckToken } from "hooks/useCheckToken"
+import Meta from "components/common/Meta"
+import { Suspense, lazy } from "react"
+import Loading from "components/loading/Loading"
 
-const Main = lazy(() => import("pages/Main"));
-const Login = lazy(() => import("pages/Login"));
-const Signup = lazy(() => import("pages/Signup"));
-const Detail = lazy(() => import("pages/Detail"));
-const Search = lazy(() => import("pages/Search"));
-const My = lazy(() => import("pages/My"));
+const Main = lazy(() => import("pages/Main"))
+const Login = lazy(() => import("pages/Login"))
+const Signup = lazy(() => import("pages/Signup"))
+const Detail = lazy(() => import("pages/Detail"))
+const Search = lazy(() => import("pages/Search"))
+const My = lazy(() => import("pages/My"))
 
 function App() {
-  useCheckToken();
+  useCheckToken()
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/movie-room">
       <Meta
         title="MOVIE ROOM"
         description="영화의 상세정보 보기 및 리뷰를 작성해보세요"
@@ -37,7 +37,7 @@ function App() {
       </Suspense>
       <Footer />
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
